@@ -2,7 +2,7 @@ import React from 'react';
 import Navigation from './Navigation';
 import Sidebar from './Sidebar';
 import HandShake from '../Images/handshake-svgrepo-com.svg';
-import Gethelp from '../Images/help1-svgrepo-com.svg';
+import Gethelp from '../Images/brainstorm-idea-svgrepo-com.svg';
 import Teach from '../Images/teach-learn-tell-student-svgrepo-com.svg';
 import Borrow from '../Images/receive-svgrepo-com.svg';
 import Jobs from '../Images/jobs-open-svgrepo-com.svg';
