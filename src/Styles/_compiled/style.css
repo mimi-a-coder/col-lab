@@ -29,6 +29,10 @@ html, body, #root {
   font-weight: 600;
   overflow-wrap: break-word;
   transition: 400ms ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-main:hover {
@@ -52,6 +56,10 @@ html, body, #root {
 
 .btn-secondary:hover {
   background-color: #0f9ed5;
+}
+
+.btn-main-icon {
+  width: 5rem;
 }
 
 @media screen and (max-width: 1000px) {

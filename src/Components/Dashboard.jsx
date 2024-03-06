@@ -1,6 +1,12 @@
 import React from 'react';
 import Navigation from './Navigation';
 import Sidebar from './Sidebar';
+import HandShake from '../Images/handshake-svgrepo-com.svg';
+import Gethelp from '../Images/help1-svgrepo-com.svg';
+import Teach from '../Images/teach-learn-tell-student-svgrepo-com.svg';
+import Borrow from '../Images/receive-svgrepo-com.svg';
+import Jobs from '../Images/jobs-open-svgrepo-com.svg';
+import Interview from '../Images/interview-7-svgrepo-com.svg';
 
 export default function Dashboard() {
   return (
@@ -13,7 +19,7 @@ export default function Dashboard() {
           
           <div className="col-lg-9">
             <div className="my-5">
-              <h1>Foster scientific collaborations across different institutions.</h1>
+              <h1>Foster scientific collaborations.</h1>
             </div>
             <div className="col">
               <div className="row">
@@ -65,12 +71,12 @@ export default function Dashboard() {
                   <div className="dashboard-options">
                     <p className="lead">What would you like to do today?</p>
                     <div className='dashboard-options-buttons'>
-                      <button className='btn-main'>Find Collaborations</button >
-                      <button className='btn-main'>Get Help</button>
-                      <button className='btn-main'>Mentorships</button>
-                      <button className='btn-main'>Borrow Items</button>
-                      <button className='btn-main'>Jobs</button>
-                      <button className='btn-main'>Mock Interviews</button>
+                      <button className='btn-main'><img className="btn-main-icon" src={HandShake}/>Find Collaborations</button >
+                      <button className='btn-main'><img className="btn-main-icon" src={Gethelp}/>Get Help</button>
+                      <button className='btn-main'><img className="btn-main-icon" src={Teach}/>Mentorships</button>
+                      <button className='btn-main'><img className="btn-main-icon" src={Borrow}/>Borrow Items</button>
+                      <button className='btn-main'><img className="btn-main-icon" src={Jobs}/>Jobs</button>
+                      <button className='btn-main'><img className="btn-main-icon" src={Interview}/>Mock Interviews</button>
                     </div>
                   </div>
                 </div>

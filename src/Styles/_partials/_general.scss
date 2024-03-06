@@ -19,6 +19,10 @@ html, body, #root {
     font-weight: 600;
     overflow-wrap: break-word;
     transition: 400ms ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .btn-main:hover {
     background-color: $mercy-color-1;
@@ -39,6 +43,9 @@ html, body, #root {
   }
   .btn-secondary:hover {
     background-color: $mercy-color-1;
+  }
+  .btn-main-icon {
+    width: 5rem;
   }
   
   @media screen and (max-width: 1000px) {
