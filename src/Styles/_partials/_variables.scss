@@ -1,0 +1,16 @@
+// Global Colours
+$mercy-color-1: #0f9ed5;
+$mercy-color-2: #cfebf6;
+
+/* Button Colours */
+$btn-color-1: #FFDADF;
+$btn-color-2: #FDCAB9;
+$btn-color-3: #DCC2E0;
+$btn-color-4: #A6C3E4;
+$btn-color-5: #FFFFB7;
+$btn-color-6: #C9EADB;
+
+// Mixins
+@mixin border($property) {
+    #{$property}: 1px solid $mercy-color-1;
+}

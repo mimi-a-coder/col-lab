@@ -1,0 +1,124 @@
+h1 {
+  font-size: 3rem !important;
+  font-weight: 700 !important;
+}
+
+.lead {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+}
+
+/* Button Colours */
+html {
+  font-size: 10px;
+}
+
+html, body, #root {
+  height: 100% !important;
+}
+
+.btn-main {
+  width: 100%;
+  height: 200px;
+  border-radius: 30px;
+  color: #000;
+  background-color: transparent;
+  border: 1px solid #0f9ed5;
+  font-size: 22px;
+  font-family: sans-serif;
+  font-weight: 600;
+  overflow-wrap: break-word;
+  transition: 400ms ease-out;
+}
+
+.btn-main:hover {
+  background-color: #0f9ed5;
+}
+
+.btn-secondary {
+  width: 100%;
+  height: 60px;
+  border-radius: 10px;
+  color: #000;
+  background-color: transparent;
+  border: 1px solid #0f9ed5;
+  font-size: 22px;
+  font-family: sans-serif;
+  font-weight: 600;
+  overflow-wrap: break-word;
+  transition: 400ms ease-out;
+  margin: 0 0 2rem 0;
+}
+
+.btn-secondary:hover {
+  background-color: #0f9ed5;
+}
+
+@media screen and (max-width: 1000px) {
+  .dashboard-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .btn {
+    width: 100%;
+    min-width: 150px;
+  }
+}
+/* Button Colours */
+.dashboard {
+  display: flex;
+  height: 100%;
+}
+
+.dashboard-options {
+  border: 1px solid #0f9ed5;
+  padding: 3rem;
+  border-radius: 5px;
+}
+.dashboard-options-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.dashboard-tools {
+  width: 100%;
+  height: 100%;
+  background-color: #cfebf6;
+}
+
+.dashboard-link {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  background-color: #cfebf6;
+  padding: 3rem;
+}
+
+/* Button Colours */
+header {
+  border-bottom: 1px solid #0f9ed5;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.navbar .nav-brand {
+  text-decoration: none;
+  color: black;
+}
+
+/* Button Colours */
+.sidebar {
+  width: 5%;
+  height: 100%;
+  border-right: 1px solid #0f9ed5;
+  transition: 500ms ease-out;
+}
+.sidebar:hover {
+  width: 10%;
+}
+
+@media screen and (max-width: 1000px) {
+  .sidebar {
+    display: none;
+  }
+}/*# sourceMappingURL=style.css.map */

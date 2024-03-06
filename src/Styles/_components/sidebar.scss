@@ -1,0 +1,11 @@
+@import "../_partials/variables";
+
+.sidebar {
+    width: 5%;
+    height: 100%;
+    @include border(border-right);
+    transition: 500ms ease-out;
+    &:hover {
+        width: 10%;
+    }
+}

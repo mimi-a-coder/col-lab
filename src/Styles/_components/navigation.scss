@@ -1,0 +1,13 @@
+@import "../_partials/variables";
+
+header {
+    @include border(border-bottom);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.navbar {
+    .nav-brand {
+        text-decoration: none;
+        color: black;
+    }
+}
