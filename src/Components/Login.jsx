@@ -44,7 +44,7 @@ export default function Login() {
                     </div>
                     <div className="row">
                         <div className="col d-flex">                        
-                            <p>Don't have an account? <span className="span-login"><a href=""><p>Sign up</p></a></span></p>
+                            <p>Don't have an account? <span className="span-login"><a href="">Sign up</a></span></p>
                         </div>                
                     </div>
                 </form>
