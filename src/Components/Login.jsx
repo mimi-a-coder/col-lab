@@ -7,7 +7,7 @@ export default function Login() {
             <div className="container primary login">
                 <div className="row mb-4">
                     <div className="col">
-                        <h1 className="lead text-center">Welcome to colLab!<br/>Sign In Using Your Registered Account.</h1>
+                        <h1 className="lead text-center">Welcome to colLab!<br/>Sign in using your registered account.</h1>
                     </div>
                 </div>
                 <form className="form-login">
