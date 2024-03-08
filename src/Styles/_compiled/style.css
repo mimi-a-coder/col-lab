@@ -92,6 +92,10 @@ html, body, #root {
   margin: 0 0 0 0 !important;
 }
 
+.small {
+  font-size: 1.2rem !important;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;
@@ -165,7 +169,7 @@ header {
 
 .form-login {
   width: 100%;
-  max-width: 400px;
+  max-width: 54.5rem;
   text-align: center;
   display: flex;
   flex-direction: column;

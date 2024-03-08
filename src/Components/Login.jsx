@@ -14,7 +14,7 @@ export default function Login() {
             <form className="form-login">
                 <div className="row mb-3">
                     <div className="col">
-                        <p className="login-lead">Enter your details to proceed further.</p>
+                        <p className="login-lead"><strong>Enter your details to proceed further.</strong></p>
                     </div>                
                 </div>
                 <div className="row mb-4">
