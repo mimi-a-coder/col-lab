@@ -88,6 +88,10 @@ html, body, #root {
   font-size: 1.6rem !important;
 }
 
+.login-text {
+  margin: 0 0 0 0 !important;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;
@@ -149,13 +153,20 @@ header {
   margin-top: 10rem;
 }
 
+.col:has(.login-header) {
+  width: 100% !important;
+  max-width: 400px !important;
+}
+
+.login-header {
+  max-width: 400px;
+  width: 100%;
+}
+
 .form-login {
   width: 100%;
   max-width: 400px;
-  height: 400px;
-  padding: 20px;
   text-align: center;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;
