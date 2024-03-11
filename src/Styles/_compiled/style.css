@@ -96,6 +96,17 @@ html, body, #root {
   font-size: 1.2rem !important;
 }
 
+.form-registration .row .col-lg-6, .form-registration .row .col {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin: 0 0 1.5rem 0;
+}
+
+.form-registration-label {
+  margin: 0;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;

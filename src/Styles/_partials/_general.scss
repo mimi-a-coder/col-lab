@@ -57,10 +57,22 @@ html, body, #root {
   border: 1px solid grey !important;
   font-size: 1.6rem !important;
 }
-
 .login-text {
   margin: 0 0 0 0 !important;
 }
 .small {
   font-size: 1.2rem !important;
+}
+.form-registration {
+  .row {
+    .col-lg-6, .col {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      margin: 0 0 1.5rem 0;
+    }
+  }
+}
+.form-registration-label {
+  margin: 0;
 }
