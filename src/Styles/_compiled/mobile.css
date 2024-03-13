@@ -1,4 +1,7 @@
 @media screen and (max-width: 1000px) {
+  .container-fluid {
+    padding: 0 2rem !important;
+  }
   .dashboard-buttons {
     grid-template-columns: repeat(2, 1fr);
   }

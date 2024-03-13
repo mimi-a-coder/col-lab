@@ -1,4 +1,8 @@
 @media screen and (max-width: 1000px) { 
+      // Bootstrap
+    .container-fluid {
+      padding: 0 2rem !important;
+    }
     // General
     .dashboard-buttons {
         grid-template-columns: repeat(2, 1fr);
