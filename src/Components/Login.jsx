@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom';
 
 export default function Login() {
     // Login
-    const [urlToLogin, setUrlToLogin] = useState('');
+    const [jwtToken, setjwtToken] = useState('');
     const [serverMessage, setServerMessage] = useState('');
 
     // Capture User Input
     const [userLogin, setUserLogin] = useState({
-        email: '',
-        password: ''
+        user: '',
+        pass: ''
     });
 
     const [apiSettings, setApiSettings] = useState({
-        email: '',
-        password: ''
+        user: '',
+        pass: ''
     });
     
 
@@ -35,39 +35,57 @@ export default function Login() {
 
     // Inititate call to wordpress
     useEffect(()=> {
-        if (apiSettings.email.length > 0) {
+        if (apiSettings.user.length > 0) {
             let newFormData =  new FormData();
-            newFormData.append('email', apiSettings.email);
-            newFormData.append('password', apiSettings.password);
-            const url = 'https://pattersonselectric.com/?rest_route=/simple-jwt-login/v1/auth';
+            newFormData.append('username', apiSettings.user);
+            newFormData.append('password', apiSettings.pass);
+            // Setup .env variable
+            const url = `https://pattersonselectric.com/wp-json/jwt-auth/v1/token`;
             // Axios POST request
             axios.post(url, newFormData)
             .then(function(response) {
-                console.log(response);
-                if (response.data.success === true) {
-                    console.log(response)
-                    localStorage.setItem('jwt', response.data.jwt);
-                    setUrlToLogin(`https://pattersonselectric.com/?rest_route=/simple-jwt-login/v1/autologin&JWT=${response.data.jwt}`);
-                } else {
-                    console.log(response.data.message)
-                }
+                setjwtToken(response.data.token);
+            }).catch(function(err) {
+                setServerMessage(err.response.data.code);
             })
         } 
     }, [apiSettings])
 
+    // Save JWT and redirect to dashboard page
     useEffect(() => {
-        // Check if urlToLogin is not empty
-        if (urlToLogin.length > 0) {
-            axios.get(urlToLogin)
-            .then((response) => {
-                if (response.data.status === 200) {
-                window.location.replace('/dashboard');
-            } else {
-                console.log('error');    
+        // Check if jwtToken is not empty
+        if (jwtToken.length > 0) {
+           localStorage.setItem("jwt", jwtToken)
+           window.location.replace("/dashboard");
+        } 
+    }, [jwtToken])
+    
+    // Set Server Messgae
+    function userServerMessage() {
+        if (serverMessage) {
+            if (serverMessage === "[jwt_auth] incorrect_password") {
+                return (
+                    <div className="row mb-4">
+                        <div className="col">
+                            <div className="alert alert-danger" role="alert">
+                                <p>You've entered an incorrect password. Please try again or click on the 'Forgot Password' link if you need assistance resetting your account access.</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            } else if (serverMessage === "[jwt_auth] invalid_username") {
+                return (
+                    <div className="row mb-4">
+                        <div className="col">
+                            <div className="alert alert-danger" role="alert">
+                                <p>We couldn't find an account associated with the username you entered. Please double-check your spelling or sign up for a new account if you haven't already.</p>
+                            </div>
+                        </div>
+                    </div>
+                );
             }
-            })
-        }
-    }, [urlToLogin])
+        } 
+    }
 
     return (
         <div className="container primary login">
@@ -84,12 +102,12 @@ export default function Login() {
                 </div>
                 <div className="row mb-4">
                     <div className="col">
-                        <input className="form-control form-control-lg" type="email" name="email" value={userLogin.email} onChange={handleChange} placeholder="Email" aria-label="Email" required />
+                        <input className="form-control form-control-lg" type="username" name="user" value={userLogin.user} onChange={handleChange} placeholder="Username" aria-label="username" required />
                     </div>                
                 </div>
                 <div className="row mb-4">
                     <div className="col">
-                        <input className="form-control form-control-lg" type="password" name="password" value={userLogin.password} onChange={handleChange} placeholder="Password" aria-label="Passwword" required />
+                        <input className="form-control form-control-lg" type="password" name="pass" value={userLogin.pass} onChange={handleChange} placeholder="Password" aria-label="Passwword" required />
                     </div>                
                 </div>
                 <div className="row">
@@ -102,7 +120,7 @@ export default function Login() {
                 </div>
                 <div className="row mt-2 mb-4">
                         <div className="col"> 
-                            <button type="submit "className="btn btn-lg btn-primary login-btn" onClick={handleSubmit}>Log In</button>
+                            <button className="btn btn-lg btn-primary login-btn" onClick={handleSubmit}>Log In</button>
                         </div>                        
                 </div>
                 <div className="row">
@@ -111,6 +129,7 @@ export default function Login() {
                     </div>                
                 </div>
             </form>
+            {userServerMessage()}
         </div>
     );
 }
