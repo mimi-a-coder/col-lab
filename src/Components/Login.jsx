@@ -3,6 +3,9 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 export default function Login() {
+
+    let tocken = localStorage.getItem('jwt');
+  console.log(tocken);
     // Login
     const [jwtToken, setjwtToken] = useState('');
     const [serverMessage, setServerMessage] = useState('');
@@ -44,6 +47,7 @@ export default function Login() {
             // Axios POST request
             axios.post(url, newFormData)
             .then(function(response) {
+                console.log(response);
                 setjwtToken(response.data.token);
             }).catch(function(err) {
                 setServerMessage(err.response.data.code);
@@ -87,6 +91,7 @@ export default function Login() {
         } 
     }
 
+    if (tocken === null) {
     return (
         <div className="container primary login">
             <div className="row mb-4">
@@ -132,4 +137,7 @@ export default function Login() {
             {userServerMessage()}
         </div>
     );
+    } else {
+        window.location.replace('/dashboard');
+    }
 }

@@ -9,6 +9,9 @@ import Jobs from '../Images/jobs-open-svgrepo-com.svg';
 import Interview from '../Images/interview-7-svgrepo-com.svg';
 
 export default function Dashboard() {
+  let tocken = localStorage.getItem('jwt');
+
+  if (tocken != null) {
   return (
     <>
     <Navigation />
@@ -94,4 +97,7 @@ export default function Dashboard() {
     </div>
     </>
   );
+  } else {
+    window.location.replace("/");
+  }
 }

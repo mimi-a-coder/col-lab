@@ -29,8 +29,12 @@ html {
   font-size: 10px;
 }
 
-html, body, #root {
+html, body {
   height: 100% !important;
+}
+
+#root {
+  height: fit-content !important;
 }
 
 .btn {
