@@ -25,47 +25,19 @@ export default function Dashboard() {
             <div className="col">
               <div className="row">
                 <div className='col-lg-3'>
-                  <div className='dashboard-link'>
+                  <div className='dashboard-user'>
                     <div className="row">
                       <div className="col">
-                        <p className="lead">Options</p>
+                        <div className="dashboard-user-details">
+                          <div className="dashboard-user-details-image">
+
+                          </div>
+                          <p>Hi, <strong>{localStorage.getItem('user_name')}</strong></p>
+                        </div>
                       </div>
                     </div>
-                    <div className="row">
-                      <div className="col">
-                        <button href="" className="btn-secondary">Option #1</button>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col">
-                        <button href="" className="btn-secondary">Option #2</button>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col">
-                        <button href="" className="btn-secondary">Option #3</button>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col">
-                        <button href="" className="btn-secondary">Option #4</button>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col">
-                        <button href="" className="btn-secondary">Option #5</button>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col">
-                        <button href="" className="btn-secondary">Option #6</button>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col">
-                        <button href="" className="btn-secondary">Option #7</button>
-                      </div>
-                    </div>
+                    <br></br>
+                    <hr></hr>
                   </div>
                 </div>
                 <div className='col-lg-5'>

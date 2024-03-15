@@ -1,4 +1,5 @@
 import React from 'react';
+import Brand from '../Images/colLAB-logo.svg'
 
 export default function Navigation() {
     return (
@@ -7,7 +8,7 @@ export default function Navigation() {
                 <div className="row">
                     <div className="col">
                         <nav className="navbar navbar-expand-lg">
-                            <a className="nav-brand" href="#"><h1><i>colLab</i></h1></a>
+                            <a className="nav-brand" href="#"><img className="brand" src={Brand}/><h1><i>colLabb</i></h1></a>
                         </nav>
                     </div>
                 </div>

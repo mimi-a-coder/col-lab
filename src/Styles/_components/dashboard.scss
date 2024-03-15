@@ -19,7 +19,7 @@
     height: 100%;
     background-color: $mercy-color-2;
 }
-.dashboard-link {
+.dashboard-user {
     border: 1px solid #d3d3d3;
     box-shadow: 1px 1px 1px #d3d3d3;
     border-radius: 5px;
@@ -27,4 +27,15 @@
     height: 100%;
     background-color: $mercy-color-2;
     padding: 3rem;
+}
+.dashboard-user-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &-image {
+    margin-right: 1rem;
+    background-color: grey;
+      width: 10rem;
+      height: 10rem;
+  }
 }

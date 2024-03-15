@@ -3,7 +3,6 @@ header {
   position: relative;
   border-bottom: 1px solid #f8f9fc;
   padding-top: 2rem;
-  padding-bottom: 2rem;
   box-shadow: 2px 2px 2px #d3d3d3;
   z-index: 100;
 }
@@ -11,4 +10,10 @@ header {
 .navbar .nav-brand {
   text-decoration: none;
   color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.navbar .nav-brand .brand {
+  margin-right: 1rem;
 }/*# sourceMappingURL=navigation.css.map */
