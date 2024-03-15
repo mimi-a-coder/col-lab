@@ -7,7 +7,7 @@ export default function Navigation() {
                 <div className="row">
                     <div className="col">
                         <nav className="navbar navbar-expand-lg">
-                            <a className="nav-brand" href="#"><h1>colLab</h1></a>
+                            <a className="nav-brand" href="#"><h1><i>colLab</i></h1></a>
                         </nav>
                     </div>
                 </div>

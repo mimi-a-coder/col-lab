@@ -49,6 +49,8 @@ export default function Login() {
             .then(function(response) {
                 console.log(response);
                 setjwtToken(response.data.token);
+                localStorage.setItem("jwt", jwtToken);
+                localStorage.setItem("user_name", response.data.user_display_name)
             }).catch(function(err) {
                 setServerMessage(err.response.data.code);
             })
@@ -59,8 +61,7 @@ export default function Login() {
     useEffect(() => {
         // Check if jwtToken is not empty
         if (jwtToken.length > 0) {
-           localStorage.setItem("jwt", jwtToken)
-           window.location.replace("/dashboard");
+          window.location.replace("/dashboard");
         } 
     }, [jwtToken])
     
@@ -91,7 +92,7 @@ export default function Login() {
         } 
     }
 
-    if (tocken === null) {
+    if (jwtToken.length == 0) {
     return (
         <div className="container primary login">
             <div className="row mb-4">
@@ -138,6 +139,6 @@ export default function Login() {
         </div>
     );
     } else {
-        window.location.replace('/dashboard');
+      window.location.replace('/dashboard');
     }
 }

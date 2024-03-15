@@ -1,6 +1,5 @@
 import React from 'react';
 import Navigation from './Navigation';
-import Sidebar from './Sidebar';
 import HandShake from '../Images/handshake-svgrepo-com.svg';
 import Gethelp from '../Images/brainstorm-idea-svgrepo-com.svg';
 import Teach from '../Images/teach-learn-tell-student-svgrepo-com.svg';
@@ -16,17 +15,16 @@ export default function Dashboard() {
     <>
     <Navigation />
     <div className="dashboard">
-      <Sidebar />
       <div className="container-fluid primary">
         <div className="row">
           
-          <div className="col-lg-9">
+          <div className="col-lg-12">
             <div className="my-5">
-              <h1>Foster scientific collaborations.</h1>
+              <h1>Welcome to <i>colLab</i>, a collaborative network for scientists!</h1>
             </div>
             <div className="col">
               <div className="row">
-                <div className='col-lg-4'>
+                <div className='col-lg-3'>
                   <div className='dashboard-link'>
                     <div className="row">
                       <div className="col">
@@ -70,9 +68,8 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </div>
-                <div className='col-lg-8'>
+                <div className='col-lg-5'>
                   <div className="dashboard-options">
-                    <p className="lead">What would you like to do today?</p>
                     <div className='dashboard-options-buttons'>
                       <button className='btn-main'><img className="btn-main-icon" src={HandShake}/>Find Collaborations</button >
                       <button className='btn-main'><img className="btn-main-icon" src={Gethelp}/>Get Help</button>
@@ -83,15 +80,13 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </div>
+                <div className="col-lg-4">
+                  <aside className="dashboard-tools">
+                  </aside>
+                </div>
               </div>
             </div>
           </div>
-          
-          <div className="col-lg-3">
-            <aside className="dashboard-tools">
-            </aside>
-          </div>
-
         </div>
       </div>
     </div>

@@ -1,9 +1,12 @@
 @import "../_partials/variables";
 
 header {
-    @include border(border-bottom);
+    position: relative;
+    border-bottom: 1px solid $mercy-color-2;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    box-shadow: 2px 2px 2px #d3d3d3;
+    z-index: 100;
 }
 .navbar {
     .nav-brand {

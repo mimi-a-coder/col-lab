@@ -1,8 +1,11 @@
 /* Button Colours */
 header {
-  border-bottom: 1px solid #0f9ed5;
+  position: relative;
+  border-bottom: 1px solid #f8f9fc;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  box-shadow: 2px 2px 2px #d3d3d3;
+  z-index: 100;
 }
 
 .navbar .nav-brand {
