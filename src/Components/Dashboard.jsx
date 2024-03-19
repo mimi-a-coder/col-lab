@@ -10,6 +10,11 @@ import Interview from '../Images/interview-7-svgrepo-com.svg';
 export default function Dashboard() {
   let tocken = localStorage.getItem('jwt');
 
+  function userFirstName(prop) {
+    let nameArray = prop.split(' ');
+    return nameArray[0];
+  }
+
   if (tocken != null) {
   return (
     <>
@@ -32,7 +37,7 @@ export default function Dashboard() {
                           <div className="dashboard-user-details-image">
 
                           </div>
-                          <p>Hi, <strong>{localStorage.getItem('user_name')}</strong></p>
+                          <p>Hi, <strong>{userFirstName(localStorage.getItem('user_name'))}</strong></p>
                         </div>
                       </div>
                     </div>
