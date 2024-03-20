@@ -19,10 +19,10 @@ export default function Navigation() {
                             <a className="nav-brand" href="#"><img className="brand" src={Brand}/><h1><i>colLabb</i></h1></a>
                             <ul className="nav nav-pills">
                               <li className="nav-item">
-                                <Link className="nav-link active" to="/">Home</Link>
+                                <Link className={window.location.href.includes("/dashboard") ? "nav-link active" : "nav-link" } to="/">Home</Link>
                               </li>
                               <li className="nav-item">
-                                <Link className="nav-link" to="/profile">Profile</Link>
+                                <Link className={window.location.href.includes("/profile") ? "nav-link active" : "nav-link" } to="/profile">Profile</Link>
                               </li>
                               <li className="nav-item">
                                 <a className="nav-link" href="#" onClick={logout}>Logout</a>
