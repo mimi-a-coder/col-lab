@@ -24,3 +24,18 @@ header {
         }
     }
 }
+
+.nav-item {
+    font-size: 1.6rem;
+}
+.nav-link {
+    color: grey !important;
+    font-weight: 600 !important;
+    &:hover {
+        color: #000 !important;
+    }
+}
+.nav-link.active, .nav-pills .show>.nav-link {
+    background-color: $mercy-color-1 !important;
+    color: #fff !important;
+}
