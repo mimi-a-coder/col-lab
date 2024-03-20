@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Brand from '../Images/colLAB-logo.svg'
 
 export default function Navigation() {
@@ -16,21 +17,15 @@ export default function Navigation() {
                     <div className="col">
                         <nav className="navbar navbar-expand-lg">
                             <a className="nav-brand" href="#"><img className="brand" src={Brand}/><h1><i>colLabb</i></h1></a>
-                            <ul class="nav nav-pills">
-                              <li class="nav-item">
-                                <a class="nav-link active" href="#">Home</a>
+                            <ul className="nav nav-pills">
+                              <li className="nav-item">
+                                <Link className="nav-link active" to="/">Home</Link>
                               </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#">About Us</a>
+                              <li className="nav-item">
+                                <Link className="nav-link" to="/profile">Profile</Link>
                               </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#">Contact Us</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#">Your Profile</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="#" onClick={logout}>Logout</a>
+                              <li className="nav-item">
+                                <a className="nav-link" href="#" onClick={logout}>Logout</a>
                               </li>
                             </ul>
                         </nav>
