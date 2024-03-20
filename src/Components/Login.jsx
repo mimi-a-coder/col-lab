@@ -50,7 +50,7 @@ export default function Login() {
             .then(function(response) {
                 console.log(response);
                 setjwtToken(response.data.token);
-                localStorage.setItem("jwt", jwtToken);
+                localStorage.setItem("jwt", response.data.token);
                 localStorage.setItem("user_name", response.data.user_display_name)
             }).catch(function(err) {
                 setServerMessage(err.response.data.code);
@@ -93,7 +93,7 @@ export default function Login() {
         } 
     }
 
-    if (jwtToken.length == 0) {
+    if (localStorage.getItem('jwt') == null ) {
     return (
         <div className="container primary login">
             <div className="row mb-4">
