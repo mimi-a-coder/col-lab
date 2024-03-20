@@ -7,6 +7,10 @@ header {
   z-index: 100;
 }
 
+.navbar {
+  flex-wrap: nowrap;
+  justify-content: space-between !important;
+}
 .navbar .nav-brand {
   text-decoration: none;
   color: black;
