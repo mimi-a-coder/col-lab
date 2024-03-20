@@ -23,7 +23,7 @@ export default function Dashboard() {
           
           <div className="col-lg-12">
             <div className="my-5">
-              <h1>Welcome to <i>colLab</i>, a collaborative network for scientists!</h1>
+              <h1>Welcome to <i>colLabb</i>, a collaborative network for scientists!</h1>
             </div>
             <div className="col">
               <div className="row">
