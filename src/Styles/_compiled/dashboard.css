@@ -19,6 +19,7 @@
   width: 100%;
   height: 100%;
   background-color: #f8f9fc;
+  padding: 2rem;
 }
 
 .dashboard-user {
@@ -28,9 +29,8 @@
   width: 100%;
   height: 100%;
   background-color: #f8f9fc;
-  padding: 3rem;
+  padding: 2rem;
 }
-
 .dashboard-user-details {
   display: flex;
   flex-direction: row;
@@ -41,4 +41,12 @@
   background-color: grey;
   width: 10rem;
   height: 10rem;
+}
+.dashboard-user-details-links .link-item {
+  display: flex;
+  justify-content: space-between;
+}
+.dashboard-user-details-links .dashboard-calender {
+  display: flex;
+  flex-direction: column;
 }/*# sourceMappingURL=dashboard.css.map */

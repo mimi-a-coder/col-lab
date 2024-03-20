@@ -6,14 +6,12 @@ import Teach from '../Images/teach-learn-tell-student-svgrepo-com.svg';
 import Borrow from '../Images/receive-svgrepo-com.svg';
 import Jobs from '../Images/jobs-open-svgrepo-com.svg';
 import Interview from '../Images/interview-7-svgrepo-com.svg';
+import { userFirstName } from '../helper.js';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 export default function Dashboard() {
   let tocken = localStorage.getItem('jwt');
-
-  function userFirstName(prop) {
-    let nameArray = prop.split(' ');
-    return nameArray[0];
-  }
 
   if (tocken != null) {
   return (
@@ -35,14 +33,41 @@ export default function Dashboard() {
                       <div className="col">
                         <div className="dashboard-user-details">
                           <div className="dashboard-user-details-image">
-
                           </div>
-                          <p>Hi, <strong>{userFirstName(localStorage.getItem('user_name'))}</strong></p>
+                          <p>Hi, <strong>{ userFirstName(localStorage.getItem('user_name'))}</strong></p>
                         </div>
                       </div>
                     </div>
                     <br></br>
                     <hr></hr>
+                    <div className="dashboard-user-details-links">
+                      <div className="link-item">
+                        <p><strong>You’ve earned 50 pts</strong></p>
+                      </div>
+                      <div className="link-item">
+                        <p>Notifications</p>
+                        <a href="#">0</a>
+                      </div>
+                      <div className="link-item">
+                        <p>New messages</p>
+                        <a href="#">0</a>
+                      </div>
+                      <div className="link-item">
+                        <p>Current collaborations</p>
+                        <a href="#">0</a>
+                      </div>
+                      <div className="link-item">
+                        <p>Current mentorships</p>
+                        <a href="#">0</a>
+                      </div>
+                      <div className="dashboard-calender mt-3">
+                        <p><strong>Scheduled meetings</strong></p>
+                        <p className="small">*No interviews/meetings scheduled this week</p>
+                      </div>
+                      <div className="link-item">
+                        <Calendar />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className='col-lg-5'>
@@ -58,8 +83,10 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="col-lg-4">
-                  <aside className="dashboard-tools">
-                  </aside>
+                  <div className="dashboard-tools">
+                    <p><strong>See recent questions from your peers</strong></p>
+                    <hr></hr>
+                  </div>
                 </div>
               </div>
             </div>

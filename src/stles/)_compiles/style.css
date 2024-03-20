@@ -24,11 +24,6 @@ p {
   font-family: "Roboto", sans-serif;
 }
 
-a {
-  font-size: 1.6rem;
-  font-family: "Roboto", sans-serif;
-}
-
 /* Button Colours */
 html {
   font-size: 10px;
@@ -141,6 +136,7 @@ html {
   background-color: #f8f9fc;
   padding: 2rem;
 }
+
 .dashboard-user-details {
   display: flex;
   flex-direction: row;
@@ -151,10 +147,6 @@ html {
   background-color: grey;
   width: 10rem;
   height: 10rem;
-}
-.dashboard-user-details-links .link-item {
-  display: flex;
-  justify-content: space-between;
 }
 
 /* Button Colours */
