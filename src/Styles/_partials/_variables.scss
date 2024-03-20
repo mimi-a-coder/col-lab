@@ -15,5 +15,5 @@ $btn-color-6: #C9EADB;
 
 // Mixins
 @mixin border($property) {
-    #{$property}: 1px solid $mercy-color-1;
+    #{$property}: 1.5px solid $mercy-color-1;
 }
