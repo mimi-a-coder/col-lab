@@ -16,4 +16,7 @@ header {
 }
 .navbar .nav-brand .brand {
   margin-right: 1rem;
+}
+.navbar .nav-brand h1 {
+  font-size: 3rem !important;
 }/*# sourceMappingURL=navigation.css.map */

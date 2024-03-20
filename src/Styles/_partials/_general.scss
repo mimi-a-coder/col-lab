@@ -2,6 +2,7 @@
 
 html {
     font-size: 10px;
+    font-family: 'Roboto', sans-serif !important;
 }
 .btn {
   font-size: 1.6rem !important;
@@ -15,7 +16,7 @@ html {
   background-color: transparent;
   @include border(border);
   font-size: 22px;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 600;
   overflow-wrap: break-word;
   transition: 400ms ease-out;
@@ -35,7 +36,7 @@ html {
   background-color: transparent;
   @include border(border);
   font-size: 22px;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 600;
   overflow-wrap: break-word;
   transition: 400ms ease-out;

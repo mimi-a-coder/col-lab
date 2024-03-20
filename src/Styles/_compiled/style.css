@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3rem !important;
+  font-size: 2.2rem !important;
   font-weight: 700 !important;
 }
 
@@ -32,6 +32,7 @@ a {
 /* Button Colours */
 html {
   font-size: 10px;
+  font-family: "Roboto", sans-serif !important;
 }
 
 .btn {
@@ -47,7 +48,7 @@ html {
   background-color: transparent;
   border: 1px solid #0f9ed5;
   font-size: 22px;
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 600;
   overflow-wrap: break-word;
   transition: 400ms ease-out;
@@ -69,7 +70,7 @@ html {
   background-color: transparent;
   border: 1px solid #0f9ed5;
   font-size: 22px;
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 600;
   overflow-wrap: break-word;
   transition: 400ms ease-out;
@@ -156,6 +157,10 @@ html {
   display: flex;
   justify-content: space-between;
 }
+.dashboard-user-details-links .dashboard-calender {
+  display: flex;
+  flex-direction: column;
+}
 
 /* Button Colours */
 header {
@@ -175,6 +180,9 @@ header {
 }
 .navbar .nav-brand .brand {
   margin-right: 1rem;
+}
+.navbar .nav-brand h1 {
+  font-size: 3rem !important;
 }
 
 /* Button Colours */

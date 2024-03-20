@@ -9,6 +9,7 @@ export default function Navigation() {
                     <div className="col">
                         <nav className="navbar navbar-expand-lg">
                             <a className="nav-brand" href="#"><img className="brand" src={Brand}/><h1><i>colLabb</i></h1></a>
+                            <nav className=""                                                                       ></nav>
                         </nav>
                     </div>
                 </div>
