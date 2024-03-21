@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from './Navigation';
 import HandShake from '../Images/handshake-svgrepo-com.svg';
 import Gethelp from '../Images/brainstorm-idea-svgrepo-com.svg';
@@ -9,9 +9,62 @@ import Interview from '../Images/interview-7-svgrepo-com.svg';
 import { userFirstName } from '../helper.js';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Dashboard() {
+  const [getHelpQuestions, setGetHelpQuestions] = useState([]);
+  const [getUsers, setGetUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://pattersonselectric.com/wp-json/wp/v2/questions')
+    .then((response) => {
+      setGetHelpQuestions(response.data);
+      console.log(response.data)
+    })
+    .catch()
+  }, [])
+
+  useEffect(() => {
+    axios.get('https://pattersonselectric.com/wp-json/wp/v2/users')
+    .then((response) => {
+      setGetUsers(response.data);
+    })
+    .catch()
+  }, [])
+
   let tocken = localStorage.getItem('jwt');
+
+      const questions = getHelpQuestions.map((question, index) => {
+        let userName = "";
+        for (let name in getUsers) {
+          console.log(getUsers);
+          if ( name.id == question.author) {
+            userName = name.name;
+          }
+        }
+
+        if (question.status === "publish" && index <= 4) {
+          return (
+          <div className="card mb-4" key={index}>
+            <p>{userName}</p>
+            <div className='card-body'>
+              <p><strong>{question.title.rendered}</strong></p>
+              <p>{question.content.rendered.substring(3).slice(0, -5)}</p>
+              <div className='row'>
+                <div className="col-lg-2">
+                  <button className="btn btn-primary btn-sm">Answer</button>
+                </div>
+                <div className="col-lg-2">
+                  <button className="btn btn-danger btn-sm">Hide</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          )
+        }
+      })
+
 
   if (tocken != null) {
   return (
@@ -34,7 +87,7 @@ export default function Dashboard() {
                         <div className="dashboard-user-details">
                           <div className="dashboard-user-details-image">
                           </div>
-                          <p>Hi, <strong>{ userFirstName(localStorage.getItem('user_name'))}</strong></p>
+                          <p>Hi, <strong>{ userFirstName(localStorage.getItem('user_name')) }</strong></p>
                         </div>
                       </div>
                     </div>
@@ -74,7 +127,7 @@ export default function Dashboard() {
                   <div className="dashboard-options">
                     <div className='dashboard-options-buttons'>
                       <button className='btn-main'><img className="btn-main-icon" src={HandShake}/>Find Collaborations</button >
-                      <button className='btn-main'><img className="btn-main-icon" src={Gethelp}/>Get Help</button>
+                      <Link to="/get-help" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Gethelp}/>Ask Questions</button></Link>
                       <button className='btn-main'><img className="btn-main-icon" src={Teach}/>Mentorships</button>
                       <button className='btn-main'><img className="btn-main-icon" src={Borrow}/>Borrow Items</button>
                       <button className='btn-main'><img className="btn-main-icon" src={Jobs}/>Jobs</button>
@@ -83,9 +136,12 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="col-lg-4">
-                  <div className="dashboard-tools">
+                  <div className="dashboard-questions">
                     <p><strong>See recent questions from your peers</strong></p>
                     <hr></hr>
+                    <div className="dashboard-questions-items">
+                      {questions}
+                    </div>
                   </div>
                 </div>
               </div>
