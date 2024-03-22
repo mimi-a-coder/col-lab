@@ -150,7 +150,8 @@ html {
   background-color: #f8f9fc;
   padding: 2rem;
   border-radius: 5px;
-  overflow-y: auto;
+  overflow-y: scroll;
+  max-height: 700px;
 }
 
 .dashboard-user {

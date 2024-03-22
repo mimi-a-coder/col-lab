@@ -22,7 +22,8 @@
     background-color: $mercy-color-2;
     padding: 2rem;
     border-radius: 5px;
-    overflow-y: auto;
+    overflow-y: scroll;
+    max-height: 700px;
 }
 .dashboard-user {
     border: 2px solid #d3d3d3;
