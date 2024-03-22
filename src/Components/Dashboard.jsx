@@ -20,7 +20,6 @@ export default function Dashboard() {
     axios.get('https://pattersonselectric.com/wp-json/wp/v2/questions')
     .then((response) => {
       setGetHelpQuestions(response.data);
-      console.log(response.data)
     })
     .catch()
   }, [])
@@ -37,26 +36,36 @@ export default function Dashboard() {
 
       const questions = getHelpQuestions.map((question, index) => {
         let userName = "";
-        for (let name in getUsers) {
-          console.log(getUsers);
+        let userProfileImg = "";
+        let questionPosted = Date.now() - new Date(question.date);
+        let days = Math.floor(questionPosted/(86400 * 1000));
+
+        console.log(question);
+        for (let name of getUsers) {
           if ( name.id == question.author) {
             userName = name.name;
+            userProfileImg = name['avatar_urls']['24'];
           }
         }
 
         if (question.status === "publish" && index <= 4) {
           return (
           <div className="card mb-4" key={index}>
-            <p>{userName}</p>
             <div className='card-body'>
+              <div className="questions-details">
+                <div className="questions-details-name">
+                  <img className="questions-details-name-img" src={userProfileImg} />
+                  <p>{userName}</p>
+                </div>
+                <div className="questions-details-posted">
+                  <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
+                </div>
+              </div>
               <p><strong>{question.title.rendered}</strong></p>
               <p>{question.content.rendered.substring(3).slice(0, -5)}</p>
               <div className='row'>
                 <div className="col-lg-2">
-                  <button className="btn btn-primary btn-sm">Answer</button>
-                </div>
-                <div className="col-lg-2">
-                  <button className="btn btn-danger btn-sm">Hide</button>
+                  <button className="btn btn-outline-info btn-sm">Answer</button>
                 </div>
               </div>
             </div>

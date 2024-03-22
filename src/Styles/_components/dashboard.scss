@@ -56,4 +56,23 @@
       }
     }
 }
+.questions-details {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  &-name {
+    display: flex;
+    align-items: center;
+    margin: 0 0 1rem 0;
+    &-img {
+      width: 5rem;
+      height: 5rem;
+      object-fit: cover;
+      margin: 0 0.7rem 0 0;
+    }
+  }
+  &-posted {
 
+  }
+}

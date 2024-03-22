@@ -91,6 +91,16 @@ html {
   width: 5rem;
 }
 
+.btn-outline-info {
+  border: 1px solid #0f9ed5 !important;
+  font-weight: 600 !important;
+  color: #0f9ed5 !important;
+  border-radius: 0.365rem;
+}
+.btn-outline-info:hover {
+  color: #fff !important;
+}
+
 .form-control {
   border: 1px solid grey !important;
   font-size: 1.6rem !important;
@@ -174,6 +184,23 @@ html {
   flex-direction: column;
 }
 
+.questions-details {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.questions-details-name {
+  display: flex;
+  align-items: center;
+  margin: 0 0 1rem 0;
+}
+.questions-details-name-img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  margin: 0 0.7rem 0 0;
+}
 /* Button Colours */
 header {
   position: relative;

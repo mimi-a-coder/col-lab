@@ -55,6 +55,16 @@ html {
 .btn-main-icon {
   width: 5rem;
 }
+
+.btn-outline-info {
+  border: 1px solid $mercy-color-1 !important;
+  font-weight: 600 !important;
+  color: $mercy-color-1 !important;
+  border-radius: 0.365rem;
+  &:hover {
+    color: #fff !important;
+  }
+}
 // Form
 .form-control {
   border: 1px solid grey !important;
