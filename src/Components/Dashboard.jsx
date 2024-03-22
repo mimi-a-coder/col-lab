@@ -61,6 +61,7 @@ export default function Dashboard() {
                   <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
                 </div>
               </div>
+              <hr></hr>
               <p><strong>{question.title.rendered}</strong></p>
               <p>{question.content.rendered.substring(3).slice(0, -5)}</p>
               <div className='row'>
@@ -146,8 +147,9 @@ export default function Dashboard() {
                 </div>
                 <div className="col-lg-4">
                   <div className="dashboard-questions">
-                    <p><strong>See recent questions from your peers</strong></p>
-                    <hr></hr>
+                    <div className='dashboard-border'>
+                      <p><strong>See recent questions from your peers</strong></p>
+                    </div>
                     <div className="dashboard-questions-items">
                       {questions}
                     </div>
