@@ -1,10 +1,12 @@
 /* Button Colours */
 header {
-  position: relative;
+  position: sticky;
   border-bottom: 1px solid #f8f9fc;
   padding-top: 2rem;
   box-shadow: 2px 2px 2px #d3d3d3;
   z-index: 100;
+  top: 0;
+  background-color: #fff;
 }
 
 .navbar {

@@ -95,3 +95,15 @@ html {
     font-size: 1.4rem
   }
 }
+
+.question-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  &-button {
+    margin: 0 2rem 0 0;
+    margin-bottom: 1rem;
+  }
+}

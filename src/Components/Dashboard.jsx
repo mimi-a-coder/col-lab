@@ -16,6 +16,9 @@ export default function Dashboard() {
   const [getHelpQuestions, setGetHelpQuestions] = useState([]);
   const [getUsers, setGetUsers] = useState([]);
 
+  let userUrl = '';
+  let localName = localStorage.getItem('user_name');
+
   useEffect(() => {
     axios.get('https://pattersonselectric.com/wp-json/wp/v2/questions')
     .then((response) => {
@@ -32,15 +35,35 @@ export default function Dashboard() {
     .catch()
   }, [])
 
+  for (let user of getUsers) {
+    console.log(user.name);
+    if (user.name == localName) {
+      userUrl = user['avatar_urls']['24'];
+    }
+  }
+
   let tocken = localStorage.getItem('jwt');
 
       const questions = getHelpQuestions.map((question, index) => {
         let userName = "";
         let userProfileImg = "";
+        var numberOfComments = 0;
         let questionPosted = Date.now() - new Date(question.date);
         let days = Math.floor(questionPosted/(86400 * 1000));
+        
+        function test() {
+          return axios.get(`${question._links.replies['0'].href}`)
+          .then((response) => {
+            return response.data;
+          })
+        }
 
-        console.log(question);
+        test().then((response) => {
+          numberOfComments = response.length;
+          });
+
+          console.log(numberOfComments)
+
         for (let name of getUsers) {
           if ( name.id == question.author) {
             userName = name.name;
@@ -64,9 +87,12 @@ export default function Dashboard() {
               <hr></hr>
               <p><strong>{question.title.rendered}</strong></p>
               <p>{question.content.rendered.substring(3).slice(0, -5)}</p>
-              <div className='row'>
-                <div className="col-lg-2">
+              <div className='question-actions'>
+                <div className="question-actions-button">
                   <button className="btn btn-outline-info btn-sm">Answer</button>
+                </div>
+                <div className="question-actions-count">
+                  <p>{numberOfComments} people answered this question</p>
                 </div>
               </div>
             </div>
@@ -96,6 +122,7 @@ export default function Dashboard() {
                       <div className="col">
                         <div className="dashboard-user-details">
                           <div className="dashboard-user-details-image">
+                          <img src={userUrl} />
                           </div>
                           <p>Hi, <strong>{ userFirstName(localStorage.getItem('user_name')) }</strong></p>
                         </div>

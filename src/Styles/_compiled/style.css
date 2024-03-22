@@ -129,6 +129,18 @@ html {
   font-size: 1.4rem;
 }
 
+.question-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+.question-actions-button {
+  margin: 0 2rem 0 0;
+  margin-bottom: 1rem;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;
@@ -171,11 +183,22 @@ html {
   flex-direction: row;
   align-items: center;
 }
+.dashboard-user-details p {
+  font-size: 1.8rem;
+}
 .dashboard-user-details-image {
   margin-right: 1rem;
   background-color: grey;
-  width: 10rem;
+  width: 8rem;
+  border: 1px solid black;
+  box-shadow: 0px 0px 7px grey;
+  border-radius: 3px;
   height: 10rem;
+}
+.dashboard-user-details-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .dashboard-user-details-links .link-item {
   display: flex;
@@ -202,7 +225,9 @@ html {
 }
 .questions-details-name-img {
   width: 5rem;
-  height: 5rem;
+  height: 6rem;
+  border: 1px solid black;
+  border-radius: 3px;
   object-fit: cover;
   margin: 0 0.7rem 0 0;
 }
@@ -220,11 +245,13 @@ html {
 
 /* Button Colours */
 header {
-  position: relative;
+  position: sticky;
   border-bottom: 1px solid #f8f9fc;
   padding-top: 2rem;
   box-shadow: 2px 2px 2px #d3d3d3;
   z-index: 100;
+  top: 0;
+  background-color: #fff;
 }
 
 .navbar {
@@ -314,6 +341,15 @@ header {
 
 .form-login-check {
   margin: 0 0 1rem 0;
+}
+
+.react-calendar {
+  width: 100% !important;
+  max-width: 100%;
+  background: white;
+  border: 1px solid #a0a096;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
 }
 
 @media screen and (max-width: 1000px) {
