@@ -1,10 +1,10 @@
 import React from 'react';
 import Navigation from './Navigation';
 
-export default function Profile() {
+export default function About() {
     return (
     <>
-    <Navigation />
+        <Navigation />
     </>
     )
-}
+};

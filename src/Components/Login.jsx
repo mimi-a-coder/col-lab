@@ -93,7 +93,7 @@ export default function Login() {
         } 
     }
 
-    if (localStorage.getItem('jwt') === null ) {
+    if (localStorage.getItem('jwt') == null ) {
     return (
         <div className="container primary login">
             <div className="row mb-4">

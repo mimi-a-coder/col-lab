@@ -65,10 +65,19 @@ html {
     color: #fff !important;
   }
 }
+.btn-sm {
+  font-size: 1.4rem !important;
+}
+
+.btn-info {
+  background-color: $mercy-color-1 !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+}
 // Form
 .form-control {
   border: 1px solid grey !important;
-  font-size: 1.6rem !important;
+  font-size: 1.4rem !important;
 }
 .login-text {
   margin: 0 0 0 0 !important;
@@ -106,4 +115,8 @@ html {
     margin: 0 2rem 0 0;
     margin-bottom: 1rem;
   }
+}
+
+a {
+  text-decoration: none !important;
 }
