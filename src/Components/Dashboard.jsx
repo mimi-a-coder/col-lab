@@ -11,6 +11,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import defaultImage from '../Images/user-icon-placeholder-1.png';
 
 export default function Dashboard() {
   const [getHelpQuestions, setGetHelpQuestions] = useState([]);
@@ -30,6 +31,7 @@ export default function Dashboard() {
   useEffect(() => {
     axios.get('https://pattersonselectric.com/wp-json/wp/v2/users')
     .then((response) => {
+      console.log(response);
       setGetUsers(response.data);
     })
     .catch()
@@ -83,7 +85,7 @@ export default function Dashboard() {
             <div className='card-body'>
               <div className="questions-details">
                 <div className="questions-details-name">
-                  <img className="questions-details-name-img" src={userProfileImg} />
+                  <img className="questions-details-name-img" src={userProfileImg ? userProfileImg : defaultImage} />
                   <p>{userName}</p>
                 </div>
                 <div className="questions-details-posted">
