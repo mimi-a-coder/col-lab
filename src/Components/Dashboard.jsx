@@ -36,7 +36,6 @@ export default function Dashboard() {
   }, [])
 
   for (let user of getUsers) {
-    console.log(user.name);
     if (user.name == localName) {
       userUrl = user['avatar_urls']['24'];
     }
@@ -47,22 +46,10 @@ export default function Dashboard() {
       const questions = getHelpQuestions.map((question, index) => {
         let userName = "";
         let userProfileImg = "";
-        var numberOfComments = 0;
+
         let questionPosted = Date.now() - new Date(question.date);
         let days = Math.floor(questionPosted/(86400 * 1000));
-        
-        function test() {
-          return axios.get(`${question._links.replies['0'].href}`)
-          .then((response) => {
-            return response.data;
-          })
-        }
 
-        test().then((response) => {
-          numberOfComments = response.length;
-          });
-
-          console.log(numberOfComments)
 
         for (let name of getUsers) {
           if ( name.id == question.author) {
@@ -72,6 +59,25 @@ export default function Dashboard() {
         }
 
         if (question.status === "publish" && index <= 4) {
+
+          function test() {
+            return axios.get(`${question._links.replies['0'].href}`)
+            .then((response) => {
+              numberOfComments[0].count = response.data.length;
+              localStorage.setItem(`comment_count${index}`, numberOfComments[0].count)
+            })
+          }
+          let count = localStorage.getItem(`comment_count${index}`);
+
+       // Ensure that numberOfComments is initialized as an object
+        let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
+
+        // Then you can update the count property
+        numberOfComments[0].count = parseInt(count); // Parse string to integer
+
+
+          test();
+
           return (
           <div className="card mb-4" key={index}>
             <div className='card-body'>
@@ -92,7 +98,7 @@ export default function Dashboard() {
                   <button className="btn btn-outline-info btn-sm">Answer</button>
                 </div>
                 <div className="question-actions-count">
-                  <p>{numberOfComments} people answered this question</p>
+                  <p>{ numberOfComments[0].count} people answered this question</p>
                 </div>
               </div>
             </div>
