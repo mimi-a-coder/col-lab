@@ -155,7 +155,7 @@ export default function Dashboard() {
                         <p className="small">*No interviews/meetings scheduled this week</p>
                       </div>
                       <div className="link-item">
-                        <Calendar />
+                        <Calendar firstDayOfWeek={0}/>
                       </div>
                     </div>
                   </div>
