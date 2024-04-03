@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+
+
 export default function Registration() {
+
+    const [ userLogin, setUserLogin ]  = useState({
+        username: '',
+        first_name: '',
+        last_name: '',
+        name: `${first_name} ${last_name}`,
+        email: '',
+        password: '',
+
+    })
+
+    function handleChange(e) {
+        const {name, value} = e.target
+        setUserLogin(prev => {
+            return (
+                { ...prev, [name]: value}
+            )
+        })
+    }
+
+
     return (
         <div className="container primary login">
         <div className="row mb-4">
@@ -16,11 +39,16 @@ export default function Registration() {
                 </div>                
             </div>
             <div className="row">
+                <div className="col-lg-12">
+                    <input name="username" value={userLogin.username} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Username" aria-label="User Name" required />
+                </div>                           
+            </div>
+            <div className="row">
                 <div className="col-lg-6">
-                    <input className="form-control form-control-lg" type="text" placeholder="First Name" aria-label="First Name" required />
+                    <input name="first_name" value={userLogin.first_name} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="First Name" aria-label="First Name" required />
                 </div>                
                 <div className="col-lg-6">
-                    <input className="form-control form-control-lg" type="text" placeholder="Last Name" aria-label="First Name" required />
+                    <input name="last_name" value={userLogin.last_name} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Last Name" aria-label="First Name" required />
                 </div>                
             </div>
             <div className="row">
@@ -70,12 +98,12 @@ export default function Registration() {
             </div>
             <div className="row">              
                 <div className="col">
-                    <input className="form-control form-control-lg" type="Email" placeholder="Email" aria-label="Email" required />
+                    <input name="email" value={userLogin.email} onChange={handleChange} className="form-control form-control-lg" type="Email" placeholder="Email" aria-label="Email" required />
                 </div>                
             </div>
             <div className="row">              
                 <div className="col">
-                    <input className="form-control form-control-lg" type="password" placeholder="Password" aria-label="password" required />
+                    <input name="password" value={userLogin.password} onChange={handleChange} className="form-control form-control-lg" type="password" placeholder="Password" aria-label="password" required />
                 </div>                
             </div>
             <div className="row mt-2">

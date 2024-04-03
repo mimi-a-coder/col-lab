@@ -124,7 +124,7 @@ html {
   font-size: 1.2rem !important;
 }
 
-.form-registration .row .col-lg-6, .form-registration .row .col {
+.form-registration .row .col-lg-6, .form-registration .row .col-lg-12, .form-registration .row .col {
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -158,6 +158,7 @@ a {
 /* Button Colours */
 .dashboard {
   display: flex;
+  margin-bottom: 4rem;
 }
 
 .dashboard-options {
@@ -181,7 +182,7 @@ a {
   padding: 0 2rem 2rem 2rem;
   border-radius: 5px;
   overflow-y: scroll;
-  max-height: 700px;
+  max-height: 70rem;
 }
 
 .dashboard-user {
@@ -189,6 +190,7 @@ a {
   border-radius: 5px;
   width: 100%;
   height: 100%;
+  max-height: 70rem;
   background-color: #f8f9fc;
   padding: 2rem;
 }
