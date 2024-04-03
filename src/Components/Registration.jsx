@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 
 
 export default function Registration() {
 
-    const [ userLogin, setUserLogin ]  = useState({
+    const [userLogin, setUserLogin]  = useState({
         username: '',
         first_name: '',
         last_name: '',
@@ -21,8 +21,27 @@ export default function Registration() {
         user_skills: '',
         email: '',
         password: '',
-
     })
+
+    const [apiSettings, setApiSettings] = useState({
+        username: '',
+        first_name: '',
+        last_name: '',
+        name: '',
+        user_birth_date: '',
+        user_gender: '',
+        user_job_title: '',
+        user_job_Insitution: '',
+        user_country_of_residence: '',
+        user_city: '',
+        user_research: '',
+        user_degree: '',
+        user_skills: '',
+        email: '',
+        password: '',
+        roles: 'admin'
+    });
+    
 
     function handleChange(e) {
         const {name, value} = e.target
@@ -32,6 +51,42 @@ export default function Registration() {
             )
         })
     }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        setApiSettings({ ...userLogin });
+    }
+
+        // Inititate call to wordpress
+        useEffect(()=> {
+            if (apiSettings.username.length > 0) {
+                let newFormData =  new FormData();
+                newFormData.append('username', apiSettings.username);
+                newFormData.append('password', apiSettings.password);
+                newFormData.append('first_name', apiSettings.first_name);
+                newFormData.append('last_name', apiSettings.last_name);
+                newFormData.append('name', apiSettings.name);
+                newFormData.append('email', apiSettings.email);
+                newFormData.append('user-birth_date', apiSettings.user_birth_date);
+                newFormData.append('user-gender', apiSettings.user_gender);
+                newFormData.append('user-job-title', apiSettings.user_job_title);
+                newFormData.append('user-job-Insitution', apiSettings.user_job_Insitution);
+                newFormData.append('user-country-of-residence', apiSettings.user_country_of_residence);
+                newFormData.append('user-city', apiSettings.user_city);
+                newFormData.append('user-research', apiSettings.user_research);
+                newFormData.append('user-degree', apiSettings.user_degree);
+                newFormData.append('user-skills', apiSettings.user_skills);
+                // Setup .env variable
+                const url = `https://pattersonselectric.com/wp-json/wp/v2/users`;
+                // Axios POST request
+                axios.post(url, newFormData)
+                .then(function(response) {
+                    console.log(response);
+                }).catch(function(err) {
+                    console.log(err.response.data);
+                })
+            } 
+        }, [apiSettings])
 
 
     return (
@@ -118,12 +173,12 @@ export default function Registration() {
             </div>
             <div className="row">              
                 <div className="col">
-                    <input name="password" value={userLogin.password} onChange={handleChange} className="form-control form-control-lg" type="password" placeholder="Password" aria-label="password" required />
+                    <input name="password" value={userLogin.password} onChange={handleChange} className="form-control form-control-lg" type="password" placeholder="Password" aria-label="Password" required />
                 </div>                
             </div>
             <div className="row mt-2">
                     <div className="col"> 
-                        <button className="btn btn-lg btn-primary login-btn">Sign Up</button>
+                    <button className="btn btn-lg btn-primary login-btn" onClick={handleSubmit}>Sign Up</button>
                     </div>                    
             </div>
             <div className="row">
