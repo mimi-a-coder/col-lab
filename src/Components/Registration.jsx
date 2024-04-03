@@ -9,7 +9,16 @@ export default function Registration() {
         username: '',
         first_name: '',
         last_name: '',
-        name: `${first_name} ${last_name}`,
+        name: '',
+        user_birth_date: '',
+        user_gender: '',
+        user_job_title: '',
+        user_job_Insitution: '',
+        user_country_of_residence: '',
+        user_city: '',
+        user_research: '',
+        user_degree: '',
+        user_skills: '',
         email: '',
         password: '',
 
@@ -39,25 +48,26 @@ export default function Registration() {
                 </div>                
             </div>
             <div className="row">
-                <div className="col-lg-12">
-                    <input name="username" value={userLogin.username} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Username" aria-label="User Name" required />
-                </div>                           
-            </div>
-            <div className="row">
                 <div className="col-lg-6">
                     <input name="first_name" value={userLogin.first_name} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="First Name" aria-label="First Name" required />
                 </div>                
                 <div className="col-lg-6">
                     <input name="last_name" value={userLogin.last_name} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Last Name" aria-label="First Name" required />
                 </div>                
+                <input name="name" value={userLogin.first_name+' '+userLogin.last_name} onChange={handleChange}  className="form-control form-control-lg" type="hidden" placeholder="Username" aria-label="User Name"/>
+            </div>
+            <div className="row">              
+                <div className="col">
+                    <input name="email" value={userLogin.email} onChange={handleChange} className="form-control form-control-lg" type="Email" placeholder="Email" aria-label="Email" required />
+                </div>                
             </div>
             <div className="row">
                 <div className="col-lg-6">
                     <p className="small form-registration-label">Enter Your Birth Date</p>
-                    <input className="form-control form-control-lg" type="Date" placeholder="Birthday" aria-label="Birthday" required />
+                    <input name="user_birth_date" value={userLogin.user_birth_date} onChange={handleChange} className="form-control form-control-lg" type="Date" placeholder="Birthday" aria-label="Birthday" required />
                 </div>                
                 <div className="col-lg-6">
-                    <select className='form-control form-select' aria-label='Gender Selection'>
+                    <select name="user_gender" value={userLogin.user_gender} onChange={handleChange} className='form-control form-select' aria-label='Gender Selection'>
                         <option selected disabled>Choose A Gender</option>
                         <option>Man</option>
                         <option>Woman</option>
@@ -67,39 +77,44 @@ export default function Registration() {
             </div>
             <div className="row">              
                 <div className="col-lg-6">
-                    <input className="form-control form-control-lg" type="text" placeholder="Job Title" aria-label="Job Title" required />
+                    <input name="user_job_title" value={userLogin.user_job_title} onChange={handleChange}  className="form-control form-control-lg" type="text" placeholder="Job Title" aria-label="Job Title" required />
                 </div>                
                 <div className="col-lg-6">
-                    <input className="form-control form-control-lg" type="text" placeholder="Institution" aria-label="Institution" required />
+                    <input name="user_job_Insitution" value={userLogin.user_job_Insitution} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Institution" aria-label="Institution" required />
                 </div>                
             </div>
             <div className="row">
                 <div className="col-lg-6">
-                    <input className="form-control form-control-lg" type="text" placeholder="Country of Residence" aria-label="Country" required />
+                    <input name="user_country_of_residence" value={userLogin.user_country_of_residence} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Country of Residence" aria-label="Country" required />
                 </div>                
                 <div className="col-lg-6">
-                    <input className="form-control form-control-lg" type="text" placeholder="City" aria-label="City" required />
+                    <input name="user_city" value={userLogin.user_city} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="City" aria-label="City" required />
                 </div>                
             </div>
             <div className="row">              
                 <div className="col">
-                    <input className="form-control form-control-lg" type="text" placeholder="Field of Research" aria-label="Field of Research" required />
+                    <input name="user_research" value={userLogin.user_research} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Field of Research" aria-label="Field of Research" required />
                 </div>                
             </div>
             <div className="row">              
                 <div className="col">
-                    <input className="form-control form-control-lg" type="text" placeholder="Current Degree Level" aria-label="Current degree level" required />
+                    <input name="user_degree" value={userLogin.user_degree} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Current Degree Level" aria-label="Current degree level" required />
                 </div>                
             </div>
             <div className="row">              
                 <div className="col">
-                    <input className="form-control form-control-lg" type="text" placeholder="Indicate up to 20 skills/areas of expertise" aria-label="Indicate up to 20 skills/areas of expertise" required />
+                    <textarea name="user_skills" value={userLogin.user_skills} rows="4" onChange={handleChange} className="form-control form-control-lg" placeholder="Indicate up to 20 skills/areas of expertise, seperate skills with a comma." aria-label="Indicate up to 20 skills/areas of expertise" required></textarea>
                 </div>                
             </div>
             <div className="row">              
-                <div className="col">
-                    <input name="email" value={userLogin.email} onChange={handleChange} className="form-control form-control-lg" type="Email" placeholder="Email" aria-label="Email" required />
+                <div className="col-lg-12">
+                    <p><strong>Account Details:</strong></p>
                 </div>                
+            </div>
+            <div className="row">
+                <div className="col">
+                    <input name="username" value={userLogin.username} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Username" aria-label="User Name" required />
+                </div>                           
             </div>
             <div className="row">              
                 <div className="col">
