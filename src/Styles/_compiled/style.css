@@ -155,6 +155,10 @@ a {
   text-decoration: none !important;
 }
 
+.alert p {
+  margin-bottom: 0;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;

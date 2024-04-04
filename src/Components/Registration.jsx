@@ -41,6 +41,8 @@ export default function Registration() {
         password: '',
         roles: 'admin'
     });
+
+    const [ serverMessage, setServerMessage ] = useState(""); 
     
 
     function handleChange(e) {
@@ -61,33 +63,61 @@ export default function Registration() {
         useEffect(()=> {
             if (apiSettings.username.length > 0) {
                 let newFormData =  new FormData();
+                let acf = {
+                   'user-birth_date': apiSettings.user_birth_date,
+                   'user-gender': apiSettings.user_gender,
+                   'user-job-title':  apiSettings.user_job_title,
+                   'user-job-Insitution': apiSettings.user_job_Insitution,
+                   'user-country-of-residence': apiSettings.user_country_of_residence,
+                   'user-city': apiSettings.user_city,
+                   'user-research': apiSettings.user_research,
+                   'user-degree': apiSettings.user_degree,
+                   'user-skills': apiSettings.user_skills,
+                }
                 newFormData.append('username', apiSettings.username);
                 newFormData.append('password', apiSettings.password);
                 newFormData.append('first_name', apiSettings.first_name);
                 newFormData.append('last_name', apiSettings.last_name);
                 newFormData.append('name', apiSettings.name);
                 newFormData.append('email', apiSettings.email);
-                newFormData.append('user-birth_date', apiSettings.user_birth_date);
-                newFormData.append('user-gender', apiSettings.user_gender);
-                newFormData.append('user-job-title', apiSettings.user_job_title);
-                newFormData.append('user-job-Insitution', apiSettings.user_job_Insitution);
-                newFormData.append('user-country-of-residence', apiSettings.user_country_of_residence);
-                newFormData.append('user-city', apiSettings.user_city);
-                newFormData.append('user-research', apiSettings.user_research);
-                newFormData.append('user-degree', apiSettings.user_degree);
-                newFormData.append('user-skills', apiSettings.user_skills);
+                newFormData.append(acf['user-birth_date'], apiSettings.user_birth_date);
+                newFormData.append(acf['user-gender'], apiSettings.user_gender);
+                newFormData.append('acf.user-job-title', apiSettings.user_job_title);
+                newFormData.append('acf.user-job-Insitution', apiSettings.user_job_Insitution);
+                newFormData.append('acf.user-country-of-residence', apiSettings.user_country_of_residence);
+                newFormData.append('acf.user-city', apiSettings.user_city);
+                newFormData.append('acf.user-research', apiSettings.user_research);
+                newFormData.append('acf.user-degree', apiSettings.user_degree);
+                newFormData.append('acf.user-skills', apiSettings.user_skills);
                 // Setup .env variable
                 const url = `https://pattersonselectric.com/wp-json/wp/v2/users`;
                 // Axios POST request
                 axios.post(url, newFormData)
                 .then(function(response) {
                     console.log(response);
+                    localStorage.setItem('registrationMessage', 'Thank you for registering with us. You are now a member of our community. Login to explore collabb.');
+                    window.location.replace('/');
                 }).catch(function(err) {
-                    console.log(err.response.data);
+                    setServerMessage(err.response.data.message);
+                    console.log(err.response.data.messgae);
                 })
             } 
         }, [apiSettings])
 
+            // Set Server Messgae
+    function userServerMessage() {
+        if (serverMessage.length > 0) {
+            return (
+                <div className="row mb-4">
+                    <div className="col-lg-12">
+                        <div className="alert alert-danger" role="alert">
+                            <p>{serverMessage}</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        } 
+    }
 
     return (
         <div className="container primary login">
@@ -176,6 +206,7 @@ export default function Registration() {
                     <input name="password" value={userLogin.password} onChange={handleChange} className="form-control form-control-lg" type="password" placeholder="Password" aria-label="Password" required />
                 </div>                
             </div>
+            {userServerMessage()}
             <div className="row mt-2">
                     <div className="col"> 
                     <button className="btn btn-lg btn-primary login-btn" onClick={handleSubmit}>Sign Up</button>

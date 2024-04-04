@@ -34,6 +34,7 @@ export default function Login() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        localStorage.removeItem('registrationMessage')
         setApiSettings({ ...userLogin });
     }
 
@@ -90,7 +91,33 @@ export default function Login() {
                     </div>
                 );
             }
+            if (localStorage.getItem("registrationMessage").length > 0) {
+                return (
+                    <div className="row mb-4">
+                        <div className="col">
+                            <div className="alert alert-success" role="alert">
+                                <p>We couldn't find an account associated with the username you entered. Please double-check your spelling or sign up for a new account if you haven't already.</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
         } 
+    }
+
+    function userServerRegisterMessage() {
+            if (localStorage.getItem('registrationMessage') != null) {
+                console.log(localStorage.getItem('registrationMessage'));
+                return (
+                    <div className="row">
+                        <div className="col">
+                            <div className="alert alert-success" role="alert">
+                                <p>{localStorage.getItem("registrationMessage")}</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
     }
 
     if (localStorage.getItem('jwt') == null ) {
@@ -99,7 +126,7 @@ export default function Login() {
             <div className="row mb-4">
                 <div className="col-lg-12 d-flex justify-content-center mb-3"><img className="brand" src={Brand}/></div>
                 <div className="col-lg-12">
-                    <h1 className="mb-3 login-header text-center">Welcome to <i>ColLabb</i>!</h1>
+                    <h1 className="mb-3 login-header text-center">Welcome to <i>colLabb</i>!</h1>
                 </div>
             </div>
             <form className="form-login">
@@ -138,6 +165,7 @@ export default function Login() {
                 </div>
             </form>
             {userServerMessage()}
+            {userServerRegisterMessage()}
         </div>
     );
     } else {
