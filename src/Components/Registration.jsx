@@ -62,37 +62,29 @@ export default function Registration() {
         // Inititate call to wordpress
         useEffect(()=> {
             if (apiSettings.username.length > 0) {
-                let newFormData =  new FormData();
-                let acf = {
-                   'user-birth_date': apiSettings.user_birth_date,
-                   'user-gender': apiSettings.user_gender,
-                   'user-job-title':  apiSettings.user_job_title,
-                   'user-job-Insitution': apiSettings.user_job_Insitution,
-                   'user-country-of-residence': apiSettings.user_country_of_residence,
-                   'user-city': apiSettings.user_city,
-                   'user-research': apiSettings.user_research,
-                   'user-degree': apiSettings.user_degree,
-                   'user-skills': apiSettings.user_skills,
-                }
-                newFormData.append('username', apiSettings.username);
-                newFormData.append('password', apiSettings.password);
-                newFormData.append('first_name', apiSettings.first_name);
-                newFormData.append('last_name', apiSettings.last_name);
-                newFormData.append('name', apiSettings.name);
-                newFormData.append('email', apiSettings.email);
-                newFormData.append(acf['user-birth_date'], apiSettings.user_birth_date);
-                newFormData.append(acf['user-gender'], apiSettings.user_gender);
-                newFormData.append('acf.user-job-title', apiSettings.user_job_title);
-                newFormData.append('acf.user-job-Insitution', apiSettings.user_job_Insitution);
-                newFormData.append('acf.user-country-of-residence', apiSettings.user_country_of_residence);
-                newFormData.append('acf.user-city', apiSettings.user_city);
-                newFormData.append('acf.user-research', apiSettings.user_research);
-                newFormData.append('acf.user-degree', apiSettings.user_degree);
-                newFormData.append('acf.user-skills', apiSettings.user_skills);
-                // Setup .env variable
-                const url = `https://pattersonselectric.com/wp-json/wp/v2/users`;
-                // Axios POST request
-                axios.post(url, newFormData)
+                axios({
+                    url: "https://pattersonselectric.com/wp-json/wp/v2/users", 
+                    method: 'POST',
+                    data: {
+                        'username': apiSettings.username,
+                        'password': apiSettings.password,
+                        'first_name': apiSettings.first_name,
+                        'last_name': apiSettings.last_name,
+                        'name': apiSettings.name,
+                        'email': apiSettings.email,
+                        'acf' : {
+                            'user-birth_date': apiSettings.user_birth_date,
+                            'user-gender': apiSettings.user_gender,
+                            'user-job-title':  apiSettings.user_job_title,
+                            'user-job-Insitution': apiSettings.user_job_Insitution,
+                            'user-country-of-residence': apiSettings.user_country_of_residence,
+                            'user-city': apiSettings.user_city,
+                            'user-research': apiSettings.user_research,
+                            'user-degree': apiSettings.user_degree,
+                            'user-skills': apiSettings.user_skills,
+                         }
+                    }
+                })
                 .then(function(response) {
                     console.log(response);
                     localStorage.setItem('registrationMessage', 'Thank you for registering with us. You are now a member of our community. Login to explore collabb.');
@@ -126,7 +118,7 @@ export default function Registration() {
                 <h1 className="text-center mb-3">Become a <i>ColLabb</i> member</h1>
             </div>
         </div>
-        <form className="form-registration">
+        <form onSubmit={handleSubmit} className="form-registration mb-5">
             <div className="row">
                 <div className="col">
                     <p className="login-lead"><strong>Tell us a bit more about yourself...</strong></p>
@@ -141,11 +133,6 @@ export default function Registration() {
                 </div>                
                 <input name="name" value={userLogin.first_name+' '+userLogin.last_name} onChange={handleChange}  className="form-control form-control-lg" type="hidden" placeholder="Username" aria-label="User Name"/>
             </div>
-            <div className="row">              
-                <div className="col">
-                    <input name="email" value={userLogin.email} onChange={handleChange} className="form-control form-control-lg" type="Email" placeholder="Email" aria-label="Email" required />
-                </div>                
-            </div>
             <div className="row">
                 <div className="col-lg-6">
                     <p className="small form-registration-label">Enter Your Birth Date</p>
@@ -153,9 +140,9 @@ export default function Registration() {
                 </div>                
                 <div className="col-lg-6">
                     <select name="user_gender" value={userLogin.user_gender} onChange={handleChange} className='form-control form-select' aria-label='Gender Selection'>
-                        <option selected disabled>Choose A Gender</option>
-                        <option>Man</option>
-                        <option>Woman</option>
+                        <option selected>Choose A Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
                         <option>Prefer Not To Say</option>
                     </select>
                 </div>                
@@ -203,13 +190,23 @@ export default function Registration() {
             </div>
             <div className="row">              
                 <div className="col">
+                    <input name="email" value={userLogin.email} onChange={handleChange} className="form-control form-control-lg" type="Email" placeholder="Email" aria-label="Email" required />
+                </div>                
+            </div>
+            <div className="row">              
+                <div className="col">
                     <input name="password" value={userLogin.password} onChange={handleChange} className="form-control form-control-lg" type="password" placeholder="Password" aria-label="Password" required />
                 </div>                
             </div>
+            {/* <div className="row">              
+                <div className="col">
+                    <input name="password" value={userLogin.password} onChange={handleChange} className="form-control form-control-lg" type="password" placeholder="Retype password" aria-label="Password" required />
+                </div>                
+            </div> */}
             {userServerMessage()}
             <div className="row mt-2">
                     <div className="col"> 
-                    <button className="btn btn-lg btn-primary login-btn" onClick={handleSubmit}>Sign Up</button>
+                    <button type="submit" className="btn btn-lg btn-primary login-btn">Sign Up</button>
                     </div>                    
             </div>
             <div className="row">
