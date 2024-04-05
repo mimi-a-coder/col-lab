@@ -21,7 +21,7 @@ export default function Dashboard() {
   let localName = localStorage.getItem('user_name');
 
   useEffect(() => {
-    axios.get('https://pattersonselectric.com/wp-json/wp/v2/questions')
+    axios.get(`${process.env.API_URL}/wp-json/wp/v2/questions`)
     .then((response) => {
       setGetHelpQuestions(response.data);
     })
@@ -29,7 +29,7 @@ export default function Dashboard() {
   }, [])
 
   useEffect(() => {
-    axios.get('https://pattersonselectric.com/wp-json/wp/v2/users')
+    axios.get(`${process.env.API_URL}/wp-json/wp/v2/users`)
     .then((response) => {
       console.log(response);
       setGetUsers(response.data);

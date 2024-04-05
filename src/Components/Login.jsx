@@ -45,7 +45,7 @@ export default function Login() {
             newFormData.append('username', apiSettings.user);
             newFormData.append('password', apiSettings.pass);
             // Setup .env variable
-            const url = `https://pattersonselectric.com/wp-json/jwt-auth/v1/token`;
+            const url = `${process.env.API_URL}/wp-json/jwt-auth/v1/token`;
             // Axios POST request
             axios.post(url, newFormData)
             .then(function(response) {

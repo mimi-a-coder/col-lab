@@ -44,6 +44,7 @@ export default function Registration() {
 
     const [ serverMessage, setServerMessage ] = useState(""); 
     
+    const [ getCountries, setGetCountries ] = useState([]);
 
     function handleChange(e) {
         const {name, value} = e.target
@@ -63,7 +64,7 @@ export default function Registration() {
         useEffect(()=> {
             if (apiSettings.username.length > 0) {
                 axios({
-                    url: "https://pattersonselectric.com/wp-json/wp/v2/users", 
+                    url: `${process.env.API_URL}/wp-json/wp/v2/users`, 
                     method: 'POST',
                     data: {
                         'username': apiSettings.username,
@@ -86,16 +87,33 @@ export default function Registration() {
                     }
                 })
                 .then(function(response) {
-                    console.log(response);
                     localStorage.setItem('registrationMessage', 'Thank you for registering with us. You are now a member of our community. Login to explore collabb.');
                     window.location.replace('/');
                 }).catch(function(err) {
                     setServerMessage(err.response.data.message);
-                    console.log(err.response.data.messgae);
                 })
             } 
         }, [apiSettings])
 
+        // Retreive cities from api
+        useEffect(() => {
+            axios.get("https://restcountries.com/v3.1/all")
+            .then((response) => {
+                setGetCountries(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        }, [])
+
+        const countries = getCountries
+        .slice()
+        .sort((a, b) => a.name.common.localeCompare(b.name.common))
+        .map((country, index) => {
+            return (
+                <option key={index}>{country.name.common}</option>
+            )
+        })
             // Set Server Messgae
     function userServerMessage() {
         if (serverMessage.length > 0) {
@@ -140,7 +158,7 @@ export default function Registration() {
                 </div>                
                 <div className="col-lg-6">
                     <select name="user_gender" value={userLogin.user_gender} onChange={handleChange} className='form-control form-select' aria-label='Gender Selection'>
-                        <option selected>Choose A Gender</option>
+                        <option disabled value="">Choose a gender</option>
                         <option>Male</option>
                         <option>Female</option>
                         <option>Prefer Not To Say</option>
@@ -157,7 +175,10 @@ export default function Registration() {
             </div>
             <div className="row">
                 <div className="col-lg-6">
-                    <input name="user_country_of_residence" value={userLogin.user_country_of_residence} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Country of Residence" aria-label="Country" required />
+                    <select name="user_country_of_residence" value={userLogin.user_country_of_residence} onChange={handleChange} className='form-control form-select' aria-label="Country" required>
+                        <option disabled value="">Choose a country</option>
+                        {countries}
+                    </select>
                 </div>                
                 <div className="col-lg-6">
                     <input name="user_city" value={userLogin.user_city} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="City" aria-label="City" required />
