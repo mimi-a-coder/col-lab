@@ -21,6 +21,7 @@ export default function Registration() {
         user_skills: '',
         email: '',
         password: '',
+        retype_password: '',
     })
 
     const [apiSettings, setApiSettings] = useState({
@@ -39,7 +40,6 @@ export default function Registration() {
         user_skills: '',
         email: '',
         password: '',
-        roles: 'admin'
     });
 
     const [ serverMessage, setServerMessage ] = useState(""); 
@@ -54,6 +54,22 @@ export default function Registration() {
             )
         })
     }
+
+    function retypePassword() {
+        if (userLogin.retype_password !== userLogin.password) {
+            setServerMessage("Passwords do not match");
+        } else {
+            setServerMessage(""); // Clear the error message if passwords match
+        }
+        if (userLogin.retype_password.length == 0 && userLogin.retype_password.length == 0) {
+            setServerMessage(""); // Clear the error message if passwords match
+        }
+    }
+
+    useEffect(() => {
+        retypePassword();
+    }, [userLogin.password, userLogin.retype_password]);
+    
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -215,19 +231,17 @@ export default function Registration() {
                 </div>                
             </div>
             <div className="row">              
-                <div className="col">
+                <div className="col-lg-6">
                     <input name="password" value={userLogin.password} onChange={handleChange} className="form-control form-control-lg" type="password" placeholder="Password" aria-label="Password" required />
-                </div>                
+                </div>
+                <div className="col-lg-6">
+                    <input name="retype_password" value={userLogin.retype_password} onChange={handleChange} className="form-control form-control-lg" type="password" placeholder="Retype password" aria-label="Retype Password" required />
+                </div>                   
             </div>
-            {/* <div className="row">              
-                <div className="col">
-                    <input name="password" value={userLogin.password} onChange={handleChange} className="form-control form-control-lg" type="password" placeholder="Retype password" aria-label="Password" required />
-                </div>                
-            </div> */}
             {userServerMessage()}
             <div className="row mt-2">
                     <div className="col"> 
-                    <button type="submit" className="btn btn-lg btn-primary login-btn">Sign Up</button>
+                    <button type="submit" className="btn btn-lg btn-primary login-btn" disabled={serverMessage !== ""}>Sign Up</button>
                     </div>                    
             </div>
             <div className="row">
