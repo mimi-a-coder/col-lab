@@ -6,7 +6,7 @@ import Brand from '../Images/colLAB-logo.svg';
 export default function Login() {
 
     let tocken = localStorage.getItem('jwt');
-  console.log(tocken);
+  
     // Login
     const [jwtToken, setjwtToken] = useState('');
     const [serverMessage, setServerMessage] = useState('');
@@ -45,11 +45,11 @@ export default function Login() {
             newFormData.append('username', apiSettings.user);
             newFormData.append('password', apiSettings.pass);
             // Setup .env variable
-            const url = `${process.env.API_URL}/wp-json/jwt-auth/v1/token`;
+            const url = `${process.env.REACT_APP_API_URL}/wp-json/jwt-auth/v1/token`;
             // Axios POST request
             axios.post(url, newFormData)
             .then(function(response) {
-                console.log(response);
+                
                 setjwtToken(response.data.token);
                 localStorage.setItem("jwt", response.data.token);
                 localStorage.setItem("user_name", response.data.user_display_name)
@@ -107,7 +107,7 @@ export default function Login() {
 
     function userServerRegisterMessage() {
             if (localStorage.getItem('registrationMessage') != null) {
-                console.log(localStorage.getItem('registrationMessage'));
+                
                 return (
                     <div className="row">
                         <div className="col">

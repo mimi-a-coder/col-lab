@@ -64,7 +64,7 @@ export default function Registration() {
         useEffect(()=> {
             if (apiSettings.username.length > 0) {
                 axios({
-                    url: `${process.env.API_URL}/wp-json/wp/v2/users`, 
+                    url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`, 
                     method: 'POST',
                     data: {
                         'username': apiSettings.username,
