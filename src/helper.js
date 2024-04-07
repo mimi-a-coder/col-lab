@@ -2,8 +2,8 @@ import axios from "axios";
 
 // Return user first
 export function userFirstName(prop) {
-    let nameArray = prop.split(' ');
-    return nameArray[0];
+    // let nameArray = prop.split(' ');
+    // return nameArray[0];
   }
 
 

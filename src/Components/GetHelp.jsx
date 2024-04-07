@@ -25,7 +25,7 @@ export default function GetHelp() {
 
     console.log(question);
 
-    const returnQuestions = question.map((question) => {
+    const returnQuestions = question.map((question, index) => {
         let userName = "";
         let userProfileImg = "";
         let questionPosted = Date.now() - new Date(question.date);
@@ -37,6 +37,15 @@ export default function GetHelp() {
               userProfileImg = name['avatar_urls']['24'];
             }
           }
+
+        //Return count
+    let count = localStorage.getItem(`comment_count${index}`);
+
+    // Ensure that numberOfComments is initialized as an object
+     let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
+
+     // Then you can update the count property
+     numberOfComments[0].count = parseInt(count); // Parse string to integer
 
         return (
         <a href="#">
@@ -56,7 +65,7 @@ export default function GetHelp() {
                         <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
                     </div>
                     <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                        <p className="text-right">0 responses</p>
+                        <p className="text-right">{numberOfComments[0].count} responses</p>
                     </div>
                 </div>
             </div>
@@ -68,8 +77,8 @@ export default function GetHelp() {
     return (
         <>
             <Navigation />
-            <div className="get-help">
-                <div className='container-fluid primary'>
+            <div className="get-help mb-5">
+                <div className='container primary'>
                     <div className='get-help-details'>
                         <p><strong>See questions from your peers</strong></p>
                         <a className="btn btn-info btn-lg">Ask a Question</a>

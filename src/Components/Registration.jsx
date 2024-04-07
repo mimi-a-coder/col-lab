@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import defualtProfileImg from '../Images/user-icon-placeholder-1.png';
 
 
 export default function Registration() {
@@ -99,6 +100,7 @@ export default function Registration() {
                             'user-research': apiSettings.user_research,
                             'user-degree': apiSettings.user_degree,
                             'user-skills': apiSettings.user_skills,
+                            // 'user-profile-image': defualtProfileImg,
                          }
                     }
                 })
@@ -107,6 +109,7 @@ export default function Registration() {
                     window.location.replace('/');
                 }).catch(function(err) {
                     setServerMessage(err.response.data.message);
+                    console.log(err)
                 })
             } 
         }, [apiSettings])

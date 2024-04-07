@@ -6,20 +6,23 @@ import Teach from '../Images/teach-learn-tell-student-svgrepo-com.svg';
 import Borrow from '../Images/receive-svgrepo-com.svg';
 import Jobs from '../Images/jobs-open-svgrepo-com.svg';
 import Interview from '../Images/interview-7-svgrepo-com.svg';
-import { userFirstName } from '../helper.js';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import defaultImage from '../Images/user-icon-placeholder-1.png';
+import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
 
 export default function Dashboard() {
   const [getHelpQuestions, setGetHelpQuestions] = useState([]);
-  const [getUsers, setGetUsers] = useState([]);
+  const [getUsers, setGetUsers] = useState([]); // Do I Need?
+  const [usersAccountDetails, setUsersAccountDetails] = useState({});
 
-  let userUrl = '';
-  let localName = localStorage.getItem('user_name');
+  // let userUrl = '';
+  // let localName = localStorage.getItem('user_name');
+  let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+console.log(usersAccountDetails);
 
+  // Api for questions
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
     .then((response) => {
@@ -28,56 +31,74 @@ export default function Dashboard() {
     .catch()
   }, [])
 
+  // Api for users
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`)
     .then((response) => {
-      setGetUsers(response.data);
+     setGetUsers(response.data);
     })
     .catch()
   }, [])
 
-  for (let user of getUsers) {
-    if (user.name == localName) {
-      userUrl = user['avatar_urls']['24'];
-    }
-  }
+  // Api for current user
+  useEffect(() => {
+    let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    axios({
+      url:`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${userDetails.id}`,
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${userDetails.token}`
+      }
+  })
+    .then((response) => {
+      setUsersAccountDetails(response.data)
+    })
+    .catch((err) => {
+      console.log('Error fetching user details:', err)
+    })
+  }, [])
 
-  let tocken = localStorage.getItem('jwt');
+  // for (let user of getUsers) {
+  //   if (user.name == localName) {
+  //     userUrl = user['avatar_urls']['24'];
+  //   }
+  // }
+
 
       const questions = getHelpQuestions.map((question, index) => {
         let userName = "";
         let userProfileImg = "";
+        let userJobInsitution = "";
 
         let questionPosted = Date.now() - new Date(question.date);
         let days = Math.floor(questionPosted/(86400 * 1000));
 
-
         for (let name of getUsers) {
           if ( name.id == question.author) {
             userName = name.name;
-            userProfileImg = name['avatar_urls']['24'];
+            userProfileImg = name['avatar_urls']['48'];
+            userJobInsitution = name['acf']['user-job-Insitution'];
           }
         }
 
-        if (question.status === "publish" && index <= 4) {
+        if (question.status === "publish") {
 
-          function test() {
+          function commentCount() {
             return axios.get(`${question._links.replies['0'].href}`)
             .then((response) => {
               numberOfComments[0].count = response.data.length;
               localStorage.setItem(`comment_count${index}`, numberOfComments[0].count)
             })
           }
+
+          // Parsing comments
           let count = localStorage.getItem(`comment_count${index}`);
+          // Ensure that numberOfComments is initialized as an object
+          let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
+          // Then you can update the count property
+          numberOfComments[0].count = parseInt(count); // Parse string to integer
 
-       // Ensure that numberOfComments is initialized as an object
-        let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
-
-        // Then you can update the count property
-        numberOfComments[0].count = parseInt(count); // Parse string to integer
-
-
-          test();
+          commentCount();
 
           return (
           <div className="card mb-4" key={index}>
@@ -85,15 +106,22 @@ export default function Dashboard() {
               <div className="questions-details">
                 <div className="questions-details-name">
                   <img className="questions-details-name-img" src={userProfileImg ? userProfileImg : defaultImage} />
-                  <p>{userName}</p>
-                </div>
-                <div className="questions-details-posted">
-                  <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
+                  <div className="questions-details-name-info">
+                    <p><strong>{userName}</strong></p>
+                    <div className="questions-details-posted">
+                      {userJobInsitution ?
+                      (<div>
+                        <p>{userJobInsitution}</p>
+                      </div>) : ("")
+                      }
+                    <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <hr></hr>
               <p><strong>{question.title.rendered}</strong></p>
-              <p>{question.content.rendered.substring(3).slice(0, -5)}</p>
+              <p>{question.content.rendered.substring(3).slice(0, -5).substring(0, 250)}{question.content.rendered.substring(3).slice(0, -5).length >= 250 ? '...' : ''}</p>
               <div className='question-actions'>
                 <div className="question-actions-button">
                   <button className="btn btn-outline-info btn-sm">Answer</button>
@@ -109,7 +137,7 @@ export default function Dashboard() {
       })
 
 
-  if (tocken != null) {
+  if (localStorage.getItem('userDetails') != null) {
   return (
     <>
     <Navigation />
@@ -129,9 +157,13 @@ export default function Dashboard() {
                       <div className="col">
                         <div className="dashboard-user-details">
                           <div className="dashboard-user-details-image">
-                          <img src={userUrl} />
+                          {usersAccountDetails['avatar_urls'] && usersAccountDetails['avatar_urls']['48'] !== 'https://secure.gravatar.com/avatar/bda5ea71631e2cce73beb5e17644bd74?s=48&d=mm&r=g' ? (
+                            <img src={usersAccountDetails['avatar_urls']['48']} alt="User Avatar" />
+                          ) : (
+                            <img src={defaultImage} alt="Default User Avatar" />
+                          )}
                           </div>
-                          <p>Hi, <strong>{ userFirstName(localStorage.getItem('user_name')) }</strong></p>
+                          <p>Hi, <strong>{ userDetails.firstName  }</strong></p>
                         </div>
                       </div>
                     </div>

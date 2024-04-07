@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 import Brand from '../Images/colLAB-logo.svg';
 
 export default function Login() {
-
-    let tocken = localStorage.getItem('jwt');
   
     // Login
-    const [jwtToken, setjwtToken] = useState('');
+    const [userDetails, setuserDetails] = useState('');
     const [serverMessage, setServerMessage] = useState('');
 
     // Capture User Input
@@ -22,7 +20,6 @@ export default function Login() {
         pass: ''
     });
     
-
     function handleChange(e) {
         const {name, value} = e.target
         setUserLogin(prev => {
@@ -49,65 +46,40 @@ export default function Login() {
             // Axios POST request
             axios.post(url, newFormData)
             .then(function(response) {
-                
-                setjwtToken(response.data.token);
-                localStorage.setItem("jwt", response.data.token);
-                localStorage.setItem("user_name", response.data.user_display_name)
+                console.log(response.data.data)
+                localStorage.setItem('userDetails', JSON.stringify(response.data.data));
+                setuserDetails(response.data.data);
             }).catch(function(err) {
-                setServerMessage(err.response.data.code);
+                setServerMessage(err.response.data.message);
             })
         } 
     }, [apiSettings])
 
     // Save JWT and redirect to dashboard page
     useEffect(() => {
-        // Check if jwtToken is not empty
-        if (jwtToken.length > 0) {
+        // Check if userDetails is not empty
+        if (userDetails.length > 0) {
           window.location.replace("/dashboard");
         } 
-    }, [jwtToken])
+    }, [userDetails])
     
     // Set Server Messgae
     function userServerMessage() {
         if (serverMessage) {
-            if (serverMessage === "[jwt_auth] incorrect_password") {
-                return (
-                    <div className="row mb-4">
-                        <div className="col">
-                            <div className="alert alert-danger" role="alert">
-                                <p>You've entered an incorrect password. Please try again or click on the 'Forgot Password' link if you need assistance resetting your account access.</p>
-                            </div>
+            return (
+                <div className="row mb-4">
+                    <div className="col">
+                        <div className="alert alert-danger" role="alert">
+                            <p>{serverMessage}</p>
                         </div>
                     </div>
-                );
-            } else if (serverMessage === "[jwt_auth] invalid_username") {
-                return (
-                    <div className="row mb-4">
-                        <div className="col">
-                            <div className="alert alert-danger" role="alert">
-                                <p>We couldn't find an account associated with the username you entered. Please double-check your spelling or sign up for a new account if you haven't already.</p>
-                            </div>
-                        </div>
-                    </div>
-                );
-            }
-            if (localStorage.getItem("registrationMessage").length > 0) {
-                return (
-                    <div className="row mb-4">
-                        <div className="col">
-                            <div className="alert alert-success" role="alert">
-                                <p>We couldn't find an account associated with the username you entered. Please double-check your spelling or sign up for a new account if you haven't already.</p>
-                            </div>
-                        </div>
-                    </div>
-                );
-            }
+                </div>
+            );
         } 
     }
 
     function userServerRegisterMessage() {
             if (localStorage.getItem('registrationMessage') != null) {
-                
                 return (
                     <div className="row">
                         <div className="col">
@@ -120,7 +92,7 @@ export default function Login() {
             }
     }
 
-    if (localStorage.getItem('jwt') == null ) {
+    if (localStorage.getItem('userDetails') == null ) {
     return (
         <div className="container primary login">
             <div className="row mb-4">

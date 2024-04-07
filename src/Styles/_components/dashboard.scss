@@ -25,6 +25,13 @@
     border-radius: 5px;
     overflow-y: scroll;
     max-height: 70rem;
+    &-items {
+      .card {
+        .card-body {
+          padding: 15px 15px 5px 15px !important;
+        }
+      }
+    }
 }
 .dashboard-user {
     border: 2px solid #d3d3d3;
@@ -43,7 +50,6 @@
       }
       &-image {
         margin-right: 1rem;
-        background-color: grey;
         width: 8rem; 
         border: 1px solid black;
         box-shadow: 0px 0px 7px grey;
@@ -75,10 +81,12 @@
   flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
+  width: 100%;
   &-name {
     display: flex;
     align-items: center;
     margin: 0 0 1rem 0;
+    width: 100%;
     &-img {
       width: 5rem;
       height: 6rem;
@@ -87,9 +95,20 @@
       object-fit: cover;
       margin: 0 0.7rem 0 0;
     }
+    &-info {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .questions-details-posted {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
   }
   p {
     font-size: 1.4rem;
+    margin: 0;
   }
 }
 

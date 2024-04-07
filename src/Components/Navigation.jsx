@@ -5,8 +5,7 @@ import Brand from '../Images/colLAB-logo.svg'
 export default function Navigation() {
  
   const logout = () => {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('user_name');
+    localStorage.removeItem('userDetails');
     window.location.replace('/');
   }
 
