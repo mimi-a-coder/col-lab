@@ -122,9 +122,43 @@ a {
 }
 
 // Alert
-
 .alert {
   p {
     margin-bottom: 0;
   }
+}
+
+// Modal
+.modal {
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(#000, .7);
+  display: flex !important;
+  .modal-popup {
+    max-width: 80rem;
+    margin: auto;
+    margin-top: 7.2rem;
+    padding: 2rem;
+    background-color: #fff;
+    border: 1px solid $mercy-color-2;
+    box-shadow: 0px 0px 2px 2px $mercy-color-3;
+    &-icon { 
+      text-align: right;
+      svg {
+        cursor: pointer;
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+    }
+  }
+}
+
+.show-modal {
+  display: flex !important;
+  transition: 350ms ease-out;
+}
+
+.hide-modal {
+  display: none !important;
+  transition: 350ms ease-out;
 }

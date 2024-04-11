@@ -159,6 +159,40 @@ a {
   margin-bottom: 0;
 }
 
+.modal {
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex !important;
+}
+.modal .modal-popup {
+  max-width: 80rem;
+  margin: auto;
+  margin-top: 7.2rem;
+  padding: 2rem;
+  background-color: #fff;
+  border: 1px solid #f8f9fc;
+  box-shadow: 0px 0px 2px 2px #d3d3d3;
+}
+.modal .modal-popup-icon {
+  text-align: right;
+}
+.modal .modal-popup-icon svg {
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.show-modal {
+  display: flex !important;
+  transition: 350ms ease-out;
+}
+
+.hide-modal {
+  display: none !important;
+  transition: 350ms ease-out;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;
