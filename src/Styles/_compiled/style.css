@@ -182,6 +182,9 @@ a {
   width: 2.5rem;
   height: 2.5rem;
 }
+.modal .modal-popup-icon svg :hover {
+  filter: invert(13%) sepia(96%) saturate(6849%) hue-rotate(358deg) brightness(92%) contrast(117%);
+}
 
 .show-modal {
   display: flex !important;

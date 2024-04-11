@@ -195,7 +195,7 @@ export default function GetHelp() {
                                 </div>
                                 <div className="row">
                                     <div className="col-12 mb-4">
-                                        <p><strong>Have a technical question? Ask your peers</strong></p>
+                                        <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
                                     </div>
                                     <div className="col-12 mb-4">
                                         <input className="form-control form-control-lg" type="text" aria-label='Question field' placeholder="Type your question briefly (150 characters max.)" required />
