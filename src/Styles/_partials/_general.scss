@@ -73,6 +73,11 @@ html {
   background-color: $mercy-color-1 !important;
   font-weight: 600 !important;
   color: #fff !important;
+  border: none !important;
+  // box-shadow: 0px 0px 2px 2px grey !important;
+  &:hover {
+    background-color: #000 !important;
+  }
 }
 // Form
 .form-control {
@@ -138,7 +143,7 @@ a {
     max-width: 80rem;
     margin: auto;
     margin-top: 7.2rem;
-    padding: 2rem;
+    padding: 1.5rem 2rem 2rem 2rem;
     background-color: #fff;
     border: 1px solid $mercy-color-2;
     box-shadow: 0px 0px 2px 2px $mercy-color-3;
@@ -150,8 +155,6 @@ a {
         height: 2.5rem;
         :hover {
           filter: invert(13%) sepia(96%) saturate(6849%) hue-rotate(358deg) brightness(92%) contrast(117%);
-
-          ;
         }
       }
     }
@@ -166,4 +169,19 @@ a {
 .hide-modal {
   display: none !important;
   transition: 350ms ease-out;
+}
+
+// Back Icon
+.back-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.link-dark {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  &:hover {
+    text-decoration: underline !important;
+  }
 }

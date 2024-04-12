@@ -109,6 +109,10 @@ html {
   background-color: #0f9ed5 !important;
   font-weight: 600 !important;
   color: #fff !important;
+  border: none !important;
+}
+.btn-info:hover {
+  background-color: #000 !important;
 }
 
 .form-control {
@@ -169,7 +173,7 @@ a {
   max-width: 80rem;
   margin: auto;
   margin-top: 7.2rem;
-  padding: 2rem;
+  padding: 1.5rem 2rem 2rem 2rem;
   background-color: #fff;
   border: 1px solid #f8f9fc;
   box-shadow: 0px 0px 2px 2px #d3d3d3;
@@ -194,6 +198,20 @@ a {
 .hide-modal {
   display: none !important;
   transition: 350ms ease-out;
+}
+
+.back-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.link-dark {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+.link-dark:hover {
+  text-decoration: underline !important;
 }
 
 /* Button Colours */
@@ -432,7 +450,7 @@ header {
 }
 
 .get-help-details {
-  padding-top: 5rem;
+  padding-top: 4rem;
 }
 
 .get-help-item {
