@@ -192,7 +192,8 @@ export default function GetHelp() {
                                 <div className="modal-popup-icon">
                                     <svg
                                     onClick={()=>{
-                                    setaskQuestionStatus('not published')    
+                                    setaskQuestionStatus('not published')  
+                                    setModalClass("hide-modal")  
                                     setAskQuestionApi({
                                         author: userAccountDetails.id,
                                         title: '',
@@ -203,7 +204,8 @@ export default function GetHelp() {
                                         title: '',
                                         content: '',
                                     })
-                                    setModalClass("hide-modal")}
+          
+                                }
                                     }
                                     width="12.103323mm"
                                     height="12.105565mm"
@@ -273,7 +275,7 @@ export default function GetHelp() {
                                     </div>
                                 </div>
                                 { askQuestionStatus === "publish" ? 
-                                <div class="alert alert-success" role="alert">
+                                <div className="alert alert-success" role="alert">
                                     <p>Success! Your question has been published!</p>
                                 </div>
                                 : ''    
