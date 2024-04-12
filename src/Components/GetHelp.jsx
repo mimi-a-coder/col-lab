@@ -27,7 +27,6 @@ export default function GetHelp() {
         .then((response) =>{
             setQuestion(response.data)
         }).catch((err) =>{
-            console.log(err);
         })
     }, [])
 
@@ -50,7 +49,6 @@ export default function GetHelp() {
             setaskQuestionStatus(response.data.status);
         })
         .catch(function(err) {
-            console.log(err);
         })
     }, [askQuestionApi])
 
@@ -59,7 +57,8 @@ export default function GetHelp() {
         .then((response) => {
           setUsers(response.data);
         })
-        .catch()
+        .catch((err) => {
+        });
       }, [])
 
       useEffect(() => {
@@ -69,7 +68,6 @@ export default function GetHelp() {
                 setQuestion(response.data);
             })
             .catch((err) => {
-                console.log(err);
             });
         }
     }, [askQuestionStatus]);

@@ -109,7 +109,6 @@ export default function Registration() {
                     window.location.replace('/');
                 }).catch(function(err) {
                     setServerMessage(err.response.data.message);
-                    console.log(err)
                 })
             } 
         }, [apiSettings])
@@ -121,7 +120,6 @@ export default function Registration() {
                 setGetCountries(response.data);
             })
             .catch((error) => {
-                console.log(error);
             })
         }, [])
 

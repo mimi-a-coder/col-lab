@@ -20,7 +20,6 @@ export default function Dashboard() {
   // let userUrl = '';
   // let localName = localStorage.getItem('user_name');
   let userDetails = JSON.parse(localStorage.getItem("userDetails"));
-console.log(usersAccountDetails);
 
   // Api for questions
   useEffect(() => {
@@ -54,7 +53,6 @@ console.log(usersAccountDetails);
       setUsersAccountDetails(response.data)
     })
     .catch((err) => {
-      console.log('Error fetching user details:', err)
     })
   }, [])
 

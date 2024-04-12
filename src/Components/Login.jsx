@@ -46,7 +46,6 @@ export default function Login() {
             // Axios POST request
             axios.post(url, newFormData)
             .then(function(response) {
-                console.log(response.data.data)
                 localStorage.setItem('userDetails', JSON.stringify(response.data.data));
                 setuserDetails(response.data.data);
             }).catch(function(err) {
