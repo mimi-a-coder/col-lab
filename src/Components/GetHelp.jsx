@@ -27,17 +27,8 @@ export default function GetHelp() {
         .then((response) =>{
             setQuestion(response.data)
         }).catch((err) =>{
-            console.log(err);
         })
     }, [])
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`)
-        .then((response) => {
-          setUsers(response.data);
-        })
-        .catch()
-      }, [])
 
     useEffect(() => {
         axios({
@@ -55,13 +46,30 @@ export default function GetHelp() {
             }
         })
         .then(function(response) {
-            console.log(response)
             setaskQuestionStatus(response.data.status);
         })
         .catch(function(err) {
-            console.log(err);
         })
     }, [askQuestionApi])
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`)
+        .then((response) => {
+          setUsers(response.data);
+        })
+        .catch()
+      }, [])
+
+      useEffect(() => {
+        if (askQuestionStatus === 'publish') {
+            axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
+            .then((response) => {
+                setQuestion(response.data);
+            })
+            .catch((err) => {
+            });
+        }
+    }, [askQuestionStatus]);
 
     const returnQuestions = question.map((question, index) => {
         let userName = "";
