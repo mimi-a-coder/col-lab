@@ -6,6 +6,7 @@ import Login from './Components/Login';
 import Registration from './Components/Registration';
 import Profile from './Components/Profile';
 import GetHelp from './Components/GetHelp';
+import Question from './Components/Question';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/get-help" element={<GetHelp/>} />
+        <Route path="/question/:param1" element={<Question/>} />
       </Routes>
    </Router>
   );

@@ -503,6 +503,15 @@ abbr {
   font-weight: 700;
 }
 
+/* Button Colours */
+.questions {
+  padding-top: 4rem;
+}
+
+.question {
+  max-width: 90rem;
+}
+
 @media screen and (max-width: 1000px) {
   .container-fluid {
     padding: 0 2rem !important;

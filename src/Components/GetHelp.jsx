@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from './Navigation';
+import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -96,8 +97,8 @@ export default function GetHelp() {
      numberOfComments[0].count = parseInt(count); // Parse string to integer
         if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`)) {
         return (
-        <a href="#" key={index}>
-            <div className="card get-help-item mb-4">
+        <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
+            <div className="card get-help-item mb-4">s
                 <div className="card-body">
                     <div className="row">
                         <div className='col-lg-3 d-flex align-items-center'>
@@ -118,18 +119,18 @@ export default function GetHelp() {
                     </div>
                 </div>
             </div>
-        </a>
+        </Link>
         )
         } 
         if (search.length == 0) {
         return (
-            <a href="#" key={index}>
+            <Link to={{ pathname: `/question/${question.id}/` }} key={index}>
                 <div className="card get-help-item mb-4">
                     <div className="card-body">
                         <div className="row">
                             <div className='col-lg-3 d-flex align-items-center'>
                                 <div className='get-help'>
-                                    <img className="get-help-img mr-3" src={userProfileImg} />
+                                    <img className="get-help-img mr-3" src={userProfileImg ? userProfileImg : defaultImage} />
                                     <p><strong>{userName}</strong></p>
                                 </div>
                             </div>
@@ -145,7 +146,7 @@ export default function GetHelp() {
                         </div>
                     </div>
                 </div>
-            </a>
+            </Link>
             )
         }
     })
@@ -155,7 +156,6 @@ export default function GetHelp() {
         const {name, value} = e.target
        
         if ( name === 'title' && value.length <= 140 ) { 
-            console.log(askQuestion.title.length)
             setAskQuestion(prev => {
                 return (
                     { ...prev, [name]: value}
