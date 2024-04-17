@@ -114,7 +114,7 @@ export default function GetHelp() {
                             <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
                         </div>
                         <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                            <p className="text-right">{numberOfComments[0].count} responses</p>
+                            <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@ export default function GetHelp() {
                                 <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
                             </div>
                             <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                                <p className="text-right">{numberOfComments[0].count} responses</p>
+                                <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
                             </div>
                         </div>
                     </div>

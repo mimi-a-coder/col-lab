@@ -125,7 +125,7 @@ export default function Dashboard() {
                   <button className="btn btn-outline-info btn-sm">Answer</button>
                 </div>
                 <div className="question-actions-count">
-                  <p>{ numberOfComments[0].count} people answered this question</p>
+                  <p>{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'} </p>
                 </div>
               </div>
             </div>
