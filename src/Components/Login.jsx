@@ -108,7 +108,7 @@ export default function Login() {
                 </div>
                 <div className="row mb-4">
                     <div className="col">
-                        <input className="form-control form-control-lg" type="text" name="user" value={userLogin.user} onChange={handleChange} placeholder="Username" aria-label="username" required />
+                        <input className="form-control form-control-lg" type="text" name="user" value={userLogin.user} onChange={handleChange} placeholder="Username or email" aria-label="username" required />
                     </div>                
                 </div>
                 <div className="row mb-4">

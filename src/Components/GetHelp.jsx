@@ -11,6 +11,7 @@ export default function GetHelp() {
     const [ search, setSearch ] = useState('');
     const [ modalClass, setModalClass ] = useState('hide-modal');
     const [ askQuestionStatus, setaskQuestionStatus ] = useState('not published');
+    // const [ characterLimit, setCharacterLimit ] = useState(0);
     const [ askQuestion, setAskQuestion ] = useState({
         author: userAccountDetails.id,
         title: '',
@@ -152,11 +153,22 @@ export default function GetHelp() {
     // Handle change
     function handleChange(e) {
         const {name, value} = e.target
-        setAskQuestion(prev => {
-            return (
-                { ...prev, [name]: value}
-            )
-        })
+       
+        if ( name === 'title' && value.length <= 140 ) { 
+            console.log(askQuestion.title.length)
+            setAskQuestion(prev => {
+                return (
+                    { ...prev, [name]: value}
+                )
+            })
+        }
+        if (name === 'content') {
+            setAskQuestion(prev => {
+                return (
+                    { ...prev, [name]: value}
+                )
+            })
+        }
     }
 
     // Handle submit
@@ -274,7 +286,9 @@ export default function GetHelp() {
                                         <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
                                     </div>
                                     <div className="col-12 mb-4">
-                                        <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (150 characters max.)" required />
+                                        <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" required />
+                                        { askQuestion.title.length == 140 ?
+                                        <p class="small red">Maximum characters reached!</p> : '' }
                                     </div>
                                     <div className="col-12 mb-4">
                                         <textarea className="form-control form-control-lg" rows="10" name="content" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.content} onChange={handleChange} aria-label="Questions" placeholder='Give a detailed description of your question. Attach pictures if necessary.' required />
