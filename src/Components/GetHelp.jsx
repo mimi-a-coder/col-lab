@@ -10,7 +10,7 @@ export default function GetHelp() {
     const [ question, setQuestion ] = useState([]);
     const [ users, setUsers ] = useState([]);
     const [ search, setSearch ] = useState('');
-    const [ modalClass, setModalClass ] = useState('hide-modal');
+    const [ modalClass, setModalClass ] = useState('hide');
     const [ askQuestionStatus, setaskQuestionStatus ] = useState('not published');
     // const [ characterLimit, setCharacterLimit ] = useState(0);
     const [ askQuestion, setAskQuestion ] = useState({
@@ -214,7 +214,7 @@ export default function GetHelp() {
                                     <svg
                                     onClick={()=>{
                                     setaskQuestionStatus('not published')  
-                                    setModalClass("hide-modal")  
+                                    setModalClass("hide")  
                                     setAskQuestionApi({
                                         author: userAccountDetails.id,
                                         title: '',

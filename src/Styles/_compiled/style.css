@@ -200,6 +200,16 @@ a {
   transition: 350ms ease-out;
 }
 
+.show {
+  display: block !important;
+  transition: 350ms ease-out;
+}
+
+.hide {
+  display: none !important;
+  transition: 350ms ease-out;
+}
+
 .back-icon {
   width: 1.5rem;
   height: 1.5rem;
@@ -217,6 +227,20 @@ a {
 .red {
   color: red;
   margin: 0;
+}
+
+.question-icon-box {
+  text-align: right;
+}
+
+.question-icon {
+  text-align: right;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.question-icon :hover {
+  filter: invert(13%) sepia(96%) saturate(6849%) hue-rotate(358deg) brightness(92%) contrast(117%);
 }
 
 /* Button Colours */
@@ -509,7 +533,7 @@ abbr {
 }
 
 .question {
-  max-width: 90rem;
+  max-width: 100rem;
 }
 
 @media screen and (max-width: 1000px) {
