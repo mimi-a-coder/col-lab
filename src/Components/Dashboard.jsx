@@ -122,7 +122,7 @@ export default function Dashboard() {
               <p>{question.content.rendered.substring(3).slice(0, -5).substring(0, 250)}{question.content.rendered.substring(3).slice(0, -5).length >= 250 ? '...' : ''}</p>
               <div className='question-actions'>
                 <div className="question-actions-button">
-                  <button className="btn btn-outline-info btn-sm">Answer</button>
+                  <Link to={`/question/${question.id}`}><button className="btn btn-outline-info btn-sm">View</button></Link>
                 </div>
                 <div className="question-actions-count">
                   <p>{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'} </p>
