@@ -48,6 +48,7 @@ export default function Question() {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions/${param1}`)
         .then((response) => {
             setQuestion(response.data);
+            console.log(response.data);
         })
         .catch((err) => {
             console.log(err)
@@ -166,7 +167,7 @@ return (
         <div className="container primary questions">
             <div className="row mb-5">
                 <div className="col-12 d-flex">
-                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link>{}/{}<Link to="/get-help" className="link-dark small">Get Help</Link>
+                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span class="breadcrumb-slash">/</span><Link to="/get-help" className="link-dark small">Get Help</Link>
                 </div>
             </div>
             <div className="row">
@@ -193,7 +194,7 @@ return (
                                 <div className="card-body">
                                 <p><strong>{question.title && question.title.rendered}</strong></p>
                                 <p>{question.content && question.content.rendered.substring(3).slice(0, -5)}</p>
-                                <button className="btn btn-outline-info ml-auto" onClick={()=>{setModalClass("show")}}>Answer</button>
+                                <button className="btn btn-sm btn-outline-info ml-auto" onClick={()=>{setModalClass("show")}}>Answer</button>
                                 </div>
                             </div>
                             <div className={"new-comment"+' '+"mt-3"+" "+modalClass}>

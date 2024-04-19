@@ -196,7 +196,7 @@ function Items({ currentItems }) {
         {currentItems &&
           returnQuestions.map((item) => (
             <div>
-              <h3>Item #{item}</h3>
+              {item}
             </div>
           ))}
       </>
@@ -269,6 +269,7 @@ function Items({ currentItems }) {
                     </div>
                     <hr className="mb-5"></hr>
                     {returnQuestions}
+                    {/* <PaginatedItems itemsPerPage={1} /> */}
                 </div>
             <div className={"modal"+" "+modalClass}>
                 <div className="container" >
@@ -368,14 +369,13 @@ function Items({ currentItems }) {
                                 </div>
                                 : ''    
                                 }
-                                <button className="btn btn-info" disabled={ askQuestionApi.title ?? ''} type="submit">Submit</button>
+                                <button className="btn btn-info btn-sm" disabled={ askQuestionApi.title ?? ''} type="submit">Submit</button>
                             </form>                 
                         </div>
                 </div>
                 </div>
             </div>
             </div>
-            {/* <PaginatedItems itemsPerPage={4} /> */}
         </>
     )
 }

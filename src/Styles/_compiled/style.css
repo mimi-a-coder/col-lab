@@ -222,9 +222,10 @@ a {
   display: inline-block;
   align-items: center;
   width: fit-content;
+  text-decoration: underline !important;
 }
 .link-dark:hover {
-  text-decoration: underline !important;
+  text-decoration: none !important;
 }
 
 .red {
@@ -247,6 +248,21 @@ a {
 }
 .question-icon :hover {
   filter: invert(13%) sepia(96%) saturate(6849%) hue-rotate(358deg) brightness(92%) contrast(117%);
+}
+
+.breadcrumb-slash {
+  margin: 0 5px;
+}
+
+.link-blue {
+  display: inline-block;
+  align-items: center;
+  width: fit-content;
+  text-decoration: underline !important;
+  color: #0b5ed7 !important;
+}
+.link-blue:hover {
+  text-decoration: none !important;
 }
 
 /* Button Colours */
