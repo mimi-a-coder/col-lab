@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
+import ReactDOM from 'react-dom';
+import ReactPaginate from 'react-paginate';
 import Navigation from "./Navigation";
 import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
 import axios from "axios";

@@ -8,7 +8,7 @@ import Jobs from '../Images/jobs-open-svgrepo-com.svg';
 import Interview from '../Images/interview-7-svgrepo-com.svg';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
 

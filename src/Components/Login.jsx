@@ -1,10 +1,12 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Brand from '../Images/colLAB-logo.svg';
 
 export default function Login() {
-  
+    // Naviagte
+    const navigate = useNavigate();
+
     // Login
     const [userDetails, setuserDetails] = useState('');
     const [serverMessage, setServerMessage] = useState('');
@@ -60,6 +62,7 @@ export default function Login() {
         // Check if userDetails is not empty
         if (userDetails.length > 0) {
           window.location.replace("/dashboard");
+          
         } 
     }, [userDetails])
     

@@ -3,6 +3,8 @@ import Navigation from './Navigation';
 import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import ReactPaginate from 'react-paginate';
 
 export default function GetHelp() {
     const userAccountDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -186,6 +188,60 @@ export default function GetHelp() {
         setAskQuestionApi({ ...askQuestion });
     }
 
+    // Pagination
+
+function Items({ currentItems }) {
+    return (
+      <>
+        {currentItems &&
+          returnQuestions.map((item) => (
+            <div>
+              <h3>Item #{item}</h3>
+            </div>
+          ))}
+      </>
+    );
+  }
+  
+  
+  function PaginatedItems({ itemsPerPage }) {
+    // Here we use item offsets; we could also use page offsets
+    // following the API or data you're working with.
+    const [itemOffset, setItemOffset] = useState(0);
+  
+    // Simulate fetching items from another resources.
+    // (This could be items from props; or items loaded in a local state
+    // from an API endpoint with useEffect and useState)
+    const endOffset = itemOffset + itemsPerPage;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    const currentItems = returnQuestions.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(returnQuestions.length / itemsPerPage);
+  
+    // Invoke when user click to request another page.
+    const handlePageClick = (event) => {
+      const newOffset = (event.selected * itemsPerPage) % returnQuestions.length;
+      console.log(
+        `User requested page number ${event.selected}, which is offset ${newOffset}`
+      );
+      setItemOffset(newOffset);
+    };
+  
+    return (
+      <>
+        <Items currentItems={currentItems} />
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+        />
+      </>
+    );
+  }
+
     return (
         <>
             <Navigation />
@@ -319,6 +375,7 @@ export default function GetHelp() {
                 </div>
             </div>
             </div>
+            {/* <PaginatedItems itemsPerPage={4} /> */}
         </>
     )
 }
