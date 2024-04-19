@@ -196,7 +196,7 @@ return (
                             </div>
                             <div className={"new-comment"+' '+"mt-3"+" "+modalClass}>
                                 <div className="card">
-                                  <div className="card-body">
+                                  <div className="card-body question-box">
                                   <div className="modal-popup-icon question-icon-box">
                                     <svg
                                     onClick={()=>{ 
@@ -256,11 +256,12 @@ return (
                                         </g>
                                         </g>
                                     </svg>
+                                    <p>Type your answer here</p>
                                 </div>
-
+                            
                                     <form onSubmit={handleSubmit}>
-                                      <p>Type your answer here</p>
-                                      <textarea name="content" value={createComment.content} onChange={handleChange} className="form-control form-control-lg" rows="7"placeholder='Type your answer. Use @ to mention users' required />
+                                   
+                                      <textarea name="content" data-info="content" value={createComment.content} onChange={handleChange} className="form-control form-control-lg" rows="7"placeholder='Type your answer. Use @ to mention users' required />
                                       <div className="row">
                                         <div className="col-4 mt-4">
                                           <input className="form-control form-control-lg" type="file" />

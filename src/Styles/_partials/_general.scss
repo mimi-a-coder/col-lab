@@ -172,13 +172,16 @@ a {
 }
 
 .show {
+  position: relative;
   display: block !important;
-  transition: 350ms ease-out;
+  transition: 1000ms ease-in-out;
 }
 
 .hide {
+  position: absolute;
+  top: -200px;
   display: none !important;
-  transition: 350ms ease-out;
+  transition: 1000ms ease-in-out;
 }
 
 // Back Icon
@@ -203,13 +206,16 @@ a {
 
 .question-icon-box {
   text-align: right;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
 }
 
 .question-icon {
   text-align: right;
   cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   :hover {
     filter: invert(13%) sepia(96%) saturate(6849%) hue-rotate(358deg) brightness(92%) contrast(117%);
   }

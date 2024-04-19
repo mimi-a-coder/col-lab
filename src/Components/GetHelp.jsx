@@ -10,7 +10,7 @@ export default function GetHelp() {
     const [ question, setQuestion ] = useState([]);
     const [ users, setUsers ] = useState([]);
     const [ search, setSearch ] = useState('');
-    const [ modalClass, setModalClass ] = useState('hide');
+    const [ modalClass, setModalClass ] = useState('hide-modal');
     const [ askQuestionStatus, setaskQuestionStatus ] = useState('not published');
     // const [ characterLimit, setCharacterLimit ] = useState(0);
     const [ askQuestion, setAskQuestion ] = useState({
@@ -87,14 +87,23 @@ export default function GetHelp() {
             }
           }
 
-        //Return count
-    let count = localStorage.getItem(`comment_count${index}`);
+          function commentCount() {
+            return axios.get(`${question._links.replies['0'].href}`)
+            .then((response) => {
+              numberOfComments[0].count = response.data.length;
+              localStorage.setItem(`comment_count${index}`, numberOfComments[0].count)
+            })
+          }
 
-    // Ensure that numberOfComments is initialized as an object
-     let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
+          // Parsing comments
+          let count = localStorage.getItem(`comment_count${index}`);
+          // Ensure that numberOfComments is initialized as an object
+          let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
+          // Then you can update the count property
+          numberOfComments[0].count = parseInt(count); // Parse string to integer
 
-     // Then you can update the count property
-     numberOfComments[0].count = parseInt(count); // Parse string to integer
+          commentCount();
+
         if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`)) {
         return (
         <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
@@ -214,7 +223,7 @@ export default function GetHelp() {
                                     <svg
                                     onClick={()=>{
                                     setaskQuestionStatus('not published')  
-                                    setModalClass("hide")  
+                                    setModalClass("hide-modal")  
                                     setAskQuestionApi({
                                         author: userAccountDetails.id,
                                         title: '',
