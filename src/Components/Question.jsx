@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default function Question() {
     const userAccountDetails = JSON.parse(localStorage.getItem('userDetails'));
-
+    
     const [ question, setQuestion ] = useState({}); 
     const [ comments, setComments ] = useState([]);
     const [getUsers, setGetUsers] = useState([]);
@@ -20,6 +20,7 @@ export default function Question() {
   const [ createCommentApi, setCreateCommentApi ] = useState({
       content: '',
   })
+  let slug = "";
 
   useEffect(() => {
     axios({
@@ -41,6 +42,7 @@ export default function Question() {
         console.log(response.data);
     })
     .catch(function(err) {
+      console.log(err.message);
     })
 }, [createCommentApi])
     
@@ -48,6 +50,8 @@ export default function Question() {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions/${param1}`)
         .then((response) => {
             setQuestion(response.data);
+            localStorage.setItem(`quesiton${param1}`, response.data.title.rendered.substring(0, 15));
+            localStorage.setItem(`quesiton${param1}count`, response.data.title.rendered.length);
             console.log(response.data);
         })
         .catch((err) => {
@@ -160,6 +164,20 @@ export default function Question() {
       })
   }
 
+  // slug
+  function slugLength(param) {
+    if (param != undefined ) {
+    let string = param.rendered.split('');
+    let slug = []
+    for (let char of string ) {
+      if (char && string [char]  < 14) {
+        slug[0] += char; 
+        console.log(char)
+      }
+    }
+    return slug[0];
+    }
+  }
 
 return (
     <>
@@ -167,7 +185,7 @@ return (
         <div className="container primary questions">
             <div className="row mb-5">
                 <div className="col-12 d-flex">
-                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span class="breadcrumb-slash">/</span><Link to="/get-help" className="link-dark small">Get Help</Link>
+                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><Link to="/get-help" className="link-dark small">Get Help</Link><span className="breadcrumb-slash">/</span><span className="small">{localStorage.getItem(`quesiton${param1}`)}{localStorage.getItem(`quesiton${param1}count`) > 15 ? '...' : ''}</span>
                 </div>
             </div>
             <div className="row">

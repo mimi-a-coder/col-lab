@@ -6,6 +6,7 @@ export default function Navigation() {
  
   const logout = () => {
     localStorage.removeItem('userDetails');
+    window.localStorage.clear();
     window.location.replace('/');
   }
 
