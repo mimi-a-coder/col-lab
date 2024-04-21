@@ -52,7 +52,7 @@ export default function Login() {
                 setuserDetails(response.data.data);
                 
             }).catch(function(err) {
-                setServerMessage(err.response);
+                setServerMessage(err.response.data.message);
             })
         } 
     }, [apiSettings])
@@ -104,7 +104,7 @@ export default function Login() {
                     <h1 className="mb-3 login-header text-center">Welcome to <i>colLabb</i>!</h1>
                 </div>
             </div>
-            <form className="form-login">
+            <form className="form-login"  onSubmit={handleSubmit}>
                 <div className="row mb-3">
                     <div className="col">
                         <p className="login-lead"><strong>Enter your details to proceed further.</strong></p>
@@ -112,12 +112,12 @@ export default function Login() {
                 </div>
                 <div className="row mb-4">
                     <div className="col">
-                        <input className="form-control form-control-lg" type="text" name="user" value={userLogin.user} onChange={handleChange} placeholder="Username or email" aria-label="username" required />
+                        <input className="form-control form-control-lg" type="text" name="user" value={userLogin.user} onChange={handleChange} placeholder="Username or email" aria-label="username" autoComplete='username' required />
                     </div>                
                 </div>
                 <div className="row mb-4">
                     <div className="col">
-                        <input className="form-control form-control-lg" type="password" name="pass" value={userLogin.pass} onChange={handleChange} placeholder="Password" aria-label="Passwword" required />
+                        <input className="form-control form-control-lg" type="password" name="pass" value={userLogin.pass} onChange={handleChange} placeholder="Password" aria-label="Passwword" autoComplete='current-password' required />
                     </div>                
                 </div>
                 <div className="row">
@@ -130,7 +130,7 @@ export default function Login() {
                 </div>
                 <div className="row mt-2 mb-4">
                         <div className="col"> 
-                            <button className="btn btn-lg btn-primary login-btn" onClick={handleSubmit}>Log In</button>
+                            <button type="submit" className="btn btn-lg btn-primary login-btn">Log In</button>
                         </div>                        
                 </div>
                 <div className="row">
