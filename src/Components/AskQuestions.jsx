@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import ReactPaginate from 'react-paginate';
 
-export default function GetHelp() {
+export default function AskQuestions() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
     const [ question, setQuestion ] = useState([]);
@@ -16,16 +16,18 @@ export default function GetHelp() {
     const [ modalClass, setModalClass ] = useState('hide-modal');
     const [ askQuestionStatus, setaskQuestionStatus ] = useState('not published');
     // const [ characterLimit, setCharacterLimit ] = useState(0);
-    const [ askQuestion, setAskQuestion ] = useState({
-        author: '',
-        title: '',
-        content: '',
-    })
-const [ askQuestionApi, setAskQuestionApi ] = useState({
-        author: '',
-        title: '',
-        content: '',
-    })
+//     const [ askQuestion, setAskQuestion ] = useState({
+//         author: '',
+//         title: '',
+//         content: '',
+//     })
+    const [ askQuestionTitle, setAskQuestionTitle ] = useState('')
+    const [ askQuestionContent, setAskQuestionContent ] = useState('')
+    const [ askQuestionApi, setAskQuestionApi ] = useState({
+            author: '',
+            title: '',
+            content: '',
+        })
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
@@ -164,29 +166,23 @@ const [ askQuestionApi, setAskQuestionApi ] = useState({
     })
 
     // Handle change
-    function handleChange(e) {
-        const {name, value} = e.target
-       
+    function handleChangeTitle(e) {
+        const {name, value} = e.target;
         if ( name === 'title' && value.length <= 140 ) { 
-            setAskQuestion(prev => {
-                return (
-                    { ...prev, [name]: value}
-                )
-            })
+            setAskQuestionTitle(value);
         }
-        if (name === 'content') {
-            setAskQuestion(prev => {
-                return (
-                    { ...prev, [name]: value}
-                )
-            })
-        }
+    }
+    function handleChangeContent(e) {
+        setAskQuestionContent(e.target.getContent());
     }
 
     // Handle submit
     function handleSubmit(e) {
         e.preventDefault();
-        setAskQuestionApi({ ...askQuestion });
+        setAskQuestionApi({ 
+            title: askQuestionTitle,
+            content: askQuestionContent,
+         });
     }
 
     // Pagination
@@ -251,7 +247,7 @@ function Items({ currentItems }) {
                     <div className='get-help-details'>
                         <div className="row mb-5">
                             <div className="col-12 d-flex">
-                            <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small">Get Help</span>
+                            <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small">Ask Questions</span>
                             </div>
                         </div>
                         <div className="row">
@@ -287,12 +283,7 @@ function Items({ currentItems }) {
                                         title: '',
                                         content: '',
                                     })
-                                    setAskQuestion({
-                                        author: userDetails.id,
-                                        title: '',
-                                        content: '',
-                                    })
-          
+                                    setAskQuestionTitle('')
                                 }
                                     }
                                     width="12.103323mm"
@@ -353,8 +344,8 @@ function Items({ currentItems }) {
                                         <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
                                     </div>
                                     <div className="col-12 mb-4">
-                                        <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
-                                        { askQuestion.title.length == 140 ?
+                                        <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestionTitle} onChange={handleChangeTitle} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
+                                        { askQuestionTitle.length == 140 ?
                                         <p class="small red">Maximum characters reached!</p> : '' }
                                     </div>
                                     <div className="col-12 mb-4">
@@ -366,9 +357,9 @@ function Items({ currentItems }) {
                                           init={{
                                             selector: 'textarea',
                                             placeholder: 'Give a detailed description of your question. Attach pictures if necessary.',
-                                          toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright',
+                                          toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright | bullist numlist',
                                           }}
-                                          onChange={handleChange}
+                                          onChange={handleChangeContent}
                                         />
                                     </div>
                                     <div className="col-4 mb-4">

@@ -5,7 +5,7 @@ import Dashboard from './Components/Dashboard';
 import Login from './Components/Login';
 import Registration from './Components/Registration';
 import Profile from './Components/Profile';
-import GetHelp from './Components/GetHelp';
+import AskQuestions from './Components/AskQuestions';
 import Question from './Components/Question';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <Route path="/registration" element={<Registration/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/profile" element={<Profile/>} />
-        <Route path="/get-help" element={<GetHelp/>} />
+        <Route path="/ask-questions" element={<AskQuestions/>} />
         <Route path="/question/:param1" element={<Question/>} />
       </Routes>
    </Router>

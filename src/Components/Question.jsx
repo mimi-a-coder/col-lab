@@ -150,7 +150,7 @@ return (
         <div className="container primary questions">
             <div className="row mb-5">
                 <div className="col-12 d-flex">
-                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><Link to="/get-help" className="link-dark small">Get Help</Link><span className="breadcrumb-slash">/</span><span className="small">{localStorage.getItem(`quesiton${param1}`)}{localStorage.getItem(`quesiton${param1}count`) > 15 ? '...' : ''}</span>
+                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><Link to="/ask-questions" className="link-dark small">Ask Questions</Link><span className="breadcrumb-slash">/</span><span className="small">{localStorage.getItem(`quesiton${param1}`)}{localStorage.getItem(`quesiton${param1}count`) > 15 ? '...' : ''}</span>
                 </div>
             </div>
             <div className="row">
@@ -176,7 +176,8 @@ return (
                             <div className="card">
                                 <div className="card-body">
                                 <p><strong>{question.title && question.title.rendered}</strong></p>
-                                <p>{question.content && question.content.rendered.substring(3).slice(0, -5)}</p>
+                                <p>{question.content && ( <div dangerouslySetInnerHTML={{ __html: question.content.rendered }} />)}</p>
+                               
                                 <button className="btn btn-sm btn-outline-info ml-auto" onClick={()=>{setModalClass("show")}}>Answer</button>
                                 </div>
                             </div>
@@ -253,7 +254,7 @@ return (
                                           init={{
                                             selector: 'textarea',
                                             palceholder: 'Type your answer. Use @ to mention users.',
-                                            toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright',
+                                            toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright | bullist numlist',
                                           }}
                                           onChange={handleChange}
                                         />
@@ -270,7 +271,7 @@ return (
                                 </div>
                             </div>
                         </div>
-                        <p className="small mt-5">See All Questions</p>
+                        <p className="small mt-5">See All Answers</p>
                         <hr className="mb-5"></hr>
                         <div className="question-comments">
                         {comments.length > 0 ? allComments : <p>No answers yet...answer this question.</p>}

@@ -95,7 +95,7 @@ export default function Dashboard() {
         numberOfComments[0].count = parseInt(count); // Parse string to integer
 
         commentCount();
-        
+
         if (question.status === "publish") {
 
 
@@ -120,7 +120,7 @@ export default function Dashboard() {
               </div>
               <hr></hr>
               <p><strong>{question.title.rendered}</strong></p>
-              <p>{question.content.rendered.substring(3).slice(0, -5).substring(0, 250)}{question.content.rendered.substring(3).slice(0, -5).length >= 250 ? '...' : ''}</p>
+              <div dangerouslySetInnerHTML={{ __html: `${question.content.rendered.substring(0, 250)}${question.content.rendered.substring(3).slice(0, -5).length >= 250 ? '...' : ''}` }} />
               <div className='question-actions'>
                 <div className="question-actions-button">
                   <Link to={`/question/${question.id}`}><button className="btn btn-outline-info btn-sm">View</button></Link>
@@ -202,7 +202,7 @@ export default function Dashboard() {
                   <div className="dashboard-options">
                     <div className='dashboard-options-buttons'>
                       <button className='btn-main'><img className="btn-main-icon" src={HandShake}/>Find Collaborations</button >
-                      <Link to="/get-help" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Gethelp}/>Ask Questions</button></Link>
+                      <Link to="/ask-questions" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Gethelp}/>Ask Questions</button></Link>
                       <button className='btn-main'><img className="btn-main-icon" src={Teach}/>Mentorships</button>
                       <button className='btn-main'><img className="btn-main-icon" src={Borrow}/>Borrow Items</button>
                       <button className='btn-main'><img className="btn-main-icon" src={Jobs}/>Jobs</button>
