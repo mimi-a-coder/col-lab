@@ -4,6 +4,7 @@ import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
+import { Editor } from '@tinymce/tinymce-react';
 import ReactPaginate from 'react-paginate';
 
 export default function GetHelp() {
@@ -357,7 +358,18 @@ function Items({ currentItems }) {
                                         <p class="small red">Maximum characters reached!</p> : '' }
                                     </div>
                                     <div className="col-12 mb-4">
-                                        <textarea className="form-control form-control-lg" rows="10" name="content" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.content} onChange={handleChange} aria-label="Questions" placeholder='Give a detailed description of your question. Attach pictures if necessary.' autoComplete='off' required />
+                                        {/* <textarea className="form-control form-control-lg" rows="10" name="content" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.content} onChange={handleChange} aria-label="Questions" placeholder='Give a detailed description of your question. Attach pictures if necessary.' autoComplete='off' required /> */}
+                                        <Editor
+                                          apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
+                                          data-info="content"
+                                          className="form-control form-control-lg" 
+                                          init={{
+                                            selector: 'textarea',
+                                            placeholder: 'Give a detailed description of your question. Attach pictures if necessary.',
+                                          toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright',
+                                          }}
+                                          onChange={handleChange}
+                                        />
                                     </div>
                                     <div className="col-4 mb-4">
                                         <input className="form-control form-control-lg" type="file"/>

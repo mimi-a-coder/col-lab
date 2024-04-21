@@ -79,24 +79,25 @@ export default function Dashboard() {
           }
         }
 
+        function commentCount() {
+          return axios.get(`${question._links.replies['0'].href}`)
+          .then((response) => {
+            numberOfComments[0].count = response.data.length;
+            localStorage.setItem(`comment_count${index}`, numberOfComments[0].count)
+          })
+        }
+
+        // Parsing comments
+        let count = localStorage.getItem(`comment_count${index}`);
+        // Ensure that numberOfComments is initialized as an object
+        let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
+        // Then you can update the count property
+        numberOfComments[0].count = parseInt(count); // Parse string to integer
+
+        commentCount();
+        
         if (question.status === "publish") {
 
-          function commentCount() {
-            return axios.get(`${question._links.replies['0'].href}`)
-            .then((response) => {
-              numberOfComments[0].count = response.data.length;
-              localStorage.setItem(`comment_count${index}`, numberOfComments[0].count)
-            })
-          }
-
-          // Parsing comments
-          let count = localStorage.getItem(`comment_count${index}`);
-          // Ensure that numberOfComments is initialized as an object
-          let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
-          // Then you can update the count property
-          numberOfComments[0].count = parseInt(count); // Parse string to integer
-
-          commentCount();
 
           return (
           <div className="card mb-4" key={index}>

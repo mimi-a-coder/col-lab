@@ -265,6 +265,14 @@ a {
   text-decoration: none !important;
 }
 
+.tox-statusbar__right-container {
+  display: none !important;
+}
+
+.tox-statusbar__path {
+  display: none !important;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;

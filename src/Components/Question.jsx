@@ -4,22 +4,18 @@ import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
 import Navigation from "./Navigation";
 import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
+import { Editor } from '@tinymce/tinymce-react';
 import axios from "axios";
 
 export default function Question() {
-    const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-    
-    const [ question, setQuestion ] = useState({}); 
-    const [ comments, setComments ] = useState([]);
-    const [getUsers, setGetUsers] = useState([]);
-    const [ modalClass, setModalClass ] = useState('hide');
-    const { param1 } = useParams();
-    const [ createComment, setCreateComment ] = useState({
-      content: '',
-  })
-  const [ createCommentApi, setCreateCommentApi ] = useState({
-      content: '',
-  })
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  const [ question, setQuestion ] = useState({}); 
+  const [ comments, setComments ] = useState([]);
+  const [getUsers, setGetUsers] = useState([]);
+  const [ modalClass, setModalClass ] = useState('hide');
+  const { param1 } = useParams();
+  const [ createComment, setCreateComment ] = useState('');
+  const [ createCommentApi, setCreateCommentApi ] = useState('');
   let slug = "";
 
   useEffect(() => {
@@ -30,7 +26,7 @@ export default function Question() {
             author: userDetails.id,
             author_email: userDetails.email,
             author_name: `${userDetails.firstName} ${userDetails.lastName}`,
-            content: `${createCommentApi.content}`,
+            content: `${createCommentApi}`,
             post: `${param1}`,
             status: 'approved',
         },
@@ -39,10 +35,8 @@ export default function Question() {
         }
     })
     .then(function(response) {
-        console.log(response.data);
     })
     .catch(function(err) {
-      console.log(err.message);
     })
 }, [createCommentApi])
     
@@ -52,7 +46,6 @@ export default function Question() {
             setQuestion(response.data);
             localStorage.setItem(`quesiton${param1}`, response.data.title.rendered.substring(0, 15));
             localStorage.setItem(`quesiton${param1}count`, response.data.title.rendered.length);
-            console.log(response.data);
         })
         .catch((err) => {
             console.log(err)
@@ -111,13 +104,6 @@ export default function Question() {
         }
 
         if (question.status === "approved") {
-          // Parsing comments
-          let count = localStorage.getItem(`comment_count${index}`);
-          // Ensure that numberOfComments is initialized as an object
-          let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
-          // Then you can update the count property
-          numberOfComments[0].count = parseInt(count); // Parse string to integer
-
 
           return (
           <div className="card mb-4" key={index}>
@@ -138,45 +124,23 @@ export default function Question() {
                   </div>
                 </div>
               </div>
-              <p>{question.content.rendered.substring(3).slice(0, -5)}</p>
+              <div dangerouslySetInnerHTML={{ __html: question.content.rendered }} />
             </div>
           </div>
           )
         }
       })
 
-    function handleChange(e) {
-      console.log(createComment);
-      const {name, value} = e.target
-      setCreateComment(prev => {
-          return (
-              { ...prev, [name]: value}
-          )
-      })
+    // Handle Change
+    const handleChange = (e) => {
+      setCreateComment(e.target.getContent())
     }
 
     // Handle submit
     function handleSubmit(e) {
       e.preventDefault();
-      setCreateCommentApi({ ...createComment });
-      setCreateComment({
-        content: '',
-      })
-  }
-
-  // slug
-  function slugLength(param) {
-    if (param != undefined ) {
-    let string = param.rendered.split('');
-    let slug = []
-    for (let char of string ) {
-      if (char && string [char]  < 14) {
-        slug[0] += char; 
-        console.log(char)
-      }
-    }
-    return slug[0];
-    }
+      setCreateCommentApi(createComment);
+      setCreateComment('')
   }
 
   if ( userDetails != null) {
@@ -282,8 +246,17 @@ return (
                                 </div>
                             
                                     <form onSubmit={handleSubmit}>
-                                   
-                                      <textarea name="content" data-info="content" value={createComment.content} onChange={handleChange} className="form-control form-control-lg" rows="7"placeholder='Type your answer. Use @ to mention users' required />
+                                        <Editor
+                                          apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
+                                          data-info="content"
+                                          className="form-control form-control-lg" 
+                                          init={{
+                                            selector: 'textarea',
+                                            palceholder: 'Type your answer. Use @ to mention users.',
+                                            toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright',
+                                          }}
+                                          onChange={handleChange}
+                                        />
                                       <div className="row">
                                         <div className="col-4 mt-4">
                                           <input className="form-control form-control-lg" type="file" />
