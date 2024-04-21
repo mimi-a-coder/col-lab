@@ -161,17 +161,17 @@ export default function Registration() {
             </div>
             <div className="row">
                 <div className="col-lg-6">
-                    <input name="first_name" value={userLogin.first_name} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="First Name" aria-label="First Name" required />
+                    <input name="first_name" value={userLogin.first_name} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="First Name" aria-label="First Name" autoComplete='given-name' required />
                 </div>                
                 <div className="col-lg-6">
-                    <input name="last_name" value={userLogin.last_name} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Last Name" aria-label="First Name" required />
+                    <input name="last_name" value={userLogin.last_name} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Last Name" aria-label="First Name" autoComplete="family-name" required />
                 </div>                
-                <input name="name" value={userLogin.first_name+' '+userLogin.last_name} onChange={handleChange}  className="form-control form-control-lg" type="hidden" placeholder="Username" aria-label="User Name"/>
+                <input name="name" value={userLogin.first_name+' '+userLogin.last_name} onChange={handleChange}  className="form-control form-control-lg" type="hidden" placeholder="Username" autoComplete='off' aria-label="User Name"/>
             </div>
             <div className="row">
                 <div className="col-lg-6">
                     <p className="small form-registration-label">Enter Your Birth Date</p>
-                    <input name="user_birth_date" value={userLogin.user_birth_date} onChange={handleChange} className="form-control form-control-lg" type="Date" placeholder="Birthday" aria-label="Birthday" required />
+                    <input name="user_birth_date" value={userLogin.user_birth_date} onChange={handleChange} className="form-control form-control-lg" type="Date" placeholder="Birthday" aria-label="Birthday" autoComplete='bday' required />
                 </div>                
                 <div className="col-lg-6">
                     <select name="user_gender" value={userLogin.user_gender} onChange={handleChange} className='form-control form-select' aria-label='Gender Selection'>
@@ -184,31 +184,31 @@ export default function Registration() {
             </div>
             <div className="row">              
                 <div className="col-lg-6">
-                    <input name="user_job_title" value={userLogin.user_job_title} onChange={handleChange}  className="form-control form-control-lg" type="text" placeholder="Job Title" aria-label="Job Title" required />
+                    <input name="user_job_title" value={userLogin.user_job_title} onChange={handleChange}  className="form-control form-control-lg" type="text" placeholder="Job Title" aria-label="Job Title" autoComplete='organization-title' required />
                 </div>                
                 <div className="col-lg-6">
-                    <input name="user_job_Insitution" value={userLogin.user_job_Insitution} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Institution" aria-label="Institution" required />
+                    <input name="user_job_Insitution" value={userLogin.user_job_Insitution} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Institution" aria-label="Institution" autoComplete='organization' required />
                 </div>                
             </div>
             <div className="row">
                 <div className="col-lg-6">
-                    <select name="user_country_of_residence" value={userLogin.user_country_of_residence} onChange={handleChange} className='form-control form-select' aria-label="Country" required>
+                    <select name="user_country_of_residence" value={userLogin.user_country_of_residence} onChange={handleChange} className='form-control form-select' aria-label="Country" autoComplete="country-name" required>
                         <option disabled value="">Choose a country</option>
                         {countries}
                     </select>
                 </div>                
                 <div className="col-lg-6">
-                    <input name="user_city" value={userLogin.user_city} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="City" aria-label="City" required />
+                    <input name="user_city" value={userLogin.user_city} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="City" aria-label="City" autoComplete='city' required />
                 </div>                
             </div>
             <div className="row">              
                 <div className="col">
-                    <input name="user_research" value={userLogin.user_research} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Field of Research" aria-label="Field of Research" required />
+                    <input name="user_research" value={userLogin.user_research} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Field of Research" aria-label="Field of Research" autoComplete='off' required />
                 </div>                
             </div>
             <div className="row">              
                 <div className="col">
-                    <input name="user_degree" value={userLogin.user_degree} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Current Degree Level" aria-label="Current degree level" required />
+                    <input name="user_degree" value={userLogin.user_degree} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Current Degree Level" aria-label="Current degree level" autoComplete='off' required />
                 </div>                
             </div>
             <div className="row">              
