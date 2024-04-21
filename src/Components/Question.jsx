@@ -7,7 +7,7 @@ import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon
 import axios from "axios";
 
 export default function Question() {
-    const userAccountDetails = JSON.parse(localStorage.getItem('userDetails'));
+    const userDetails = JSON.parse(localStorage.getItem('userDetails'));
     
     const [ question, setQuestion ] = useState({}); 
     const [ comments, setComments ] = useState([]);
@@ -27,15 +27,15 @@ export default function Question() {
         url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments`,
         method: 'POST',
         data: {
-            author: userAccountDetails.id,
-            author_email: userAccountDetails.email,
-            author_name: `${userAccountDetails.firstName} ${userAccountDetails.lastName}`,
+            author: userDetails.id,
+            author_email: userDetails.email,
+            author_name: `${userDetails.firstName} ${userDetails.lastName}`,
             content: `${createCommentApi.content}`,
             post: `${param1}`,
             status: 'approved',
         },
         headers: {
-            Authorization: `Bearer ${userAccountDetails.token}`
+            Authorization: `Bearer ${userDetails.token}`
         }
     })
     .then(function(response) {
@@ -179,6 +179,7 @@ export default function Question() {
     }
   }
 
+  if ( userDetails != null) {
 return (
     <>
         <Navigation />
@@ -304,5 +305,9 @@ return (
                 </div>
             </div>
         </div>
-    </>
-)}
+</>
+)
+      } else {
+        window.location.replace("/");
+      }
+}

@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
 
 export default function GetHelp() {
-    const userAccountDetails = JSON.parse(localStorage.getItem('userDetails'));
+    const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
     const [ question, setQuestion ] = useState([]);
     const [ users, setUsers ] = useState([]);
@@ -16,12 +16,12 @@ export default function GetHelp() {
     const [ askQuestionStatus, setaskQuestionStatus ] = useState('not published');
     // const [ characterLimit, setCharacterLimit ] = useState(0);
     const [ askQuestion, setAskQuestion ] = useState({
-        author: userAccountDetails.id,
+        author: '',
         title: '',
         content: '',
     })
-    const [ askQuestionApi, setAskQuestionApi ] = useState({
-        author: userAccountDetails.id,
+const [ askQuestionApi, setAskQuestionApi ] = useState({
+        author: '',
         title: '',
         content: '',
     })
@@ -39,14 +39,14 @@ export default function GetHelp() {
             url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`,
             method: 'POST',
             data: {
-                author: userAccountDetails.id,
+                author: userDetails.id,
                 title: askQuestionApi.title,
                 content: askQuestionApi.content,
                 excerpt: askQuestionApi.content,
                 status: 'publish',
             },
             headers: {
-                Authorization: `Bearer ${userAccountDetails.token}`
+                Authorization: `Bearer ${userDetails.token}`
             }
         })
         .then(function(response) {
@@ -241,7 +241,7 @@ function Items({ currentItems }) {
       </>
     );
   }
-
+  if ( userDetails != null) {
     return (
         <>
             <Navigation />
@@ -282,12 +282,12 @@ function Items({ currentItems }) {
                                     setaskQuestionStatus('not published')  
                                     setModalClass("hide-modal")  
                                     setAskQuestionApi({
-                                        author: userAccountDetails.id,
+                                        author: userDetails.id,
                                         title: '',
                                         content: '',
                                     })
                                     setAskQuestion({
-                                        author: userAccountDetails.id,
+                                        author: userDetails.id,
                                         title: '',
                                         content: '',
                                     })
@@ -352,12 +352,12 @@ function Items({ currentItems }) {
                                         <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
                                     </div>
                                     <div className="col-12 mb-4">
-                                        <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" required />
+                                        <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
                                         { askQuestion.title.length == 140 ?
                                         <p class="small red">Maximum characters reached!</p> : '' }
                                     </div>
                                     <div className="col-12 mb-4">
-                                        <textarea className="form-control form-control-lg" rows="10" name="content" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.content} onChange={handleChange} aria-label="Questions" placeholder='Give a detailed description of your question. Attach pictures if necessary.' required />
+                                        <textarea className="form-control form-control-lg" rows="10" name="content" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.content} onChange={handleChange} aria-label="Questions" placeholder='Give a detailed description of your question. Attach pictures if necessary.' autoComplete='off' required />
                                     </div>
                                     <div className="col-4 mb-4">
                                         <input className="form-control form-control-lg" type="file"/>
@@ -378,4 +378,7 @@ function Items({ currentItems }) {
             </div>
         </>
     )
+} else {
+    window.location.replace("/");
+  }
 }
