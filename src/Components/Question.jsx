@@ -297,7 +297,8 @@ return (
                                 </div>
                             </div>
                         </div>
-                        <hr className="my-5"></hr>
+                        <p className="small mt-5">See All Questions</p>
+                        <hr className="mb-5"></hr>
                         <div className="question-comments">
                         {comments.length > 0 ? allComments : <p>No answers yet...answer this question.</p>}
                         </div>
