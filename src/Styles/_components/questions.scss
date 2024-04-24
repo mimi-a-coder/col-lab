@@ -15,3 +15,12 @@
 textarea[data-info="content"]{
     background-color: $mercy-color-2;
 }
+
+.question-image {
+    margin-bottom: 10px;
+    &-item {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+}

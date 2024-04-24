@@ -13,13 +13,4 @@
 
 textarea[data-info=content] {
   background-color: #f8f9fc;
-}
-
-.question-image {
-  margin-bottom: 10px;
-}
-.question-image-item {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-}
+}/*# sourceMappingURL=questions.css.map */

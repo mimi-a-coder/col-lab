@@ -15,6 +15,8 @@ export default function AskQuestions() {
     const [ search, setSearch ] = useState('');
     const [ modalClass, setModalClass ] = useState('hide-modal');
     const [ askQuestionStatus, setaskQuestionStatus ] = useState('not published');
+    const [ file, setFile] = useState("");
+    const [ fileImage, setFileImage] = useState("");
     // const [ characterLimit, setCharacterLimit ] = useState(0);
 //     const [ askQuestion, setAskQuestion ] = useState({
 //         author: '',
@@ -37,16 +39,57 @@ export default function AskQuestions() {
         })
     }, [])
 
+
+    useEffect(() => {
+        const uploadImage = async () => {
+            try {
+                if (!file || !userDetails) {
+                    console.error('File or user details missing.');
+                    return;
+                }
+    
+                const formData = new FormData();
+                formData.append('file', file);
+    
+                const response = await axios.post(
+                    `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/media`,
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            Authorization: `Bearer ${userDetails.token}`
+                        }
+                    }
+                );
+    
+                console.log('Image uploaded:', response.data);
+                // Do something with the response, like update state or display a success message
+                setFileImage(response.data.source_url)
+            } catch (error) {
+                console.error('Error uploading image:', error);
+                // Handle error, display error message, etc.
+            }
+        };
+    
+        // Call the function if all necessary data is available
+        if (file && userDetails) {
+            uploadImage();
+        }
+    }, [file]);
+
     useEffect(() => {
         axios({
             url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`,
             method: 'POST',
             data: {
-                author: userDetails.id,
-                title: askQuestionApi.title,
-                content: askQuestionApi.content,
-                excerpt: askQuestionApi.content,
-                status: 'publish',
+                'author': userDetails.id,
+                'title': askQuestionApi.title,
+                'content': askQuestionApi.content,
+                'excerpt': askQuestionApi.content,
+                'status': 'publish',
+                'acf': {
+                    'question_image': fileImage,
+                }
             },
             headers: {
                 Authorization: `Bearer ${userDetails.token}`
@@ -54,11 +97,13 @@ export default function AskQuestions() {
         })
         .then(function(response) {
             setaskQuestionStatus(response.data.status);
+            console.log(response.data)
         })
         .catch(function(err) {
         })
     }, [askQuestionApi])
-
+    
+    // Return users
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`)
         .then((response) => {
@@ -77,7 +122,7 @@ export default function AskQuestions() {
             .catch((err) => {
             });
         }
-    }, [askQuestionStatus]);
+    }, [fileImage]);
 
     const returnQuestions = question.map((question, index) => {
         let userName = "";
@@ -164,6 +209,10 @@ export default function AskQuestions() {
             )
         }
     })
+    // File change
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0])
+    }
 
     // Handle change
     function handleChangeTitle(e) {
@@ -363,7 +412,7 @@ function Items({ currentItems }) {
                                         />
                                     </div>
                                     <div className="col-4 mb-4">
-                                        <input className="form-control form-control-lg" type="file"/>
+                                        <input className="form-control form-control-lg" type="file" onChange={handleFileChange} />
                                     </div>
                                 </div>
                                 { askQuestionStatus === "publish" ? 

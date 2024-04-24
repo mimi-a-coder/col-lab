@@ -576,15 +576,6 @@ textarea[data-info=content] {
   background-color: #f8f9fc;
 }
 
-.question-image {
-  margin-bottom: 10px;
-}
-.question-image-item {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-}
-
 @media screen and (max-width: 1000px) {
   .container-fluid {
     padding: 0 2rem !important;
@@ -602,4 +593,4 @@ textarea[data-info=content] {
   .dashboard-options {
     padding: 3rem 0;
   }
-}
+}/*# sourceMappingURL=style.css.map */
