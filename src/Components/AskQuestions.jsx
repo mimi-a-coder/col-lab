@@ -155,7 +155,7 @@ export default function AskQuestions() {
         if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`)) {
         return (
         <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
-            <div className="card get-help-item mb-4">s
+            <div className="card get-help-item mb-4">
                 <div className="card-body">
                     <div className="row">
                         <div className='col-lg-3 d-flex align-items-center'>

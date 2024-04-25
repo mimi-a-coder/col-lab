@@ -267,6 +267,10 @@ a {
   text-decoration: none !important;
 }
 
+.root {
+  margin-bottom: 6rem;
+}
+
 .tox-statusbar__right-container {
   display: none !important;
 }

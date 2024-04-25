@@ -36,6 +36,7 @@ export default function Question() {
     .then(function(response) {
     })
     .catch(function(err) {
+      console.error(err);
     })
 }, [createCommentApi])
     
