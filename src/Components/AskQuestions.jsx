@@ -3,56 +3,66 @@ import Navigation from './Navigation';
 import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import ReactDOM from 'react-dom';
-import { Editor } from '@tinymce/tinymce-react';
 import ReactPaginate from 'react-paginate';
 
 export default function AskQuestions() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
-    const [ question, setQuestion ] = useState([]);
-    const [ users, setUsers ] = useState([]);
-    const [ search, setSearch ] = useState('');
-    const [ modalClass, setModalClass ] = useState('hide-modal');
-    const [ askQuestionStatus, setaskQuestionStatus ] = useState('not published');
-    const [ file, setFile] = useState("");
-    const [ fileImage, setFileImage] = useState("");
-    const [ askQuestionTitle, setAskQuestionTitle ] = useState('')
-    const [ askQuestionContent, setAskQuestionContent ] = useState('')
-    const [ askQuestionApi, setAskQuestionApi ] = useState({
-        author: '',
+    const [question, setQuestion] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [search, setSearch] = useState('');
+    const [modalClass, setModalClass] = useState('hide-modal');
+    const [askQuestionStatus, setAskQuestionStatus] = useState('not published');
+    const [file, setFile] = useState(null);
+    const [askQuestionApi, setAskQuestionApi] = useState({
         title: '',
         content: '',
-    })
-    // const [ characterLimit, setCharacterLimit ] = useState(0);
-//     const [ askQuestion, setAskQuestion ] = useState({
-//         author: '',
-//         title: '',
-//         content: '',
-//     })
+        question_image: '',
+    });
 
-
-// Get questions on page load
+    // Get questions on page load
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
-        .then((response) =>{
-            setQuestion(response.data)
-        }).catch((err) =>{
-        })
-    }, [])
+            .then((response) => {
+                setQuestion(response.data);
+            }).catch((err) => {
+                console.error(err);
+            });
+    }, []);
 
-    // Add image to database
+    // Return users
     useEffect(() => {
-        const uploadImage = async () => {
-            try {
-                if (!file || !userDetails) {
-                    console.error('File or user details missing.');
-                    return;
-                }
-    
+        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`)
+            .then((response) => {
+                setUsers(response.data);
+            }).catch((err) => {
+                console.error(err);
+            });
+    }, []);
+
+    // Handle file change
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    }
+
+    // Handle change
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setAskQuestionApi(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
+    }
+
+    // Handle submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // Upload image if file exists
+            let imageUrl = '';
+            if (file && userDetails) {
                 const formData = new FormData();
                 formData.append('file', file);
-    
                 const response = await axios.post(
                     `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/media`,
                     formData,
@@ -63,72 +73,36 @@ export default function AskQuestions() {
                         }
                     }
                 );
-    
-                console.log('Image uploaded:', response.data);
-                // Do something with the response, like update state or display a success message
-                setFileImage(response.data.source_url)
-            } catch (error) {
-                console.error('Error uploading image:', error);
-                // Handle error, display error message, etc.
+                imageUrl = response.data.source_url;
             }
-        };
-    
-        // Call the function if all necessary data is available
-        if (file && userDetails) {
-            uploadImage();
-        }
-    }, [askQuestionApi]);
 
-// Create comment using the modal form
-    useEffect(() => {
-        axios({
-            url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`,
-            method: 'POST',
-            data: {
-                'author': userDetails.id,
-                'title': askQuestionApi.title,
-                'content': askQuestionApi.content,
-                'excerpt': askQuestionApi.content,
-                'status': 'publish',
-                'acf': {
-                    'question_image': fileImage,
+            // Create comment
+            const commentResponse = await axios.post(
+                `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`,
+                {
+                    author: userDetails.id,
+                    title: askQuestionApi.title,
+                    content: askQuestionApi.content,
+                    excerpt: askQuestionApi.content,
+                    status: 'publish',
+                    acf: {
+                        'question_image': imageUrl,
+                    }
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${userDetails.token}`
+                    }
                 }
-            },
-            headers: {
-                Authorization: `Bearer ${userDetails.token}`
-            }
-        })
-        .then(function(response) {
-            console.log(response.data);
-            setaskQuestionStatus(response.data.status);
-        })
-        .catch(function(err) {
-        })
-    }, [fileImage])
-    
+            );
+            console.log('Comment created:', commentResponse.data);
+            setAskQuestionStatus('published');
+        } catch (error) {
+            console.error('Error submitting question:', error);
+        }
+    }
 
-    // Return users
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`)
-        .then((response) => {
-          setUsers(response.data);
-        })
-        .catch((err) => {
-        });
-      }, [])
-
-    // Return questions after a question is created 
-      useEffect(() => {
-        // if (askQuestionStatus === 'publish') {
-            axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
-            .then((response) => {
-                setQuestion(response.data)
-            })
-            .catch((err) => {
-            });
-        // }
-    }, [askQuestionApi, fileImage, search]);
-
+    // Rendering questions
     const returnQuestions = question.map((question, index) => {
         let userName = "";
         let userProfileImg = "";
@@ -214,228 +188,150 @@ export default function AskQuestions() {
             )
         }
     })
-    // File change
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0])
-    }
 
-    // Handle change
-    function handleChangeTitle(e) {
-        const {name, value} = e.target;
-        if ( name === 'title' && value.length <= 140 ) { 
-            setAskQuestionTitle(value);
-        }
-    }
-    function handleChangeContent(e) {
-        setAskQuestionContent(e.target.getContent());
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        setAskQuestionApi({ 
-            ...askQuestionApi,
-            title: askQuestionTitle,
-            content: askQuestionContent,
-        });
-    }
-
-    // Pagination
-
-function Items({ currentItems }) {
-    return (
-      <>
-        {currentItems &&
-          returnQuestions.map((item) => (
-            <div>
-              {item}
-            </div>
-          ))}
-      </>
-    );
-  }
-  
-  
-  function PaginatedItems({ itemsPerPage }) {
-    // Here we use item offsets; we could also use page offsets
-    // following the API or data you're working with.
-    const [itemOffset, setItemOffset] = useState(0);
-  
-    // Simulate fetching items from another resources.
-    // (This could be items from props; or items loaded in a local state
-    // from an API endpoint with useEffect and useState)
-    const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    const currentItems = returnQuestions.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(returnQuestions.length / itemsPerPage);
-  
-    // Invoke when user click to request another page.
-    const handlePageClick = (event) => {
-      const newOffset = (event.selected * itemsPerPage) % returnQuestions.length;
-      console.log(
-        `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );
-      setItemOffset(newOffset);
-    };
-  
-    return (
-      <>
-        <Items currentItems={currentItems} />
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-        />
-      </>
-    );
-  }
-  if ( userDetails != null) {
-    return (
-        <>
-            <Navigation />
-            <div className="get-help mb-5">
-                <div className='container primary'>
-                    <div className='get-help-details'>
-                        <div className="row mb-5">
-                            <div className="col-12 d-flex">
-                            <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small">Ask Questions</span>
+    if ( userDetails != null) {
+        return (
+            <>
+                <Navigation />
+                <div className="get-help mb-5">
+                    <div className='container primary'>
+                        <div className='get-help-details'>
+                            <div className="row mb-5">
+                                <div className="col-12 d-flex">
+                                <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small">Ask Questions</span>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-lg-4">
+                                    <p><strong>See questions from your peers</strong></p>
+                                </div>
+                                <div className="col-lg-4">
+                                    <input type="search" className="form-control" placeholder='Start typing to search' value={search} onChange={(e) => {
+                                        setSearch(e.target.value)
+                                    }} />
+                                </div>
+                                <div className="col-lg-4 text-end">
+                                    <a className="btn btn-info btn-lg" onClick={()=>{setModalClass("show-modal")}}>Ask a Question</a>
+                                </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-lg-4">
-                                <p><strong>See questions from your peers</strong></p>
-                            </div>
-                            <div className="col-lg-4">
-                                <input type="search" className="form-control" placeholder='Start typing to search' value={search} onChange={(e) => {
-                                    setSearch(e.target.value)
-                                }} />
-                            </div>
-                            <div className="col-lg-4 text-end">
-                                <a className="btn btn-info btn-lg" onClick={()=>{setModalClass("show-modal")}}>Ask a Question</a>
-                            </div>
-                        </div>
+                        <hr className="mb-5"></hr>
+                        {returnQuestions}
+                        {/* <PaginatedItems itemsPerPage={1} /> */}
                     </div>
-                    <hr className="mb-5"></hr>
-                    {returnQuestions}
-                    {/* <PaginatedItems itemsPerPage={1} /> */}
-                </div>
-            <div className={"modal"+" "+modalClass}>
-                <div className="container" >
-                    <div className="row">
-                        <div className="col-12">
-                            <form className="modal-popup" id="popup-form" onSubmit={handleSubmit}>
-                                <div className="modal-popup-icon">
-                                    <svg
-                                    onClick={()=>{
-                                    setaskQuestionStatus('not published')  
-                                    setModalClass("hide-modal")  
-                                    setAskQuestionApi({
-                                        title: '',
-                                        content: '',
-                                    })
-                                    setAskQuestionTitle('')
-                                }
+                <div className={"modal"+" "+modalClass}>
+                    <div className="container" >
+                        <div className="row">
+                            <div className="col-12">
+                                <form className="modal-popup" id="popup-form" onSubmit={handleSubmit}>
+                                    <div className="modal-popup-icon">
+                                        <svg
+                                        onClick={()=>{
+                                        setaskQuestionStatus('not published')  
+                                        setModalClass("hide-modal")  
+                                        setAskQuestionApi({
+                                            title: '',
+                                            content: '',
+                                        })
+                                        setAskQuestionTitle('')
                                     }
-                                    width="12.103323mm"
-                                    height="12.105565mm"
-                                    viewBox="0 0 12.103323 12.105565"
-                                    version="1.1"
-                                    id="svg1"
-                                    xmlnsinkscape="http://www.inkscape.org/namespaces/inkscape"
-                                    xmlnssodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlnssvg="http://www.w3.org/2000/svg">
-                                    <sodipodinamedview
-                                        id="namedview1"
-                                        pagecolor="#ffffff"
-                                        bordercolor="#666666"
-                                        borderopacity="1.0"
-                                        inkscapeshowpageshadow="2"
-                                        inkscapepageopacity="0.0"
-                                        inkscapepagecheckerboard="0"
-                                        inkscapedeskcolor="#d1d1d1"
-                                        inkscapedocument-units="mm" />
-                                    <defs
-                                        id="defs1" />
-                                    <g
-                                        inkscapelabel="Layer 1"
-                                        inkscapegroupmode="layer"
-                                        id="layer1"
-                                        transform="translate(-6.9914114,-5.8580254)">
+                                        }
+                                        width="12.103323mm"
+                                        height="12.105565mm"
+                                        viewBox="0 0 12.103323 12.105565"
+                                        version="1.1"
+                                        id="svg1"
+                                        xmlnsinkscape="http://www.inkscape.org/namespaces/inkscape"
+                                        xmlnssodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        xmlnssvg="http://www.w3.org/2000/svg">
+                                        <sodipodinamedview
+                                            id="namedview1"
+                                            pagecolor="#ffffff"
+                                            bordercolor="#666666"
+                                            borderopacity="1.0"
+                                            inkscapeshowpageshadow="2"
+                                            inkscapepageopacity="0.0"
+                                            inkscapepagecheckerboard="0"
+                                            inkscapedeskcolor="#d1d1d1"
+                                            inkscapedocument-units="mm" />
+                                        <defs
+                                            id="defs1" />
                                         <g
-                                        id="g3"
-                                        transform="translate(0.35406431,-0.60696738)">
-                                        <rect
-                                            
-                                            id="rect2"
-                                            width="3.4117243"
-                                            height="10.152302"
-                                            x="-1.5839893"
-                                            y="12.740046"
-                                            ry="0.35877365"
-                                            rx="0"
-                                            transform="rotate(-45)" />
-                                        <rect
-                                            
-                                            id="rect2-7"
-                                            width="3.4117243"
-                                            height="10.152302"
-                                            x="16.125717"
-                                            y="-5.1964393"
-                                            ry="0.35877365"
-                                            rx="0"
-                                            transform="rotate(45)" />
-                                        </g>
-                                        </g>
-                                    </svg>
-                                </div>
-                                <div className="row">
-                                    <div className="col-12 mb-4">
-                                        <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
+                                            inkscapelabel="Layer 1"
+                                            inkscapegroupmode="layer"
+                                            id="layer1"
+                                            transform="translate(-6.9914114,-5.8580254)">
+                                            <g
+                                            id="g3"
+                                            transform="translate(0.35406431,-0.60696738)">
+                                            <rect
+                                                
+                                                id="rect2"
+                                                width="3.4117243"
+                                                height="10.152302"
+                                                x="-1.5839893"
+                                                y="12.740046"
+                                                ry="0.35877365"
+                                                rx="0"
+                                                transform="rotate(-45)" />
+                                            <rect
+                                                
+                                                id="rect2-7"
+                                                width="3.4117243"
+                                                height="10.152302"
+                                                x="16.125717"
+                                                y="-5.1964393"
+                                                ry="0.35877365"
+                                                rx="0"
+                                                transform="rotate(45)" />
+                                            </g>
+                                            </g>
+                                        </svg>
                                     </div>
-                                    <div className="col-12 mb-4">
-                                        <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestionTitle} onChange={handleChangeTitle} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
-                                        { askQuestionTitle.length == 140 ?
-                                        <p className="small red">Maximum characters reached!</p> : '' }
+                                    <div className="row">
+                                        <div className="col-12 mb-4">
+                                            <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
+                                        </div>
+                                        <div className="col-12 mb-4">
+                                            <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestionTitle} onChange={handleChangeTitle} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
+                                            { askQuestionTitle.length == 140 ?
+                                            <p className="small red">Maximum characters reached!</p> : '' }
+                                        </div>
+                                        <div className="col-12 mb-4">
+                                            {/* <textarea className="form-control form-control-lg" rows="10" name="content" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.content} onChange={handleChange} aria-label="Questions" placeholder='Give a detailed description of your question. Attach pictures if necessary.' autoComplete='off' required /> */}
+                                            <Editor
+                                              apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
+                                              data-info="content"
+                                              className="form-control form-control-lg" 
+                                              init={{
+                                                selector: 'textarea',
+                                                placeholder: 'Give a detailed description of your question. Attach pictures if necessary.',
+                                              toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright | bullist numlist',
+                                              }}
+                                              onChange={handleChangeContent}
+                                            />
+                                        </div>
+                                        <div className="col-4 mb-4">
+                                            <input className="form-control form-control-lg" type="file" onChange={handleFileChange} />
+                                        </div>
                                     </div>
-                                    <div className="col-12 mb-4">
-                                        {/* <textarea className="form-control form-control-lg" rows="10" name="content" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.content} onChange={handleChange} aria-label="Questions" placeholder='Give a detailed description of your question. Attach pictures if necessary.' autoComplete='off' required /> */}
-                                        <Editor
-                                          apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
-                                          data-info="content"
-                                          className="form-control form-control-lg" 
-                                          init={{
-                                            selector: 'textarea',
-                                            placeholder: 'Give a detailed description of your question. Attach pictures if necessary.',
-                                          toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright | bullist numlist',
-                                          }}
-                                          onChange={handleChangeContent}
-                                        />
+                                    { askQuestionStatus === "publish" ? 
+                                    <div className="alert alert-success" role="alert">
+                                        <p>Success! Your question has been published!</p>
                                     </div>
-                                    <div className="col-4 mb-4">
-                                        <input className="form-control form-control-lg" type="file" onChange={handleFileChange} />
-                                    </div>
-                                </div>
-                                { askQuestionStatus === "publish" ? 
-                                <div className="alert alert-success" role="alert">
-                                    <p>Success! Your question has been published!</p>
-                                </div>
-                                : ''    
-                                }
-                                <button className="btn btn-info btn-sm" disabled={ askQuestionApi.title ?? ''} type="submit">Submit</button>
-                            </form>                 
-                        </div>
+                                    : ''    
+                                    }
+                                    <button className="btn btn-info btn-sm" disabled={ askQuestionApi.title ?? ''} type="submit">Submit</button>
+                                </form>                 
+                            </div>
+                    </div>
+                    </div>
                 </div>
                 </div>
-            </div>
-            </div>
-        </>
-    )
-} else {
-    window.location.replace("/");
-  }
+            </>
+        )
+    } else {
+        window.location.replace("/");
+      }
 }
-
