@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navigation from './Navigation';
 import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
 import axios from 'axios';
+import { Editor } from '@tinymce/tinymce-react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
@@ -14,6 +15,7 @@ export default function AskQuestions() {
     const [modalClass, setModalClass] = useState('hide-modal');
     const [askQuestionStatus, setAskQuestionStatus] = useState('not published');
     const [file, setFile] = useState(null);
+    const [ askQuestionContent, setAskQuestionContent ] = useState('')
     const [askQuestionApi, setAskQuestionApi] = useState({
         title: '',
         content: '',
@@ -29,6 +31,16 @@ export default function AskQuestions() {
                 console.error(err);
             });
     }, []);
+
+    // Get questions when user submits question
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
+            .then((response) => {
+                setQuestion(response.data);
+            }).catch((err) => {
+                console.error(err);
+            });
+    }, [askQuestionApi, search]);
 
     // Return users
     useEffect(() => {
@@ -52,6 +64,11 @@ export default function AskQuestions() {
             ...prevState,
             [name]: value,
         }));
+    }
+
+    // TinyMC Handle Change
+    function handleChangeContent(e) {
+        setAskQuestionContent(e.target.getContent());
     }
 
     // Handle submit
@@ -82,8 +99,8 @@ export default function AskQuestions() {
                 {
                     author: userDetails.id,
                     title: askQuestionApi.title,
-                    content: askQuestionApi.content,
-                    excerpt: askQuestionApi.content,
+                    content: askQuestionContent,
+                    excerpt: askQuestionContent,
                     status: 'publish',
                     acf: {
                         'question_image': imageUrl,
@@ -94,13 +111,15 @@ export default function AskQuestions() {
                         Authorization: `Bearer ${userDetails.token}`
                     }
                 }
-            );
-            console.log('Comment created:', commentResponse.data);
+            ).then((response) => {
+                console.log(response.data)
+            })
             setAskQuestionStatus('published');
         } catch (error) {
             console.error('Error submitting question:', error);
         }
     }
+
 
     // Rendering questions
     const returnQuestions = question.map((question, index) => {
@@ -227,13 +246,13 @@ export default function AskQuestions() {
                                     <div className="modal-popup-icon">
                                         <svg
                                         onClick={()=>{
-                                        setaskQuestionStatus('not published')  
+                                        setAskQuestionStatus('not published')  
                                         setModalClass("hide-modal")  
                                         setAskQuestionApi({
                                             title: '',
                                             content: '',
+                                            question_image: '',
                                         })
-                                        setAskQuestionTitle('')
                                     }
                                         }
                                         width="12.103323mm"
@@ -294,8 +313,8 @@ export default function AskQuestions() {
                                             <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
                                         </div>
                                         <div className="col-12 mb-4">
-                                            <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestionTitle} onChange={handleChangeTitle} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
-                                            { askQuestionTitle.length == 140 ?
+                                            <input className="form-control form-control-lg" type="text" name="title"  value={askQuestionApi.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
+                                            { askQuestionApi.title.length == 140 ?
                                             <p className="small red">Maximum characters reached!</p> : '' }
                                         </div>
                                         <div className="col-12 mb-4">
@@ -316,13 +335,13 @@ export default function AskQuestions() {
                                             <input className="form-control form-control-lg" type="file" onChange={handleFileChange} />
                                         </div>
                                     </div>
-                                    { askQuestionStatus === "publish" ? 
+                                    { askQuestionStatus === "published" ? 
                                     <div className="alert alert-success" role="alert">
                                         <p>Success! Your question has been published!</p>
                                     </div>
                                     : ''    
                                     }
-                                    <button className="btn btn-info btn-sm" disabled={ askQuestionApi.title ?? ''} type="submit">Submit</button>
+                                    <button className="btn btn-info btn-sm"  type="submit">Submit</button>
                                 </form>                 
                             </div>
                     </div>
