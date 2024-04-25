@@ -176,7 +176,7 @@ return (
                                 <div className="card-body">
                                 <p><strong>{question.title && question.title.rendered}</strong></p>
                                 <div>{question.content && ( <div dangerouslySetInnerHTML={{ __html: question.content.rendered }} />)}</div>
-                                {question.acf && 
+                                {question['acf'] && question['acf']['question_image'] && 
                                 <div className="question-image">
                                   <img className="question-image-item" src={question.acf.question_image} />
                                 </div>}
