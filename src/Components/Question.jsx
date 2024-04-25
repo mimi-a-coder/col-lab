@@ -12,10 +12,16 @@ export default function Question() {
   const [ question, setQuestion ] = useState({}); 
   const [ comments, setComments ] = useState([]);
   const [getUsers, setGetUsers] = useState([]);
+  const [ askQuestionContent, setAskQuestionContent ] = useState('')
   const [ modalClass, setModalClass ] = useState('hide');
   const { param1 } = useParams();
   const [ createComment, setCreateComment ] = useState('');
   const [ createCommentApi, setCreateCommentApi ] = useState('');
+  
+  // TinyMC Handle Change
+  function handleChangeContent(e) {
+    setAskQuestionContent(e.target.getContent());
+  }
 
   useEffect(() => {
     axios({
@@ -250,17 +256,17 @@ return (
                                 </div>
                             
                                     <form onSubmit={handleSubmit}>
-                                        <Editor
-                                          apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
-                                          data-info="content"
-                                          className="form-control form-control-lg" 
-                                          init={{
-                                            selector: 'textarea',
-                                            palceholder: 'Type your answer. Use @ to mention users.',
-                                            toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright | bullist numlist',
-                                          }}
-                                          onChange={handleChange}
-                                        />
+                                      <Editor
+                                        apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
+                                        data-info="content"
+                                        className="form-control form-control-lg" 
+                                        init={{
+                                          selector: 'textarea',
+                                          placeholder: 'Give a detailed description of your question. Attach pictures if necessary.',
+                                        toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright | bullist numlist',
+                                        }}
+                                        onChange={handleChangeContent}
+                                      />
                                       <div className="row">
                                         <div className="col-4 mt-4">
                                           <input className="form-control form-control-lg" type="file" />
