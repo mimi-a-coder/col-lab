@@ -177,7 +177,7 @@ return (
                                 <p><strong>{question.title && question.title.rendered}</strong></p>
                                 <div>{question.content && ( <div dangerouslySetInnerHTML={{ __html: question.content.rendered }} />)}</div>
                                 {question['acf'] && question['acf']['question_image'] && 
-                                <div className="question-image">
+                                <div className="question-image mt-3">
                                   <img className="question-image-item" src={question.acf.question_image} />
                                 </div>}
                                 <button className="btn btn-sm btn-outline-info ml-auto" onClick={()=>{setModalClass("show")}}>Answer</button>

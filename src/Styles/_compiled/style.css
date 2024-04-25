@@ -1,3 +1,4 @@
+/* Button Colours */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 /* Button Colours */
 html, body {
@@ -29,13 +30,12 @@ a {
   font-family: "Roboto", sans-serif;
 }
 
-/* Button Colours */
 html {
   font-size: 10px;
   font-family: "Roboto", sans-serif !important;
 }
 
-.btn {
+s .btn {
   font-size: 1.6rem !important;
   font-family: "Roboto", sans-serif !important;
 }
@@ -583,6 +583,10 @@ textarea[data-info=content] {
   width: 100px;
   height: 100px;
   object-fit: cover;
+}
+
+.tox.tox-tinymce {
+  height: 300px !important;
 }
 
 @media screen and (max-width: 1000px) {
