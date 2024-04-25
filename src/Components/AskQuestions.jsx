@@ -17,20 +17,22 @@ export default function AskQuestions() {
     const [ askQuestionStatus, setaskQuestionStatus ] = useState('not published');
     const [ file, setFile] = useState("");
     const [ fileImage, setFileImage] = useState("");
+    const [ askQuestionTitle, setAskQuestionTitle ] = useState('')
+    const [ askQuestionContent, setAskQuestionContent ] = useState('')
+    const [ askQuestionApi, setAskQuestionApi ] = useState({
+        author: '',
+        title: '',
+        content: '',
+    })
     // const [ characterLimit, setCharacterLimit ] = useState(0);
 //     const [ askQuestion, setAskQuestion ] = useState({
 //         author: '',
 //         title: '',
 //         content: '',
 //     })
-    const [ askQuestionTitle, setAskQuestionTitle ] = useState('')
-    const [ askQuestionContent, setAskQuestionContent ] = useState('')
-    const [ askQuestionApi, setAskQuestionApi ] = useState({
-            author: '',
-            title: '',
-            content: '',
-        })
 
+
+// Get questions on page load
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
         .then((response) =>{
@@ -39,7 +41,7 @@ export default function AskQuestions() {
         })
     }, [])
 
-
+    // Add image to database
     useEffect(() => {
         const uploadImage = async () => {
             try {
@@ -75,8 +77,9 @@ export default function AskQuestions() {
         if (file && userDetails) {
             uploadImage();
         }
-    }, [file]);
+    }, [askQuestionApi]);
 
+// Create comment using the modal form
     useEffect(() => {
         axios({
             url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`,
@@ -96,13 +99,14 @@ export default function AskQuestions() {
             }
         })
         .then(function(response) {
+            console.log(response.data);
             setaskQuestionStatus(response.data.status);
-            console.log(response.data)
         })
         .catch(function(err) {
         })
-    }, [askQuestionApi])
+    }, [fileImage])
     
+
     // Return users
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`)
@@ -113,16 +117,17 @@ export default function AskQuestions() {
         });
       }, [])
 
+    // Return questions after a question is created 
       useEffect(() => {
-        if (askQuestionStatus === 'publish') {
+        // if (askQuestionStatus === 'publish') {
             axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
             .then((response) => {
-                setQuestion(response.data);
+                setQuestion(response.data)
             })
             .catch((err) => {
             });
-        }
-    }, [fileImage]);
+        // }
+    }, [askQuestionApi, fileImage, search]);
 
     const returnQuestions = question.map((question, index) => {
         let userName = "";
@@ -225,13 +230,13 @@ export default function AskQuestions() {
         setAskQuestionContent(e.target.getContent());
     }
 
-    // Handle submit
     function handleSubmit(e) {
         e.preventDefault();
         setAskQuestionApi({ 
+            ...askQuestionApi,
             title: askQuestionTitle,
             content: askQuestionContent,
-         });
+        });
     }
 
     // Pagination
@@ -328,7 +333,6 @@ function Items({ currentItems }) {
                                     setaskQuestionStatus('not published')  
                                     setModalClass("hide-modal")  
                                     setAskQuestionApi({
-                                        author: userDetails.id,
                                         title: '',
                                         content: '',
                                     })
@@ -395,7 +399,7 @@ function Items({ currentItems }) {
                                     <div className="col-12 mb-4">
                                         <input className="form-control form-control-lg" type="text" name="title" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestionTitle} onChange={handleChangeTitle} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
                                         { askQuestionTitle.length == 140 ?
-                                        <p class="small red">Maximum characters reached!</p> : '' }
+                                        <p className="small red">Maximum characters reached!</p> : '' }
                                     </div>
                                     <div className="col-12 mb-4">
                                         {/* <textarea className="form-control form-control-lg" rows="10" name="content" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.content} onChange={handleChange} aria-label="Questions" placeholder='Give a detailed description of your question. Attach pictures if necessary.' autoComplete='off' required /> */}
@@ -434,3 +438,4 @@ function Items({ currentItems }) {
     window.location.replace("/");
   }
 }
+

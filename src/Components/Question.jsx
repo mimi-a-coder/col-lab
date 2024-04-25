@@ -16,7 +16,6 @@ export default function Question() {
   const { param1 } = useParams();
   const [ createComment, setCreateComment ] = useState('');
   const [ createCommentApi, setCreateCommentApi ] = useState('');
-  let slug = "";
 
   useEffect(() => {
     axios({
@@ -43,7 +42,6 @@ export default function Question() {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions/${param1}`)
         .then((response) => {
-          console.log(response.data)
             setQuestion(response.data);
             localStorage.setItem(`quesiton${param1}`, response.data.title.rendered.substring(0, 15));
             localStorage.setItem(`quesiton${param1}count`, response.data.title.rendered.length);
@@ -180,7 +178,7 @@ return (
                                 <p>{question.content && ( <div dangerouslySetInnerHTML={{ __html: question.content.rendered }} />)}</p>
                                 {question.acf && 
                                 <div className="question-image">
-                                  <img class="question-image-item" src={question.acf.question_image} />
+                                  <img className="question-image-item" src={question.acf.question_image} />
                                 </div>}
                                 <button className="btn btn-sm btn-outline-info ml-auto" onClick={()=>{setModalClass("show")}}>Answer</button>
                                 </div>
