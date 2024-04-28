@@ -111,7 +111,7 @@ export default function Question() {
           return (
           <div className="card mb-4" key={index}>
             <div className='card-body'>
-              <div className="questions-details">
+              <div className="questions-details mb-3">
                 <div className="questions-details-name">
                   <img className="questions-details-name-img" src={userProfileImg ? userProfileImg : defaultImage} />
                   <div className="questions-details-name-info">
