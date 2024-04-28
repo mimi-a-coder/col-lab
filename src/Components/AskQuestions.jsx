@@ -318,7 +318,6 @@ export default function AskQuestions() {
                                             <p className="small red">Maximum characters reached!</p> : '' }
                                         </div>
                                         <div className="col-12 mb-4">
-                                            {/* <textarea className="form-control form-control-lg" rows="10" name="content" disabled={ askQuestionApi.title.length > 0 ?? ''} value={askQuestion.content} onChange={handleChange} aria-label="Questions" placeholder='Give a detailed description of your question. Attach pictures if necessary.' autoComplete='off' required /> */}
                                             <Editor
                                               apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
                                               data-info="content"

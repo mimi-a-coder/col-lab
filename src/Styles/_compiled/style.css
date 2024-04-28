@@ -270,8 +270,8 @@ a {
   text-decoration: none !important;
 }
 
-.root {
-  margin-bottom: 6rem;
+#root {
+  margin-bottom: 5rem;
 }
 
 .tox-statusbar__right-container {

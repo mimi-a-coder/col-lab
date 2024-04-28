@@ -9,42 +9,39 @@ import axios from "axios";
 
 export default function Question() {
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
   const [ question, setQuestion ] = useState({}); 
   const [ comments, setComments ] = useState([]);
   const [getUsers, setGetUsers] = useState([]);
-  const [ askQuestionContent, setAskQuestionContent ] = useState('')
+  // const [ askQuestionContent, setAskQuestionContent ] = useState('')
+  const [file, setFile] = useState(null);
   const [ modalClass, setModalClass ] = useState('hide');
   const { param1 } = useParams();
   const [ createComment, setCreateComment ] = useState('');
-  const [ createCommentApi, setCreateCommentApi ] = useState('');
-  
-  // TinyMC Handle Change
-  function handleChangeContent(e) {
-    setAskQuestionContent(e.target.getContent());
-  }
+  // const [ createCommentApi, setCreateCommentApi ] = useState('');
 
-  useEffect(() => {
-    axios({
-        url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments`,
-        method: 'POST',
-        data: {
-            author: userDetails.id,
-            author_email: userDetails.email,
-            author_name: `${userDetails.firstName} ${userDetails.lastName}`,
-            content: `${createCommentApi}`,
-            post: `${param1}`,
-            status: 'approved',
-        },
-        headers: {
-            Authorization: `Bearer ${userDetails.token}`
-        }
-    })
-    .then(function(response) {
-    })
-    .catch(function(err) {
-      console.error(err);
-    })
-}, [createCommentApi])
+//   useEffect(() => {
+//     axios({
+//         url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments`,
+//         method: 'POST',
+//         data: {
+//             author: userDetails.id,
+//             author_email: userDetails.email,
+//             author_name: `${userDetails.firstName} ${userDetails.lastName}`,
+//             content: `${createCommentApi}`,
+//             post: `${param1}`,
+//             status: 'approved',
+//         },
+//         headers: {
+//             Authorization: `Bearer ${userDetails.token}`
+//         }
+//     })
+//     .then(function(response) {
+//     })
+//     .catch(function(err) {
+//       console.error(err);
+//     })
+// }, [createCommentApi])
     
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions/${param1}`)
@@ -131,23 +128,82 @@ export default function Question() {
                 </div>
               </div>
               <div dangerouslySetInnerHTML={{ __html: question.content.rendered }} />
+              {question['acf'] && question['acf']['answer_image'] && 
+                <div className="question-image mt-3">
+                  <img className="question-image-item" src={question.acf.answer_image} />
+                </div>}
             </div>
           </div>
           )
         }
       })
 
-    // Handle Change
-    const handleChange = (e) => {
-      setCreateComment(e.target.getContent())
+    // Handle file change
+    const handleFileChange = (e) => {
+      setFile(e.target.files[0]);
     }
 
+    // TinyMC Handle Change
+    function handleChangeContent(e) {
+      setCreateComment(e.target.getContent());
+    }
+
+  //   // Handle submit
+  //   function handleSubmit(e) {
+  //     e.preventDefault();
+  //     setCreateCommentApi(createComment);
+  //     setCreateComment('')
+  // }
+
     // Handle submit
-    function handleSubmit(e) {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      setCreateCommentApi(createComment);
-      setCreateComment('')
-  }
+      try {
+          // Upload image if file exists
+          let imageUrl = '';
+          if (file && userDetails) {
+              const formData = new FormData();
+              formData.append('file', file);
+              const response = await axios.post(
+                  `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/media`,
+                  formData,
+                  {
+                      headers: {
+                          'Content-Type': 'multipart/form-data',
+                          Authorization: `Bearer ${userDetails.token}`
+                      }
+                  }
+              );
+              imageUrl = response.data.source_url;
+          }
+
+          // Create comment
+          const commentResponse = await axios.post(
+              `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments`,
+              {
+                author: userDetails.id,
+                author_email: userDetails.email,
+                author_name: `${userDetails.firstName} ${userDetails.lastName}`,
+                content: `${createComment}`,
+                post: `${param1}`,
+                status: 'approved',
+                  acf: {
+                      'answer_image': imageUrl,
+                  }
+              },
+              {
+                headers: {
+                    Authorization: `Bearer ${userDetails.token}`
+                }
+              }
+          ).then((response) => {
+              console.log(response.data)
+          })
+          // setAskQuestionStatus('published');
+      } catch (error) {
+          console.error('Error submitting question:', error);
+      }
+    }
 
   if ( userDetails != null) {
 return (
@@ -267,9 +323,10 @@ return (
                                         }}
                                         onChange={handleChangeContent}
                                       />
+                                      
                                       <div className="row">
                                         <div className="col-4 mt-4">
-                                          <input className="form-control form-control-lg" type="file" />
+                                          <input className="form-control form-control-lg" type="file" onChange={handleFileChange} />
                                         </div>
                                         <div className="col-8 text-end mt-4">
                                           <button className="btn btn-info" type="submit">Submit</button>
