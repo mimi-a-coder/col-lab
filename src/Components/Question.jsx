@@ -13,35 +13,10 @@ export default function Question() {
   const [ question, setQuestion ] = useState({}); 
   const [ comments, setComments ] = useState([]);
   const [getUsers, setGetUsers] = useState([]);
-  // const [ askQuestionContent, setAskQuestionContent ] = useState('')
   const [file, setFile] = useState(null);
   const [ modalClass, setModalClass ] = useState('hide');
   const { param1 } = useParams();
   const [ createComment, setCreateComment ] = useState('');
-  // const [ createCommentApi, setCreateCommentApi ] = useState('');
-
-//   useEffect(() => {
-//     axios({
-//         url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments`,
-//         method: 'POST',
-//         data: {
-//             author: userDetails.id,
-//             author_email: userDetails.email,
-//             author_name: `${userDetails.firstName} ${userDetails.lastName}`,
-//             content: `${createCommentApi}`,
-//             post: `${param1}`,
-//             status: 'approved',
-//         },
-//         headers: {
-//             Authorization: `Bearer ${userDetails.token}`
-//         }
-//     })
-//     .then(function(response) {
-//     })
-//     .catch(function(err) {
-//       console.error(err);
-//     })
-// }, [createCommentApi])
     
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions/${param1}`)
@@ -148,13 +123,6 @@ export default function Question() {
       setCreateComment(e.target.getContent());
     }
 
-  //   // Handle submit
-  //   function handleSubmit(e) {
-  //     e.preventDefault();
-  //     setCreateCommentApi(createComment);
-  //     setCreateComment('')
-  // }
-
     // Handle submit
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -199,7 +167,7 @@ export default function Question() {
           ).then((response) => {
               console.log(response.data)
           })
-          // setAskQuestionStatus('published');
+          
       } catch (error) {
           console.error('Error submitting question:', error);
       }
