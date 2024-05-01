@@ -84,6 +84,7 @@ s .btn {
   overflow-wrap: break-word;
   transition: 400ms ease-out;
   margin: 0 0 2rem 0;
+  height: 100%;
 }
 
 .btn-secondary:hover {
@@ -99,6 +100,7 @@ s .btn {
   font-weight: 600 !important;
   color: #0f9ed5 !important;
   border-radius: 0.365rem;
+  height: 100%;
 }
 .btn-outline-info:hover {
   color: #fff !important;
@@ -106,6 +108,7 @@ s .btn {
 
 .btn-sm {
   font-size: 1.4rem !important;
+  height: 100%;
 }
 
 .btn-info {
@@ -113,9 +116,15 @@ s .btn {
   font-weight: 600 !important;
   color: #fff !important;
   border: none !important;
+  height: 100%;
 }
 .btn-info:hover {
   background-color: #000 !important;
+}
+
+.btn-lg {
+  font-size: 1.4rem !important;
+  height: 100%;
 }
 
 .form-control {

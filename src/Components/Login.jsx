@@ -53,6 +53,7 @@ export default function Login() {
                 
             }).catch(function(err) {
                 setServerMessage(err.response.data.message);
+                console.log(err);
             })
         } 
     }, [apiSettings])

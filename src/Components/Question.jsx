@@ -297,7 +297,7 @@ return (
                                           <input className="form-control form-control-lg" type="file" onChange={handleFileChange} />
                                         </div>
                                         <div className="col-8 text-end mt-4">
-                                          <button className="btn btn-info" type="submit">Submit</button>
+                                          <button className="btn btn-info btn-lg" type="submit">Submit</button>
                                         </div>
                                       </div>
                                     </form>

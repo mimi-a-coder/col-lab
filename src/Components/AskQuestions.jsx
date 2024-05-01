@@ -208,6 +208,21 @@ export default function AskQuestions() {
         }
     })
 
+        // Pagination
+
+        const itemsPerPage = 5; // Number of items to display per page
+        const pageCount = Math.ceil(returnQuestions.length / itemsPerPage);
+        
+        const handlePageChange = (selectedPage) => {
+          // Calculate the index range for the current page
+          const startIndex = selectedPage * itemsPerPage;
+          const endIndex = startIndex + itemsPerPage;
+          // Display data within the range
+          const currentData = returnQuestions.slice(startIndex, endIndex);
+          // Update your component state with the current data
+          // or trigger a data fetch from an API
+        };
+
     if ( userDetails != null) {
         return (
             <>
@@ -236,6 +251,14 @@ export default function AskQuestions() {
                         </div>
                         <hr className="mb-5"></hr>
                         {returnQuestions}
+                        {/* <ReactPaginate
+                        pageCount={pageCount}
+                        pageRangeDisplayed={5}
+                        marginPagesDisplayed={2}
+                        onPageChange={handlePageChange}
+                        containerClassName="pagination"
+                        activeClassName="active"
+                        /> */}
                         {/* <PaginatedItems itemsPerPage={1} /> */}
                     </div>
                 <div className={"modal"+" "+modalClass}>
