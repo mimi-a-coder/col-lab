@@ -291,6 +291,11 @@ a {
   display: none !important;
 }
 
+.highlight {
+  background-color: yellow;
+  color: #000;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;

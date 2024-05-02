@@ -112,7 +112,6 @@ export default function AskQuestions() {
                     }
                 }
             ).then((response) => {
-                console.log(response.data)
             })
             setAskQuestionStatus('published');
         } catch (error) {
@@ -152,7 +151,22 @@ export default function AskQuestions() {
 
           commentCount();
 
-        if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`)) {
+        if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`) || userName.toLowerCase().includes(search.toLowerCase())) {
+            
+            // Highlight search words
+            function renderedQuestion() {
+                let title = question.title.rendered.split(' ');
+                let array = [];
+                for (let word of title) {
+                    if (word.toLowerCase().includes(search.toLowerCase())) {
+                        array.push(`<span class="highlight">${word}</span>`);
+                    } else {
+                        array.push(word);
+                    }
+                }
+                return array.join(' ');
+            }
+            
         return (
         <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
             <div className="card get-help-item mb-4">
@@ -165,7 +179,8 @@ export default function AskQuestions() {
                             </div>
                         </div>
                         <div className='col-lg-5 d-flex align-items-center'>
-                            <p>{question.title.rendered}</p>
+                            {/* <p>{question.title.rendered.replace(search, `<p>${search}</p>`)}</p> */} 
+                            <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion() : question.title.rendered } } />
                         </div>
                         <div className='col-lg-2 d-flex align-items-center justify-content-end'>
                             <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
