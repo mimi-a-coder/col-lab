@@ -386,7 +386,7 @@ function PaginatedItems({ itemsPerPage }) {
                                               apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
                                               data-info="content"
                                               className="form-control form-control-lg" 
-                                              value={ askQuestionStatus === 'published' ? '' : askQuestionContent }
+                                              value={ askQuestionStatus }
                                               init={{
                                                 selector: 'textarea',
                                                 placeholder: 'Give a detailed description of your question. Attach pictures if necessary.',
