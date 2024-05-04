@@ -300,10 +300,7 @@ function PaginatedItems({ itemsPerPage }) {
                             </div>
                         </div>
                         <hr className="mb-5"></hr>
-                        {/* {returnQuestions} */}
                         <PaginatedItems itemsPerPage={15} />
-                        {/* document.getElementById('container') */}
-                  
                     </div>
                 <div className={"modal"+" "+modalClass}>
                     <div className="container" >
@@ -380,7 +377,7 @@ function PaginatedItems({ itemsPerPage }) {
                                             <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
                                         </div>
                                         <div className="col-12 mb-4">
-                                            <input className="form-control form-control-lg" type="text" name="title"  value={askQuestionApi.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
+                                            <input className="form-control form-control-lg" type="text" name="title"  value={askQuestionApi.title} onChange={handleChange} aria-label='Question field' disabled={askQuestionStatus === 'published' ? true : false} placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
                                             { askQuestionApi.title.length == 140 ?
                                             <p className="small red">Maximum characters reached!</p> : '' }
                                         </div>
@@ -389,6 +386,7 @@ function PaginatedItems({ itemsPerPage }) {
                                               apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
                                               data-info="content"
                                               className="form-control form-control-lg" 
+                                              value={ askQuestionStatus === 'published' ? '' : askQuestionContent }
                                               init={{
                                                 selector: 'textarea',
                                                 placeholder: 'Give a detailed description of your question. Attach pictures if necessary.',
@@ -398,7 +396,7 @@ function PaginatedItems({ itemsPerPage }) {
                                             />
                                         </div>
                                         <div className="col-4 mb-4">
-                                            <input className="form-control form-control-lg" type="file" onChange={handleFileChange} />
+                                            <input className="form-control form-control-lg" type="file" onChange={handleFileChange} disabled={askQuestionStatus === 'published' ? true : false} />
                                         </div>
                                     </div>
                                     { askQuestionStatus === "published" ? 

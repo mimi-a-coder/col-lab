@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
-import ReactDOM from 'react-dom';
-import ReactPaginate from 'react-paginate';
 import Navigation from "./Navigation";
 import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
 import { Editor } from '@tinymce/tinymce-react';
@@ -12,6 +10,9 @@ export default function Question() {
 
   const [ question, setQuestion ] = useState({}); 
   const [ comments, setComments ] = useState([]);
+  const [ commentStatus, setCommentStatus ] = useState("not approved");
+  const [ serverComment, setServerComment ] = useState("");
+  const [ successServerComment, setSuccessServerComment ] = useState("");
   const [getUsers, setGetUsers] = useState([]);
   const [file, setFile] = useState(null);
   const [ modalClass, setModalClass ] = useState('hide');
@@ -166,10 +167,14 @@ export default function Question() {
               }
           ).then((response) => {
               console.log(response.data)
+              setCommentStatus(response.data.status)
+              setSuccessServerComment("Success! Your comment has been published.")
+              console.log(response.data.status)
           })
           
       } catch (error) {
-          console.error('Error submitting question:', error);
+        if (error.response.data.message === 'Duplicate comment detected; it looks as though you&#8217;ve already said that!')
+        setServerComment("Oops! You've already submitted this answer.");
       }
     }
 
@@ -220,8 +225,11 @@ return (
                                   <div className="modal-popup-icon question-icon-box">
                                     <svg
                                     onClick={()=>{ 
-                                    setModalClass("hide")  
-                                    }
+                                        setModalClass("hide");  
+                                        setCommentStatus("not approved");
+                                        setServerComment("");
+                                        setSuccessServerComment("");
+                                      }
                                     }
                                     className="question-icon"
                                     width="12.103323mm"
@@ -294,11 +302,27 @@ return (
                                       
                                       <div className="row">
                                         <div className="col-4 mt-4">
-                                          <input className="form-control form-control-lg" type="file" onChange={handleFileChange} />
+                                          <input className="form-control form-control-lg" type="file" onChange={handleFileChange} disabled={commentStatus === "approved" ? true : false} />
                                         </div>
                                         <div className="col-8 text-end mt-4">
                                           <button className="btn btn-info btn-lg" type="submit">Submit</button>
                                         </div>
+                                        { serverComment !== "" ? 
+                                        <div className="col-12 mt-4">
+                                          <div className="alert alert-danger" role="alert">
+                                              <p>{serverComment}</p>
+                                          </div>
+                                        </div> 
+                                        : ''   
+                                        }
+                                        { successServerComment ? 
+                                        <div className="col-12 mt-4">
+                                          <div className="alert alert-success" role="alert">
+                                              <p>{successServerComment}</p>
+                                          </div>
+                                        </div> 
+                                        : ''   
+                                        }
                                       </div>
                                     </form>
                                   </div>
