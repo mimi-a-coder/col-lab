@@ -113,8 +113,9 @@ export default function AskQuestions() {
                     }
                 }
             ).then((response) => {
+                setAskQuestionStatus('published');
             })
-            setAskQuestionStatus('published');
+        
         } catch (error) {
             console.error('Error submitting question:', error);
         }
