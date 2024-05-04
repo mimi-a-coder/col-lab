@@ -24,9 +24,10 @@ export default function AskQuestions() {
 
     // Get questions on page load
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
+        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions?per_page=100`)
             .then((response) => {
                 setQuestion(response.data);
+                console.log(response.data);
             }).catch((err) => {
                 console.error(err);
             });
@@ -34,7 +35,7 @@ export default function AskQuestions() {
 
     // Get questions when user submits question
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
+        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions?per_page=100`)
             .then((response) => {
                 setQuestion(response.data);
             }).catch((err) => {
@@ -118,6 +119,159 @@ export default function AskQuestions() {
             console.error('Error submitting question:', error);
         }
     }
+
+ // Start pagination
+function Items({ currentItems }) {
+  return (
+    <>
+      {currentItems &&
+        currentItems.map((question, index) => {
+            let userName = "";
+            let userProfileImg = "";
+            let questionPosted = Date.now() - new Date(question.date);
+            let days = Math.floor(questionPosted/(86400 * 1000));
+    
+            for (let name of users) {
+                if ( name.id == question.author) {
+                  userName = name.name;
+                  userProfileImg = name['avatar_urls']['24'];
+                }
+              }
+    
+              function commentCount() {
+                return axios.get(`${question._links.replies['0'].href}`)
+                .then((response) => {
+                  numberOfComments[0].count = response.data.length;
+                  localStorage.setItem(`comment_count${index}`, numberOfComments[0].count)
+                })
+              }
+    
+              // Parsing comments
+              let count = localStorage.getItem(`comment_count${index}`);
+              // Ensure that numberOfComments is initialized as an object
+              let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
+              // Then you can update the count property
+              numberOfComments[0].count = parseInt(count); // Parse string to integer
+    
+              commentCount();
+    
+            if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`) || userName.toLowerCase().includes(search.toLowerCase())) {
+                
+                // Highlight search words
+                function renderedQuestion() {
+                    let title = question.title.rendered.split(' ');
+                    let array = [];
+                    for (let word of title) {
+                        if (word.toLowerCase().includes(search.toLowerCase())) {
+                            array.push(`<span class="highlight">${word}</span>`);
+                        } else {
+                            array.push(word);
+                        }
+                    }
+                    return array.join(' ');
+                }
+                
+            return (
+            <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
+                <div className="card get-help-item mb-4">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className='col-lg-3 d-flex align-items-center'>
+                                <div className='get-help'>
+                                    <img className="get-help-img mr-3" src={userProfileImg} />
+                                    <p><strong>{userName}</strong></p>
+                                </div>
+                            </div>
+                            <div className='col-lg-5 d-flex align-items-center'>
+                                {/* <p>{question.title.rendered.replace(search, `<p>${search}</p>`)}</p> */} 
+                                <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion() : question.title.rendered } } />
+                            </div>
+                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
+                            </div>
+                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Link>
+            )
+            } 
+            if (search.length == 0) {
+            return (
+                <Link to={{ pathname: `/question/${question.id}/` }} key={index}>
+                    <div className="card get-help-item mb-4">
+                        <div className="card-body">
+                            <div className="row">
+                                <div className='col-lg-3 d-flex align-items-center'>
+                                    <div className='get-help'>
+                                        <img className="get-help-img mr-3" src={userProfileImg ? userProfileImg : defaultImage} />
+                                        <p><strong>{userName}</strong></p>
+                                    </div>
+                                </div>
+                                <div className='col-lg-5 d-flex align-items-center'>
+                                    <p>{question.title.rendered}</p>
+                                </div>
+                                <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                    <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
+                                </div>
+                                <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                    <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
+                )
+            }
+        }
+        )}
+    </>
+  );
+}
+
+function PaginatedItems({ itemsPerPage }) {
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // Simulate fetching items from another resources.
+  // (This could be items from props; or items loaded in a local state
+  // from an API endpoint with useEffect and useState)
+  const endOffset = itemOffset + itemsPerPage;
+  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  
+  const currentItems = question.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(question.length / itemsPerPage);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % question.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  };
+
+  return (
+    <>
+      <Items currentItems={currentItems} />
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="»"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="«"
+        renderOnZeroPageCount={null}
+      />
+    </>
+  );
+  
+}
+
+    // End pagination
 
 
     // Rendering questions
@@ -265,16 +419,10 @@ export default function AskQuestions() {
                             </div>
                         </div>
                         <hr className="mb-5"></hr>
-                        {returnQuestions}
-                        {/* <ReactPaginate
-                        pageCount={pageCount}
-                        pageRangeDisplayed={5}
-                        marginPagesDisplayed={2}
-                        onPageChange={handlePageChange}
-                        containerClassName="pagination"
-                        activeClassName="active"
-                        /> */}
-                        {/* <PaginatedItems itemsPerPage={1} /> */}
+                        {/* {returnQuestions} */}
+                        <PaginatedItems itemsPerPage={10} />
+                        {/* document.getElementById('container') */}
+                  
                     </div>
                 <div className={"modal"+" "+modalClass}>
                     <div className="container" >
