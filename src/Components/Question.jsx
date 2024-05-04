@@ -284,7 +284,7 @@ return (
                                         </g>
                                         </g>
                                     </svg>
-                                    <p>Type your answer here</p>
+                                    <p>Type your answer below</p>
                                 </div>
                             
                                     <form onSubmit={handleSubmit}>

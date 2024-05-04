@@ -90,6 +90,7 @@ export default function Registration() {
                         'last_name': apiSettings.last_name,
                         'name': apiSettings.name,
                         'email': apiSettings.email,
+                        'role': 'editor',
                         'acf' : {
                             'user-birth_date': apiSettings.user_birth_date,
                             'user-gender': apiSettings.user_gender,

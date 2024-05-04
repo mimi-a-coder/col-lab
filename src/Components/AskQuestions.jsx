@@ -113,9 +113,8 @@ export default function AskQuestions() {
                     }
                 }
             ).then((response) => {
-                setAskQuestionStatus('published');
             })
-        
+            setAskQuestionStatus('published');
         } catch (error) {
             console.error('Error submitting question:', error);
         }
@@ -378,7 +377,7 @@ function PaginatedItems({ itemsPerPage }) {
                                             <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
                                         </div>
                                         <div className="col-12 mb-4">
-                                            <input className="form-control form-control-lg" type="text" name="title"  value={askQuestionApi.title} onChange={handleChange} aria-label='Question field' disabled={askQuestionStatus === 'published' ? true : false} placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
+                                            <input className="form-control form-control-lg" type="text" name="title"  value={askQuestionApi.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
                                             { askQuestionApi.title.length == 140 ?
                                             <p className="small red">Maximum characters reached!</p> : '' }
                                         </div>
@@ -386,8 +385,9 @@ function PaginatedItems({ itemsPerPage }) {
                                             <Editor
                                               apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
                                               data-info="content"
-                                              className="form-control form-control-lg"
+                                              className="form-control form-control-lg" 
                                               init={{
+                                                readOnly: askQuestionStatus === 'published' ? true : false,
                                                 selector: 'textarea',
                                                 placeholder: 'Give a detailed description of your question. Attach pictures if necessary.',
                                               toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright | bullist numlist',
