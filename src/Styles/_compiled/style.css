@@ -104,6 +104,7 @@ s .btn {
 }
 .btn-outline-info:hover {
   color: #fff !important;
+  background-color: #0f9ed5 !important;
 }
 
 .btn-sm {
@@ -123,13 +124,13 @@ s .btn {
 }
 
 .btn-lg {
-  font-size: 1.4rem !important;
+  font-size: 1.6rem !important;
   height: 100%;
 }
 
 .form-control {
   border: 1px solid grey !important;
-  font-size: 1.4rem !important;
+  font-size: 1.6rem !important;
 }
 
 .login-text {
@@ -137,7 +138,7 @@ s .btn {
 }
 
 .small {
-  font-size: 1.2rem !important;
+  font-size: 1.4rem !important;
   font-family: "Roboto", sans-serif;
 }
 
@@ -294,6 +295,14 @@ a {
 .highlight {
   background-color: yellow;
   color: #000;
+}
+
+.m-right {
+  margin-right: 2rem;
+}
+
+.page-filter {
+  padding-top: 4rem;
 }
 
 /* Button Colours */
@@ -457,6 +466,11 @@ header {
 }
 
 .nav-link.active, .nav-pills .show > .nav-link {
+  background-color: #0f9ed5 !important;
+  color: #fff !important;
+}
+
+.active-header {
   background-color: #0f9ed5 !important;
   color: #fff !important;
 }
@@ -634,6 +648,11 @@ textarea[data-info=content] {
 
 [aria-label="Previous page"] {
   font-size: 2rem;
+}
+
+.job {
+  padding-top: 2.5rem !important;
+  padding-bottom: 2.5rem !important;
 }
 
 @media screen and (max-width: 1000px) {

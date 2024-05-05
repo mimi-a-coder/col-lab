@@ -63,6 +63,7 @@ html {
   height: 100%;
   &:hover {
     color: #fff !important;
+    background-color: $mercy-color-1 !important
   }
 }
 .btn-sm {
@@ -83,19 +84,19 @@ html {
 }
 
 .btn-lg {
-  font-size: 1.4rem !important;
+  font-size: 1.6rem !important;
   height: 100%;
 }
 // Form
 .form-control {
   border: 1px solid grey !important;
-  font-size: 1.4rem !important;
+  font-size: 1.6rem !important;
 }
 .login-text {
   margin: 0 0 0 0 !important;
 }
 .small {
-  font-size: 1.2rem !important;
+  font-size: 1.4rem !important;
   font-family: 'Roboto', sans-serif;
 }
 .form-registration {
@@ -264,4 +265,13 @@ a {
 .highlight {
   background-color: yellow;
   color: #000;
+}
+
+.m-right {
+  margin-right: 2rem;
+}
+
+// Page filter
+.page-filter {
+  padding-top: 4rem;
 }

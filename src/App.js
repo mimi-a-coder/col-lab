@@ -7,6 +7,7 @@ import Registration from './Components/Registration';
 import Profile from './Components/Profile';
 import AskQuestions from './Components/AskQuestions';
 import Question from './Components/Question';
+import Jobs from './Components/Jobs';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/profile" element={<Profile/>} />
         <Route path="/ask-questions" element={<AskQuestions/>} />
         <Route path="/question/:param1" element={<Question/>} />
+        <Route path="/jobs" element={<Jobs/>} />
       </Routes>
    </Router>
   );

@@ -4,7 +4,7 @@ import HandShake from '../Images/handshake-svgrepo-com.svg';
 import Gethelp from '../Images/brainstorm-idea-svgrepo-com.svg';
 import Teach from '../Images/teach-learn-tell-student-svgrepo-com.svg';
 import Borrow from '../Images/receive-svgrepo-com.svg';
-import Jobs from '../Images/jobs-open-svgrepo-com.svg';
+import Job from '../Images/jobs-open-svgrepo-com.svg';
 import Interview from '../Images/interview-7-svgrepo-com.svg';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -205,7 +205,7 @@ export default function Dashboard() {
                       <Link to="/ask-questions" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Gethelp}/>Ask Questions</button></Link>
                       <button className='btn-main'><img className="btn-main-icon" src={Teach}/>Mentorships</button>
                       <button className='btn-main'><img className="btn-main-icon" src={Borrow}/>Borrow Items</button>
-                      <button className='btn-main'><img className="btn-main-icon" src={Jobs}/>Jobs</button>
+                      <Link to="/jobs" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Job}/>Jobs</button></Link>
                       <button className='btn-main'><img className="btn-main-icon" src={Interview}/>Mock Interviews</button>
                     </div>
                   </div>

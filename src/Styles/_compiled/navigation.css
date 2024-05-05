@@ -43,3 +43,8 @@ header {
   background-color: #0f9ed5 !important;
   color: #fff !important;
 }
+
+.active-header {
+  background-color: #0f9ed5 !important;
+  color: #fff !important;
+}
