@@ -8,6 +8,7 @@ import Profile from './Components/Profile';
 import AskQuestions from './Components/AskQuestions';
 import Question from './Components/Question';
 import Jobs from './Components/Jobs';
+import CreateJob from './Components/CreateJob';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/ask-questions" element={<AskQuestions/>} />
         <Route path="/question/:param1" element={<Question/>} />
         <Route path="/jobs" element={<Jobs/>} />
+        <Route path="/create-job" element={<CreateJob/>} />
       </Routes>
    </Router>
   );

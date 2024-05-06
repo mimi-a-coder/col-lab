@@ -3,31 +3,46 @@ import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Tab, initMDB } from "mdb-ui-kit";
+import { Editor } from '@tinymce/tinymce-react';
 
 export default function Jobs() {
+    const userDetails = localStorage.getItem('userDetails');
     const [search, setSearch] = useState('');
     const [jobs, setJobs] = useState([]);
+    const [modalClass, setModalClass] = useState('hide-modal');
+    const [jobStatus, setJobStatus] = useState('hide-modal');
+    const [ createComment, setCreateComment ] = useState('');
+    const [createJob, setCreateJob]  = useState({
+        title: '',
+        jobs_institution: '',
+
+    })
     
     useEffect(() => {
         initMDB({ Tab });
     }, []);
 
       // Api for users
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/jobs`)
-    .then((response) => {
-     setJobs(response.data);
-     console.log(jobs)
-    })
-    .catch()
-  }, [search])
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/jobs`)
+        .then((response) => {
+        setJobs(response.data);
+        console.log(jobs)
+        })
+        .catch()
+    }, [search])
 
+  var countActiveJobs = 0;
 // Active Jobs
   const activeJobs = jobs.map((job, index) => {
     let posted = Date.now() - new Date(job.date);
     let days = Math.floor(posted/(86400 * 1000));
 
     let deadlineString = job.acf.jobs_application_deadline;
+    var find = '-';
+    var re = new RegExp(find, 'g');
+    deadlineString  = deadlineString.replace(re, '');
+
     // Extract year, month, and day from the string
     let year = deadlineString.substring(0, 4);
     let month = deadlineString.substring(4, 6) - 1; // Month is 0-indexed in JavaScript
@@ -39,7 +54,8 @@ export default function Jobs() {
     // Convert the date to epoch time
     let deadlineDate = deadline.getTime();
 
-    if ( Date.now() <= deadlineDate ) { 
+    if ( Date.now() <= deadlineDate && job.status == "publish" ) { 
+        countActiveJobs++
         return (
             <div className="card get-help-item mb-4" key={index}>
                 <div className="card-body job">
@@ -65,12 +81,18 @@ export default function Jobs() {
     }
   });
 
+  var countExpiredJobs = 0;
 // Expired Jobs
   const expiredJobs = jobs.map((job, index) => {
     let posted = Date.now() - new Date(job.date);
     let days = Math.floor(posted/(86400 * 1000));
 
+
     let deadlineString = job.acf.jobs_application_deadline;
+    var find = '-';
+    var re = new RegExp(find, 'g');
+    deadlineString  = deadlineString.replace(re, '');
+    
     // Extract year, month, and day from the string
     let year = deadlineString.substring(0, 4);
     let month = deadlineString.substring(4, 6) - 1; // Month is 0-indexed in JavaScript
@@ -82,7 +104,8 @@ export default function Jobs() {
     // Convert the date to epoch time
     let deadlineDate = deadline.getTime();
 
-    if ( Date.now() > deadlineDate) { 
+    if ( Date.now() > deadlineDate && job.status == "publish") { 
+        countExpiredJobs++
         return (
             <div className="card get-help-item mb-4" key={index}>
                 <div className="card-body job">
@@ -126,7 +149,7 @@ export default function Jobs() {
                             }} />
                         </div>
                         <div className="col-lg-6 d-flex justify-content-end">
-                            <button className="btn btn-info btn-lg">Create a Job Posting</button>
+                            <Link to="/create-job"><button className="btn btn-info btn-lg">Create a Job Posting</button></Link>
                         </div>
                     </div>
                 </div>
@@ -141,10 +164,10 @@ export default function Jobs() {
                     </ul>
                     <div className="tab-content" id="ex1-content">
                         <div className="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
-                            {activeJobs}
+                            {countActiveJobs > 0 ? activeJobs : <p><strong>Nothing to show here.</strong></p>}
                         </div>
                         <div className="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                            {expiredJobs}
+                            {countExpiredJobs > 0 ? expiredJobs : <p><strong>Nothing to show here.</strong></p>}
                         </div>
                     </div>
                 </div>

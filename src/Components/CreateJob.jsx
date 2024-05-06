@@ -1,0 +1,219 @@
+import React, { useState, useEffect } from "react";
+import Navigation from "./Navigation";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { Tab, initMDB } from "mdb-ui-kit";
+import { Editor } from '@tinymce/tinymce-react';
+
+export default function CreateJob() {
+    const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    const [jobStatus, setJobStatus] = useState("");
+    const [createComment, setCreateComment] = useState('');
+    const [createCommentDetails, setCreateCommentDetails] = useState('');
+    const [createJob, setCreateJob]  = useState({
+        title: '',
+        jobs_institution: '',
+        jobs_job_type: '',
+        jobs_benefits: '',
+        jobs_languages: '',
+        jobs_work_location: '',
+        jobs_schedule: '',
+        jobs_instructions_to_apply: '',
+        jobs_application_deadline: '',
+        jobs_exptected_start_date: '',
+    })
+    const [createJobApi, setCreateJobApi]  = useState({
+        title: '',
+        jobs_institution: '',
+        jobs_job_type: '',
+        jobs_benefits: '',
+        jobs_languages: '',
+        jobs_work_location: '',
+        jobs_schedule: '',
+        jobs_instructions_to_apply: '',
+        jobs_application_deadline: '',
+        jobs_exptected_start_date: '',
+    })
+
+    //   Handle Change
+  function handleChange(e) {
+    const {name, value} = e.target
+    setCreateJob(prev => {
+        return (
+            { ...prev, [name]: value}
+        )
+    })
+}
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        // Upload image if file exists
+            const response = await axios.post(
+              `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/jobs`,
+                {   
+                    'title':  createJob.title,
+                    'content': createComment,
+                    'excerpt': createJob.title,
+                    'author': userDetails.id,
+                    status: 'publish',
+                    'acf' : {
+                        'jobs_institution': createJob.jobs_institution,
+                        'jobs_description': createComment,
+                        'jobs_job_type': createJob.jobs_job_type,
+                        'jobs_benefits': createJob.jobs_benefits,
+                        'jobs_languages': createJob.jobs_languages,
+                        'jobs_work_location': createJob.jobs_work_location,
+                        'jobs_schedule': createJob.jobs_schedule,
+                        'jobs_instructions_to_apply': createCommentDetails,
+                        'jobs_application_deadline': createJob.jobs_application_deadline,
+                        'jobs_exptected_start_date': createJob.jobs_exptected_start_date,
+                    }
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${userDetails.token}`
+                    }
+                }
+            )
+            .then((response) => {
+                console.log(response);
+                setJobStatus("publish")
+            })
+            .catch((error) => {
+            });
+    } catch (error) {
+        console.error('Error submitting question:', error);
+    }
+}
+
+// TinyMC Handle Change
+function handleChangeContent(e) {
+    setCreateComment(e.target.getContent());
+}
+
+// TinyMC Handle Change
+function handleChangeContentDetail(e) {
+    setCreateCommentDetails(e.target.getContent());
+}
+
+    return(
+        <>
+            <Navigation />
+            <main className="create-job">
+                <div className="container primary" >
+                    <div className="page-filter">
+                        <div className="row mb-5">
+                            <div className="col-12 d-flex">
+                                <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><Link className="link-dark small d-flex align-items-center" to="/jobs">Jobs</Link><span className="breadcrumb-slash">/</span><span className="small">Create Job</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form className="form-create-job mx-auto" onSubmit={handleSubmit}>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <p className="lead"><strong>Create a Job Posting</strong></p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <input className="form-control form-control-lg" type="text" name="title"  value={createJob.title} onChange={handleChange} aria-label='Job title' placeholder="Job title" disabled={ jobStatus === 'publish' ? true : false} autoComplete='on' required />
+                                { createJob.length == 140 ?
+                                <p className="small red">Maximum characters reached!</p> : '' }
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_institution"  value={createJob.jobs_institution} onChange={handleChange} aria-label='Job Institution' placeholder="Name of company/institution" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-lg-12 mb-4">
+                                <select name="jobs_job_type" value={createJob.jobs_job_type} onChange={handleChange} className='form-control form-control-lg form-select' aria-label='Job Type' disabled={ jobStatus === 'publish' ? true : false} required>
+                                    <option disabled value="">Job type</option>
+                                    <option>Full-time</option>
+                                    <option>Part-time</option>
+                                    <option>Part-time, Full-time</option>
+                                </select>
+                            </div>    
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <p className="small form-registration-label mb-2">Detailed job description:</p>
+                                <Editor
+                                    apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
+                                    data-info="content"
+                                    className="form-control form-control-lg" 
+                                    init={{
+                                    readOnly: jobStatus === 'published' ? true : false,
+                                    selector: 'textarea',
+                                    placeholder: 'Include company description, position overview, responsibilities, qualifications',
+                                    toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright | bullist numlist',
+                                    }}
+                                    onChange={handleChangeContent}
+                                />
+                            </div> 
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_benefits"  value={createJob.jobs_benefits} onChange={handleChange} aria-label='Job benefits' placeholder="Benefits" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_languages"  value={createJob.jobs_languages} onChange={handleChange} aria-label='Job language requirements' placeholder="Language requirements" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_work_location"  value={createJob.jobs_work_location} onChange={handleChange} aria-label='Job work location' placeholder="Work location" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_schedule"  value={createJob.jobs_schedule} onChange={handleChange} aria-label='Job schedule' placeholder="Work Schedule" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <p className="small form-registration-label mb-2">Detail instructions to apply:</p>
+                                <Editor
+                                    apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
+                                    data-info="content"
+                                    className="form-control form-control-lg" 
+                                    init={{
+                                    readOnly: jobStatus === 'published' ? true : false,
+                                    selector: 'textarea',
+                                    placeholder: 'Instructions on how to apply for this job',
+                                    toolbar: 'undo redo | bold italic underline | superscript subscript | alignleft aligncenter alignright | bullist numlist',
+                                    }}
+                                    onChange={handleChangeContentDetail}
+                                />
+                            </div> 
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <p className="small form-registration-label">Application deadline</p>
+                                <input name="jobs_application_deadline" value={createJob.jobs_application_deadline} onChange={handleChange} className="form-control form-control-lg" type="Date" aria-label="Applicatiion deadline" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />   
+                            </div> 
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-5">
+                                <p className="small form-registration-label">Exptected start Date</p>
+                                <input name="jobs_exptected_start_date" value={createJob.jobs_exptected_start_date} onChange={handleChange} className="form-control form-control-lg" type="Date" aria-label="Expected start date" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />   
+                            </div> 
+                        </div>
+                        { jobStatus === "publish" ? 
+                        <div className="alert alert-success mb-5" role="alert">
+                            <p>Success! Your job has been published!</p>
+                        </div>
+                        : ''    
+                        }
+                        <button className="btn btn-info btn-lg" type="submit" disabled={ jobStatus === 'publish' ? true : false} >Submit</button>
+                    </form>                 
+
+                </div>
+            </main>
+    </>
+        );
+};

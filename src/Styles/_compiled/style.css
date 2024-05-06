@@ -38,7 +38,11 @@ html {
   font-family: "Roboto", sans-serif !important;
 }
 
-s .btn {
+main {
+  margin-bottom: 6rem;
+}
+
+.btn {
   font-size: 1.6rem !important;
   font-family: "Roboto", sans-serif !important;
 }
@@ -303,6 +307,7 @@ a {
 
 .page-filter {
   padding-top: 4rem;
+  width: 100%;
 }
 
 /* Button Colours */
@@ -653,6 +658,11 @@ textarea[data-info=content] {
 .job {
   padding-top: 2.5rem !important;
   padding-bottom: 2.5rem !important;
+}
+
+.form-create-job {
+  width: 100%;
+  max-width: 90rem;
 }
 
 @media screen and (max-width: 1000px) {

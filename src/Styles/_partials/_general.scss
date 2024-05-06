@@ -1,7 +1,10 @@
 html {
     font-size: 10px;
     font-family: 'Roboto', sans-serif !important;
-}s
+}
+main {
+  margin-bottom: 6rem;
+}
 .btn {
   font-size: 1.6rem !important;
   font-family: 'Roboto', sans-serif !important;
@@ -274,4 +277,5 @@ a {
 // Page filter
 .page-filter {
   padding-top: 4rem;
+  width: 100%;
 }
