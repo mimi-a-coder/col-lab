@@ -171,6 +171,20 @@ export default function Question() {
               setSuccessServerComment("Success! Your comment has been published.")
               console.log(response.data.status)
           })
+          // Update points
+          const updatePoints = await axios.post(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${userDetails.id}`,
+           {acf: {
+            "user-points": `${2 + JSON.parse(localStorage.getItem('userPoints'))}`
+          }
+        },
+        {
+          headers: {
+              Authorization: `Bearer ${userDetails.token}`
+          }
+        }
+          ).then(function (response) {
+            console.log(response.data);
+           })
           
       } catch (error) {
         if (error.response.data.message === 'Duplicate comment detected; it looks as though you&#8217;ve already said that!')

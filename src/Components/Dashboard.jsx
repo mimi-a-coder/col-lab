@@ -16,9 +16,6 @@ export default function Dashboard() {
   const [getHelpQuestions, setGetHelpQuestions] = useState([]);
   const [getUsers, setGetUsers] = useState([]); // Do I Need?
   const [usersAccountDetails, setUsersAccountDetails] = useState({});
-
-  // let userUrl = '';
-  // let localName = localStorage.getItem('user_name');
   let userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   // Api for questions
@@ -43,25 +40,21 @@ export default function Dashboard() {
   useEffect(() => {
     let userDetails = JSON.parse(localStorage.getItem("userDetails"));
     axios({
-      url:`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${userDetails.id}`,
+      url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${userDetails.id}`,
       method: 'POST',
       headers: {
         Authorization: `Bearer ${userDetails.token}`
       }
-  })
+    })
     .then((response) => {
-      setUsersAccountDetails(response.data)
+      localStorage.setItem('userPoints', JSON.stringify(response.data['acf']['user-points']));
+      setUsersAccountDetails(response.data);
+      console.log(localStorage.getItem('userPoints'));
     })
     .catch((err) => {
-    })
-  }, [])
-
-  // for (let user of getUsers) {
-  //   if (user.name == localName) {
-  //     userUrl = user['avatar_urls']['24'];
-  //   }
-  // }
-
+      // Handle error
+    });
+  }, []);
 
       const questions = getHelpQuestions.map((question, index) => {
         let userName = "";
@@ -170,7 +163,7 @@ export default function Dashboard() {
                     <hr></hr>
                     <div className="dashboard-user-details-links">
                       <div className="link-item">
-                        <p><strong>You’ve earned 50 pts</strong></p>
+                        <p><strong>You’ve earned {JSON.parse(localStorage.getItem('userPoints'))} pts</strong></p>
                       </div>
                       <div className="link-item">
                         <p>Notifications</p>
