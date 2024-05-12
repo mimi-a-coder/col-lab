@@ -16,6 +16,7 @@ export default function CreateJob() {
         jobs_benefits: '',
         jobs_languages: '',
         jobs_work_location: '',
+        jobs_office_location: '',
         jobs_schedule: '',
         jobs_instructions_to_apply: '',
         jobs_application_deadline: '',
@@ -28,6 +29,7 @@ export default function CreateJob() {
         jobs_benefits: '',
         jobs_languages: '',
         jobs_work_location: '',
+        jobs_office_location: '',
         jobs_schedule: '',
         jobs_instructions_to_apply: '',
         jobs_application_deadline: '',
@@ -63,6 +65,7 @@ export default function CreateJob() {
                         'jobs_benefits': createJob.jobs_benefits,
                         'jobs_languages': createJob.jobs_languages,
                         'jobs_work_location': createJob.jobs_work_location,
+                        'jobs_office_location': createJob.jobs_office_location,
                         'jobs_schedule': createJob.jobs_schedule,
                         'jobs_instructions_to_apply': createCommentDetails,
                         'jobs_application_deadline': createJob.jobs_application_deadline,
@@ -127,7 +130,13 @@ if (userDetails != null) {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-lg-12 mb-4">
+                            <div className="col-12 mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_office_location"  value={createJob.jobs_office_location} onChange={handleChange} aria-label='Job work location' placeholder="Office location" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-lg-6 mb-4">
+                                <p>Job Type:</p>
                                 <select name="jobs_job_type" value={createJob.jobs_job_type} onChange={handleChange} className='form-control form-control-lg form-select' aria-label='Job Type' disabled={ jobStatus === 'publish' ? true : false} required>
                                     <option disabled value="">Job type</option>
                                     <option>Full-time</option>
@@ -135,6 +144,15 @@ if (userDetails != null) {
                                     <option>Part-time, Full-time</option>
                                 </select>
                             </div>    
+                            <div className="col-lg-6 mb-4">
+                                <p>Work Location:</p>
+                                <select name="jobs_work_location" value={createJob.jobs_work_location} onChange={handleChange} className='form-control form-control-lg form-select' aria-label='Job work location' disabled={ jobStatus === 'publish' ? true : false} required>
+                                    <option disabled value="">Work location</option>
+                                    <option>In office</option>
+                                    <option>Remote</option>
+                                    <option>Hybrid</option>
+                                </select>
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
@@ -161,11 +179,6 @@ if (userDetails != null) {
                         <div className="row">
                             <div className="col-12 mb-4">
                                 <input className="form-control form-control-lg" type="text" name="jobs_languages"  value={createJob.jobs_languages} onChange={handleChange} aria-label='Job language requirements' placeholder="Language requirements" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 mb-4">
-                                <input className="form-control form-control-lg" type="text" name="jobs_work_location"  value={createJob.jobs_work_location} onChange={handleChange} aria-label='Job work location' placeholder="Work location" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
                             </div>
                         </div>
                         <div className="row">

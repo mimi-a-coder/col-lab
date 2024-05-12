@@ -69,7 +69,7 @@ export default function Jobs() {
                             {job.acf.jobs_institution}
                         </div>
                         <div className='col-lg-2 d-flex align-items-center align-items-center'>
-                            {job.acf.jobs_work_location}
+                            {job.acf.jobs_office_location}
                         </div>
                         <div className='col-lg-2 d-flex align-items-center justify-content-end'>
                             {days == 0 ? "Posted today" : `${days}d ago`}
@@ -121,7 +121,7 @@ export default function Jobs() {
                                 {job.acf.jobs_institution}
                             </div>
                             <div className='col-lg-2 d-flex align-items-center align-items-center'>
-                                {job.acf.jobs_work_location}
+                                {job.acf.jobs_office_location}
                             </div>
                             <div className='col-lg-2 d-flex align-items-center justify-content-end'>
                                 {days == 0 ? "Posted today" : `${days}d ago`}

@@ -69,7 +69,7 @@ export default function CreateJob() {
                             <div className="col-12 mb-4">
                                 <h1>{jobDetails?.title?.rendered}</h1>
                                 <span>{jobDetails?.acf?.jobs_institution}</span><br></br>
-                                <span>{jobDetails?.acf?.jobs_work_location}</span>
+                                <span>{jobDetails?.acf?.jobs_office_location}</span>
                                 <hr></hr>
                             </div>
                         </div>
@@ -78,56 +78,51 @@ export default function CreateJob() {
                                 <p className="lead">Job Details</p>
                                 <div dangerouslySetInnerHTML={{ __html: jobDetails?.acf?.jobs_description }} />
                             </div> 
+                            <hr></hr>
                         </div>
                         <div className="row">
-                            <div className="col-lg-12 mb-4">
-                            <p><strong>Job Type:</strong></p>
-                            <input className="form-control form-control-lg" type="text" name="jobs_type"  value={jobDetails?.acf?.jobs_job_type} aria-label='Job Type' autoComplete='off' readOnly="true" />
+                            <div className="col-lg-6 mb-4">
+                              <span><strong>Job Type:</strong></span>
+                              <span> {jobDetails?.acf?.jobs_job_type}</span>
                             </div>    
                         </div>
                         <div className="row">
-                            <div className="col-12 mb-4">
+                            <div className="col-lg-6 mb-4">
                                 <p><strong>Benefits:</strong></p>
-                                <input className="form-control form-control-lg" type="text" name="jobs_benefits" value={jobDetails?.acf?.jobs_benefits} aria-label='Job benefits' autoComplete='off' />
+                                <p>{jobDetails?.acf?.jobs_benefits}</p>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
-                                <p><strong>Job language requirements:</strong></p>
-                                <input className="form-control form-control-lg" type="text" name="jobs_languages"  value={jobDetails?.acf?.jobs_languages} aria-label='Job language requirements' autoComplete='off' readOnly="true" />
+                                <span><strong>Job language requirements:</strong></span>
+                                <span> {jobDetails?.acf?.jobs_languages}</span>
                             </div>
                         </div>
-                        {/* <div className="row">
-                            <div className="col-12 mb-4">
-                                <p><strong>Job work location:</strong></p>
-                                <input className="form-control form-control-lg" type="text" name="jobs_work_location"  value={jobDetails?.acf?.jobs_work_location} aria-label='Job work location' autoComplete='off'readOnly="true" />
-                            </div>
-                        </div> */}
                         <div className="row">
                             <div className="col-12 mb-4">
-                                <p><strong>Job schedule:</strong></p>
-                                <input className="form-control form-control-lg" type="text" name="jobs_schedule"  value={jobDetails?.acf?.jobs_schedule} aria-label='Job schedule' autoComplete='off' readOnly="true" />
+                                <span><strong>Job schedule:</strong></span>
+                                <span> {jobDetails?.acf?.jobs_schedule}</span>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
                                 <p><strong>Detail instructions to apply:</strong></p>
-                                <div className="form-control form-control-lg job-detail-div" dangerouslySetInnerHTML={{ __html: jobDetails?.acf?.jobs_instructions_to_apply }} />
+                                <div dangerouslySetInnerHTML={{ __html: jobDetails?.acf?.jobs_instructions_to_apply }} />
                             </div> 
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
-                                <p><strong>Application deadline</strong></p>
-                                <input name="jobs_application_deadline" value={DateToReadable(jobDetails?.acf?.jobs_application_deadline)} className="form-control form-control-lg" type="text" aria-label="Applicatiion deadline" autoComplete='off' readOnly="true" />   
+                                <span><strong>Aspanlication deadline:</strong></span>
+                                <span> {DateToReadable(jobDetails?.acf?.jobs_application_deadline)}</span>   
                             </div> 
                         </div>
                         <div className="row">
                             <div className="col-12 mb-5">
-                                <p><strong>Exptected start Date</strong></p>
-                                <input name="jobs_exptected_start_date" value={DateToReadable(jobDetails?.acf?.jobs_exptected_start_date)} className="form-control form-control-lg" type="text" aria-label="Expected start date" autoComplete='off' readOnly="true" />   
+                                <span><strong>Exptected start Date:</strong></span>
+                                <span> {DateToReadable(jobDetails?.acf?.jobs_exptected_start_date)}</span>   
                             </div> 
                         </div>
-                        <Link to="/jobs"><button className="btn btn-info btn-lg">Back</button></Link>
+                        <Link to="/jobs"><button className="btn btn-info btn-lg mr-5">Back</button></Link>
                     </form>                 
 
                 </div>
