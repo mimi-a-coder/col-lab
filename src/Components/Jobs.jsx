@@ -3,7 +3,6 @@ import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Tab, initMDB } from "mdb-ui-kit";
-import { Editor } from '@tinymce/tinymce-react';
 
 export default function Jobs() {
     const userDetails = localStorage.getItem('userDetails');
@@ -27,7 +26,7 @@ export default function Jobs() {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/jobs`)
         .then((response) => {
         setJobs(response.data);
-        console.log(jobs)
+            console.log(response.data)
         })
         .catch()
     }, [search])
@@ -57,6 +56,7 @@ export default function Jobs() {
     if ( Date.now() <= deadlineDate && job.status == "publish" ) { 
         countActiveJobs++
         return (
+            <Link to={"/job/"+job["id"]}>
             <div className="card get-help-item mb-4" key={index}>
                 <div className="card-body job">
                     <div className="row">
@@ -77,6 +77,7 @@ export default function Jobs() {
                     </div>
                 </div>
             </div>
+            </Link>
         )
     }
   });
@@ -107,30 +108,33 @@ export default function Jobs() {
     if ( Date.now() > deadlineDate && job.status == "publish") { 
         countExpiredJobs++
         return (
-            <div className="card get-help-item mb-4" key={index}>
-                <div className="card-body job">
-                    <div className="row">
-                        <div className='col-lg-3 d-flex align-items-center'>
-                            <div className='get-help'>
-                                <strong>{job.title.rendered}</strong>
+            <Link to={"/job/"+job["id"]}>
+                <div className="card get-help-item mb-4" key={index}>
+                    <div className="card-body job">
+                        <div className="row">
+                            <div className='col-lg-3 d-flex align-items-center'>
+                                <div className='get-help'>
+                                    <strong>{job.title.rendered}</strong>
+                                </div>
                             </div>
-                        </div>
-                        <div className='col-lg-5 d-flex align-items-center'>
-                            {job.acf.jobs_institution}
-                        </div>
-                        <div className='col-lg-2 d-flex align-items-center align-items-center'>
-                            {job.acf.jobs_work_location}
-                        </div>
-                        <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                            {days == 0 ? "Posted today" : `${days}d ago`}
+                            <div className='col-lg-5 d-flex align-items-center'>
+                                {job.acf.jobs_institution}
+                            </div>
+                            <div className='col-lg-2 d-flex align-items-center align-items-center'>
+                                {job.acf.jobs_work_location}
+                            </div>
+                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                {days == 0 ? "Posted today" : `${days}d ago`}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         )
     }
   });
 
+  if (userDetails != null) {
     return(
     <>
         <Navigation />
@@ -175,5 +179,7 @@ export default function Jobs() {
         </main>
     </>
     );
-
+      } else {
+        window.location.replace("/");
+      }
 }

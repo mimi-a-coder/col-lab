@@ -33,6 +33,11 @@ div {
   font-family: "Roboto", sans-serif;
 }
 
+span {
+  font-size: 1.6rem;
+  font-family: "Roboto", sans-serif;
+}
+
 html {
   font-size: 10px;
   font-family: "Roboto", sans-serif !important;
@@ -663,6 +668,11 @@ textarea[data-info=content] {
 .form-create-job {
   width: 100%;
   max-width: 90rem;
+}
+
+.job-detail-div {
+  height: 300px;
+  overflow-y: scroll;
 }
 
 @media screen and (max-width: 1000px) {

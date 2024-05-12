@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Tab, initMDB } from "mdb-ui-kit";
 import { Editor } from '@tinymce/tinymce-react';
 
 export default function CreateJob() {
@@ -96,7 +95,7 @@ function handleChangeContent(e) {
 function handleChangeContentDetail(e) {
     setCreateCommentDetails(e.target.getContent());
 }
-
+if (userDetails != null) {
     return(
         <>
             <Navigation />
@@ -216,4 +215,7 @@ function handleChangeContentDetail(e) {
             </main>
     </>
         );
+    } else {
+        window.location.replace("/");
+      }
 };
