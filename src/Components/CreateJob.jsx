@@ -57,7 +57,7 @@ export default function CreateJob() {
                     'content': createComment,
                     'excerpt': createJob.title,
                     'author': userDetails.id,
-                    status: 'publish',
+                    'status': 'publish',
                     'acf' : {
                         'jobs_institution': createJob.jobs_institution,
                         'jobs_description': createComment,

@@ -106,13 +106,13 @@ export default function CreateJob() {
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
-                                <p><strong>Detail instructions to apply:</strong></p>
+                                <p><strong>Instructions to apply:</strong></p>
                                 <div dangerouslySetInnerHTML={{ __html: jobDetails?.acf?.jobs_instructions_to_apply }} />
                             </div> 
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
-                                <span><strong>Aspanlication deadline:</strong></span>
+                                <span><strong>Application deadline:</strong></span>
                                 <span> {DateToReadable(jobDetails?.acf?.jobs_application_deadline)}</span>   
                             </div> 
                         </div>
