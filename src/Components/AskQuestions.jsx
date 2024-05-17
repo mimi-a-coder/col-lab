@@ -405,7 +405,7 @@ function PaginatedItems({ itemsPerPage }) {
                                     </div>
                                     : ''    
                                     }
-                                    <button className="btn btn-info btn-sm"  type="submit">Submit</button>
+                                    <button className="btn btn-info btn-lg"  type="submit">Submit</button>
                                 </form>                 
                             </div>
                     </div>
