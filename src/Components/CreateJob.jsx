@@ -16,7 +16,10 @@ export default function CreateJob() {
         jobs_benefits: '',
         jobs_languages: '',
         jobs_work_location: '',
-        jobs_office_location: '',
+        jobs_street_address: '',
+        jobs_address_line_2: '',
+        jobs_city: '',
+        jobs_country: '',
         jobs_schedule: '',
         jobs_instructions_to_apply: '',
         jobs_application_deadline: '',
@@ -29,12 +32,26 @@ export default function CreateJob() {
         jobs_benefits: '',
         jobs_languages: '',
         jobs_work_location: '',
-        jobs_office_location: '',
+        jobs_street_address: '',
+        jobs_address_line_2: '',
+        jobs_city: '',
+        jobs_country: '',
         jobs_schedule: '',
         jobs_instructions_to_apply: '',
         jobs_application_deadline: '',
         jobs_exptected_start_date: '',
     })
+    const [ getCountries, setGetCountries ] = useState([]);
+
+    // Retreive cities from api
+    useEffect(() => {
+        axios.get("https://restcountries.com/v3.1/all")
+        .then((response) => {
+            setGetCountries(response.data);
+        })
+        .catch((error) => {
+        })
+    }, [])
 
     //   Handle Change
   function handleChange(e) {
@@ -65,7 +82,10 @@ export default function CreateJob() {
                         'jobs_benefits': createJob.jobs_benefits,
                         'jobs_languages': createJob.jobs_languages,
                         'jobs_work_location': createJob.jobs_work_location,
-                        'jobs_office_location': createJob.jobs_office_location,
+                        'jobs_office_location': createJob.jobs_street_address,
+                        'jobs_office_location': createJob.jobs_address_line_2,
+                        'jobs_office_location': createJob.jobs_city,
+                        'jobs_office_location': createJob.jobs_country,
                         'jobs_schedule': createJob.jobs_schedule,
                         'jobs_instructions_to_apply': createCommentDetails,
                         'jobs_application_deadline': createJob.jobs_application_deadline,
@@ -88,6 +108,15 @@ export default function CreateJob() {
         console.error('Error submitting question:', error);
     }
 }
+
+const countries = getCountries
+.slice()
+.sort((a, b) => a.name.common.localeCompare(b.name.common))
+.map((country, index) => {
+    return (
+        <option key={index}>{country.name.common}</option>
+    )
+})
 
 // TinyMC Handle Change
 function handleChangeContent(e) {
@@ -117,6 +146,7 @@ if (userDetails != null) {
                                 <p className="lead"><strong>Create a Job Posting</strong></p>
                             </div>
                         </div>
+                        <p><strong>Job Details:</strong></p>
                         <div className="row">
                             <div className="col-12 mb-4">
                                 <input className="form-control form-control-lg" type="text" name="title"  value={createJob.title} onChange={handleChange} aria-label='Job title' placeholder="Job title" disabled={ jobStatus === 'publish' ? true : false} autoComplete='on' required />
@@ -130,13 +160,8 @@ if (userDetails != null) {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-12 mb-4">
-                                <input className="form-control form-control-lg" type="text" name="jobs_office_location"  value={createJob.jobs_office_location} onChange={handleChange} aria-label='Job work location' placeholder="Office location" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
-                            </div>
-                        </div>
-                        <div className="row">
                             <div className="col-lg-6 mb-4">
-                                <p>Job Type:</p>
+                                <p className="small m-0"><strong>Job Type:</strong></p>
                                 <select name="jobs_job_type" value={createJob.jobs_job_type} onChange={handleChange} className='form-control form-control-lg form-select' aria-label='Job Type' disabled={ jobStatus === 'publish' ? true : false} required>
                                     <option disabled value="">Job type</option>
                                     <option>Full-time</option>
@@ -145,7 +170,7 @@ if (userDetails != null) {
                                 </select>
                             </div>    
                             <div className="col-lg-6 mb-4">
-                                <p>Work Location:</p>
+                                <p className="small m-0"><strong>Work Location:</strong></p>
                                 <select name="jobs_work_location" value={createJob.jobs_work_location} onChange={handleChange} className='form-control form-control-lg form-select' aria-label='Job work location' disabled={ jobStatus === 'publish' ? true : false} required>
                                     <option disabled value="">Work location</option>
                                     <option>In office</option>
@@ -156,7 +181,42 @@ if (userDetails != null) {
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
-                                <p className="small form-registration-label mb-2">Detailed job description:</p>
+                                <textarea rows="7" className="form-control form-control-lg" type="text" name="jobs_benefits"  value={createJob.jobs_benefits} onChange={handleChange} aria-label='Job benefits' placeholder="Benefits and Pay" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required></textarea>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_languages"  value={createJob.jobs_languages} onChange={handleChange} aria-label='Job language requirements' placeholder="Language requirements" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_schedule"  value={createJob.jobs_schedule} onChange={handleChange} aria-label='Job schedule' placeholder="Work Schedule" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                        </div>
+                        <p><strong>Job Address:</strong></p>
+                        <div className="row">
+                            <div className="col-lg-12  mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_street_address"  value={createJob.jobs_street_address} onChange={handleChange} aria-label='Job Street Address' placeholder="Street Address" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                            <div className="col-lg-12  mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_address_line_2"  value={createJob.jobs_address_line_2} onChange={handleChange} aria-label='Address Line 2' placeholder="Address Line 2" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-lg-6  mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_city"  value={createJob.jobs_City} onChange={handleChange} aria-label='Job City' placeholder="City" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                            </div>
+                            <div className="col-lg-6  mb-4">
+                                <select name="jobs_country" value={createJob.jobs_country}  onChange={handleChange} className='form-control form-select form-control-lg' aria-label="Country" autoComplete="country-name" required>
+                                    <option disabled value="">Country</option>
+                                    {countries}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mb-4">
+                                <p className="mb-2"><strong>Job Description:</strong></p>
                                 <Editor
                                     apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
                                     data-info="content"
@@ -173,22 +233,7 @@ if (userDetails != null) {
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
-                                <input className="form-control form-control-lg" type="text" name="jobs_benefits"  value={createJob.jobs_benefits} onChange={handleChange} aria-label='Job benefits' placeholder="Benefits and Pay" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 mb-4">
-                                <input className="form-control form-control-lg" type="text" name="jobs_languages"  value={createJob.jobs_languages} onChange={handleChange} aria-label='Job language requirements' placeholder="Language requirements" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 mb-4">
-                                <input className="form-control form-control-lg" type="text" name="jobs_schedule"  value={createJob.jobs_schedule} onChange={handleChange} aria-label='Job schedule' placeholder="Work Schedule" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 mb-4">
-                                <p className="small form-registration-label mb-2">Detail instructions to apply:</p>
+                                <p className="mb-2"><strong>Instructions to Apply:</strong></p>
                                 <Editor
                                     apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
                                     data-info="content"
@@ -205,13 +250,13 @@ if (userDetails != null) {
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
-                                <p className="small form-registration-label">Application deadline</p>
+                                <p><strong>Application Deadline</strong></p>
                                 <input name="jobs_application_deadline" value={createJob.jobs_application_deadline} onChange={handleChange} className="form-control form-control-lg" type="Date" aria-label="Applicatiion deadline" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />   
                             </div> 
                         </div>
                         <div className="row">
                             <div className="col-12 mb-5">
-                                <p className="small form-registration-label">Exptected start Date</p>
+                                <p><strong>Exptected Start Date</strong></p>
                                 <input name="jobs_exptected_start_date" value={createJob.jobs_exptected_start_date} onChange={handleChange} className="form-control form-control-lg" type="Date" aria-label="Expected start date" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />   
                             </div> 
                         </div>

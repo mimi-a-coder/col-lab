@@ -69,7 +69,7 @@ export default function CreateJob() {
                             <div className="col-12 mb-4">
                                 <h1>{jobDetails?.title?.rendered}</h1>
                                 <span>{jobDetails?.acf?.jobs_institution}</span><br></br>
-                                <span>{jobDetails?.acf?.jobs_office_location}</span>
+                                <span>{jobDetails?.acf?.jobs_city}, {jobDetails?.acf?.jobs_country}</span>
                                 <hr></hr>
                             </div>
                         </div>
