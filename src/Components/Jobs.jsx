@@ -3,6 +3,7 @@ import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Tab, initMDB } from "mdb-ui-kit";
+import { renderedQuestion } from "../helper"
 
 export default function Jobs() {
     const userDetails = localStorage.getItem('userDetails');
@@ -55,6 +56,7 @@ export default function Jobs() {
 
     if ( Date.now() <= deadlineDate && job.status == "publish" ) { 
         countActiveJobs++
+        if (search.length > 0 && job.title.rendered.toLowerCase().includes(search.toLowerCase()) || job.acf.jobs_institution.toLowerCase().includes(search.toLowerCase())) {
         return (
             <Link to={"/job/"+job["id"]}>
             <div className="card get-help-item mb-4" key={index}>
@@ -62,11 +64,14 @@ export default function Jobs() {
                     <div className="row">
                         <div className='col-lg-3 d-flex align-items-center'>
                             <div className='get-help'>
-                                <strong>{job.title.rendered}</strong>
+                                <strong><div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(job.title.rendered, search) : job.title.rendered}} /></strong>
                             </div>
                         </div>
-                        <div className='col-lg-5 d-flex align-items-center'>
-                            {job.acf.jobs_institution}
+                        <div className='col-lg-3 d-flex align-items-center'>
+                            <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(job.acf.jobs_institution, search) : job.acf.jobs_institution}} />
+                        </div>
+                        <div className='col-lg-2 d-flex align-items-center'>
+                            <strong><i>{job?.acf?.jobs_work_location}</i></strong>
                         </div>
                         <div className='col-lg-2 d-flex align-items-center align-items-center'>
                         {job?.acf?.jobs_city}, {job?.acf?.jobs_country}
@@ -79,6 +84,7 @@ export default function Jobs() {
             </div>
             </Link>
         )
+        }
     }
   });
 
@@ -107,6 +113,7 @@ export default function Jobs() {
 
     if ( Date.now() > deadlineDate && job.status == "publish") { 
         countExpiredJobs++
+        if (search.length > 0 && job.title.rendered.toLowerCase().includes(search.toLowerCase()) || job.acf.jobs_institution.toLowerCase().includes(search.toLowerCase())) {
         return (
             <Link to={"/job/"+job["id"]}>
                 <div className="card get-help-item mb-4" key={index}>
@@ -114,13 +121,16 @@ export default function Jobs() {
                         <div className="row">
                             <div className='col-lg-3 d-flex align-items-center'>
                                 <div className='get-help'>
-                                    <strong>{job.title.rendered}</strong>
+                                    <strong><div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(job.title.rendered, search) : job.title.rendered}} /></strong>
                                 </div>
                             </div>
-                            <div className='col-lg-5 d-flex align-items-center'>
-                                {job.acf.jobs_institution}
+                            <div className='col-lg-3 d-flex align-items-center'>
+                                <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(job.acf.jobs_institution, search) : job.acf.jobs_institution}} />
                             </div>
-                            <div className='col-lg-2 d-flex align-items-center align-items-center'>
+                            <div className='col-lg-2 d-flex align-items-center'>
+                            <strong><i>{job?.acf?.jobs_work_location}</i></strong>
+                            </div>
+                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
                             {job?.acf?.jobs_city}, {job?.acf?.jobs_country}
                             </div>
                             <div className='col-lg-2 d-flex align-items-center justify-content-end'>
@@ -131,6 +141,7 @@ export default function Jobs() {
                 </div>
             </Link>
         )
+    }
     }
   });
 
@@ -143,7 +154,7 @@ export default function Jobs() {
                 <div className="page-filter">
                     <div className="row mb-5">
                         <div className="col-12 d-flex">
-                            <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small">Jobs</span>
+                            <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small d-flex align-items-center">Jobs</span>
                         </div>
                     </div>
                     <div className="row">
