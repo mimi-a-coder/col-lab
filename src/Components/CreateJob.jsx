@@ -25,22 +25,6 @@ export default function CreateJob() {
         jobs_application_deadline: '',
         jobs_exptected_start_date: '',
     })
-    const [createJobApi, setCreateJobApi]  = useState({
-        title: '',
-        jobs_institution: '',
-        jobs_job_type: '',
-        jobs_benefits: '',
-        jobs_languages: '',
-        jobs_work_location: '',
-        jobs_street_address: '',
-        jobs_address_line_2: '',
-        jobs_city: '',
-        jobs_country: '',
-        jobs_schedule: '',
-        jobs_instructions_to_apply: '',
-        jobs_application_deadline: '',
-        jobs_exptected_start_date: '',
-    })
     const [ getCountries, setGetCountries ] = useState([]);
 
     // Retreive cities from api
@@ -82,10 +66,10 @@ export default function CreateJob() {
                         'jobs_benefits': createJob.jobs_benefits,
                         'jobs_languages': createJob.jobs_languages,
                         'jobs_work_location': createJob.jobs_work_location,
-                        'jobs_office_location': createJob.jobs_street_address,
-                        'jobs_office_location': createJob.jobs_address_line_2,
-                        'jobs_office_location': createJob.jobs_city,
-                        'jobs_office_location': createJob.jobs_country,
+                        'jobs_street_address': createJob.jobs_street_address,
+                        'jobs_address_line_2': createJob.jobs_address_line_2,
+                        'jobs_city': createJob.jobs_city,
+                        'jobs_country': createJob.jobs_country,
                         'jobs_schedule': createJob.jobs_schedule,
                         'jobs_instructions_to_apply': createCommentDetails,
                         'jobs_application_deadline': createJob.jobs_application_deadline,
@@ -205,7 +189,7 @@ if (userDetails != null) {
                         </div>
                         <div className="row">
                             <div className="col-lg-6  mb-4">
-                                <input className="form-control form-control-lg" type="text" name="jobs_city"  value={createJob.jobs_City} onChange={handleChange} aria-label='Job City' placeholder="City" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
+                                <input className="form-control form-control-lg" type="text" name="jobs_city"  value={createJob.jobs_city} onChange={handleChange} aria-label='Job City' placeholder="City" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
                             </div>
                             <div className="col-lg-6  mb-4">
                                 <select name="jobs_country" value={createJob.jobs_country}  onChange={handleChange} className='form-control form-select form-control-lg' aria-label="Country" autoComplete="country-name" required>

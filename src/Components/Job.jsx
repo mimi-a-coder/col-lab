@@ -122,7 +122,7 @@ export default function CreateJob() {
                                 <span> {DateToReadable(jobDetails?.acf?.jobs_exptected_start_date)}</span>   
                             </div> 
                         </div>
-                        <Link to="/jobs"><button className="btn btn-info btn-lg mr-5">Back</button></Link>
+                        <Link to="/jobs"><button className="btn btn-info btn-lg">Back</button></Link>
                     </form>                 
 
                 </div>
