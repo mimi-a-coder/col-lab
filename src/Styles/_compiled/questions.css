@@ -27,3 +27,8 @@ textarea[data-info=content] {
 .tox.tox-tinymce {
   height: 300px !important;
 }
+
+.question-select {
+  border: none !important;
+  width: 100%;
+}

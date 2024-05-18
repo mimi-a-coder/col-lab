@@ -27,3 +27,19 @@ export function renderedQuestion(param, param2) {
   }
   return array.join(' ');
 }
+
+export function scienceBrnaches() {
+  return ([
+    "Agriculture",
+    "Biochemistry",
+    "Biological and Biomedical Sciences",
+    "Biomedical Engineering",
+    "Biotechnology",
+    "Chemistry",
+    "Engineering",
+    "Environmental Sciences",
+    "Life Sciences",
+    "Physical Sciences",
+    "Physics"
+]);
+};

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { renderedQuestion } from '../helper';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
+import { scienceBrnaches } from '../helper';
 
 
 export default function AskQuestions() {
@@ -22,6 +23,7 @@ export default function AskQuestions() {
     const [askQuestionApi, setAskQuestionApi] = useState({
         title: '',
         content: '',
+        question_subject_area: '', 
         question_image: '',
     });
 
@@ -108,6 +110,7 @@ export default function AskQuestions() {
                     status: 'publish',
                     acf: {
                         'question_image': imageUrl,
+                        'question_subject_area': askQuestionApi.question_subject_area,
                     }
                 },
                 {
@@ -123,83 +126,61 @@ export default function AskQuestions() {
         }
     }
 
- // Start pagination
-function Items({ currentItems }) {
-  return (
-    <>
-      {currentItems &&
-        currentItems.map((question, index) => {
-            let userName = "";
-            let userProfileImg = "";
-            let questionPosted = Date.now() - new Date(question.date);
-            let days = Math.floor(questionPosted/(86400 * 1000));
-    
-            for (let name of users) {
-                if ( name.id == question.author) {
-                  userName = name.name;
-                  userProfileImg = name['avatar_urls']['24'];
+    const optionsArray = 
+        scienceBrnaches().map((options, index) => {
+            return (<option key={index}>{options}</option>);
+        });
+
+    // Start pagination
+    function Items({ currentItems }) {
+    return (
+        <>
+        {currentItems &&
+            currentItems.map((question, index) => {
+                let userName = "";
+                let userProfileImg = "";
+                let questionPosted = Date.now() - new Date(question.date);
+                let days = Math.floor(questionPosted/(86400 * 1000));
+        
+                for (let name of users) {
+                    if ( name.id == question.author) {
+                    userName = name.name;
+                    userProfileImg = name['avatar_urls']['24'];
+                    }
                 }
-              }
-    
-              function commentCount() {
-                return axios.get(`${question._links.replies['0'].href}`)
-                .then((response) => {
-                  numberOfComments[0].count = response.data.length;
-                  localStorage.setItem(`comment_count${index}`, numberOfComments[0].count)
-                })
-              }
-    
-              // Parsing comments
-              let count = localStorage.getItem(`comment_count${index}`);
-              // Ensure that numberOfComments is initialized as an object
-              let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
-              // Then you can update the count property
-              numberOfComments[0].count = parseInt(count); // Parse string to integer
-    
-              commentCount();
-    
-            if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`) || userName.toLowerCase().includes(search.toLowerCase())) {                
-            return (
-            <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
-                <div className="card get-help-item mb-4">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className='col-lg-3 d-flex align-items-center'>
-                                <div className='get-help'>
-                                    <img className="get-help-img mr-3" src={userProfileImg} />
-                                    <p><strong>{userName}</strong></p>
-                                </div>
-                            </div>
-                            <div className='col-lg-5 d-flex align-items-center'>
-                                {/* <p>{question.title.rendered.replace(search, `<p>${search}</p>`)}</p> */} 
-                                <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(question.title.rendered, search) : question.title.rendered } } />
-                            </div>
-                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                                <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
-                            </div>
-                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                                <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Link>
-            )
-            } 
-            if (search.length == 0) {
-            return (
-                <Link to={{ pathname: `/question/${question.id}/` }} key={index}>
+        
+                function commentCount() {
+                    return axios.get(`${question._links.replies['0'].href}`)
+                    .then((response) => {
+                    numberOfComments[0].count = response.data.length;
+                    localStorage.setItem(`comment_count${index}`, numberOfComments[0].count)
+                    })
+                }
+        
+                // Parsing comments
+                let count = localStorage.getItem(`comment_count${index}`);
+                // Ensure that numberOfComments is initialized as an object
+                let numberOfComments = [{ count: parseInt(count) }]; // Parse string to integer
+                // Then you can update the count property
+                numberOfComments[0].count = parseInt(count); // Parse string to integer
+        
+                commentCount();
+        
+                if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`) || userName.toLowerCase().includes(search.toLowerCase())) {                
+                return (
+                <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
                     <div className="card get-help-item mb-4">
                         <div className="card-body">
                             <div className="row">
                                 <div className='col-lg-3 d-flex align-items-center'>
                                     <div className='get-help'>
-                                        <img className="get-help-img mr-3" src={userProfileImg ? userProfileImg : defaultImage} />
+                                        <img className="get-help-img mr-3" src={userProfileImg} />
                                         <p><strong>{userName}</strong></p>
                                     </div>
                                 </div>
                                 <div className='col-lg-5 d-flex align-items-center'>
-                                    <p>{question.title.rendered}</p>
+                                    {/* <p>{question.title.rendered.replace(search, `<p>${search}</p>`)}</p> */} 
+                                    <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(question.title.rendered, search) : question.title.rendered } } />
                                 </div>
                                 <div className='col-lg-2 d-flex align-items-center justify-content-end'>
                                     <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
@@ -212,12 +193,39 @@ function Items({ currentItems }) {
                     </div>
                 </Link>
                 )
+                } 
+                if (search.length == 0) {
+                return (
+                    <Link to={{ pathname: `/question/${question.id}/` }} key={index}>
+                        <div className="card get-help-item mb-4">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className='col-lg-3 d-flex align-items-center'>
+                                        <div className='get-help'>
+                                            <img className="get-help-img mr-3" src={userProfileImg ? userProfileImg : defaultImage} />
+                                            <p><strong>{userName}</strong></p>
+                                        </div>
+                                    </div>
+                                    <div className='col-lg-5 d-flex align-items-center'>
+                                        <p>{question.title.rendered}</p>
+                                    </div>
+                                    <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                        <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
+                                    </div>
+                                    <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                        <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                    )
+                }
             }
-        }
-        )}
-    </>
-  );
-}
+            )}
+        </>
+    );
+    }
 
 function PaginatedItems({ itemsPerPage }) {
   // Here we use item offsets; we could also use page offsets
@@ -258,8 +266,7 @@ function PaginatedItems({ itemsPerPage }) {
   );
   
 }
-
-    // End pagination
+// End pagination
 
     if ( userDetails != null) {
         return (
@@ -270,8 +277,7 @@ function PaginatedItems({ itemsPerPage }) {
                         <div className='get-help-details'>
                             <div className="row mb-5">
                                 <div className="col-6 d-flex align-item-center">
-                                <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small d-flex align-items-center">Ask Questions</span>
-                    
+                                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small d-flex align-items-center">Ask Questions</span>
                                 </div>
                                 <div className="col-6 d-flex align-item-center justify-content-end">
                                 <p className='small m-0 my-auto'><strong>Choose question type:</strong></p> &nbsp; &nbsp;
@@ -385,7 +391,7 @@ function PaginatedItems({ itemsPerPage }) {
                                             <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
                                         </div>
                                         <div className="col-12 mb-4">
-                                            <input className="form-control form-control-lg" type="text" name="title"  value={askQuestionApi.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
+                                            <input className="form-control" type="text" name="title"  value={askQuestionApi.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
                                             { askQuestionApi.title.length == 140 ?
                                             <p className="small red">Maximum characters reached!</p> : '' }
                                         </div>
@@ -393,7 +399,7 @@ function PaginatedItems({ itemsPerPage }) {
                                             <Editor
                                               apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
                                               data-info="content"
-                                              className="form-control form-control-lg" 
+                                              className="form-control" 
                                               init={{
                                                 readOnly: askQuestionStatus === 'published' ? true : false,
                                                 selector: 'textarea',
@@ -403,8 +409,19 @@ function PaginatedItems({ itemsPerPage }) {
                                               onChange={handleChangeContent}
                                             />
                                         </div>
-                                        <div className="col-4 mb-4">
-                                            <input className="form-control form-control-lg" type="file" onChange={handleFileChange} disabled={askQuestionStatus === 'published' ? true : false} />
+                                        <div className="col-lg-12 mb-4">
+                                            <p class="m-0 small"><strong>Subject area:</strong></p>
+                                            <select className="form-control form-select" onChange={handleChange} disabled={askQuestionStatus === 'published' ? true : false} required>
+                                                <option disabled value="">Category</option>
+                                                {optionsArray}
+                                            </select>
+                                        </div>
+                                        <div className="col-lg-12 mb-4">
+                                            <input name="question_subject_area" className="question-select"></input>
+                                            <hr></hr>
+                                        </div>
+                                        <div className="col-12 mb-4">
+                                            <input className="form-control" type="file" onChange={handleFileChange} disabled={askQuestionStatus === 'published' ? true : false} />
                                         </div>
                                     </div>
                                     { askQuestionStatus === "published" ? 
