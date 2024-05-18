@@ -81,7 +81,7 @@ export default function CreateJob() {
 
                         <div className="row mb-4">
                             <div className="col-lg-12 mb-4">
-                                <span><strong>Office location:</strong> {jobDetails?.acf?.jobs_address_line_2} - {jobDetails?.acf?.jobs_street_address}, {jobDetails?.acf?.jobs_city}, {jobDetails?.acf?.jobs_country}</span>
+                                <span><strong>Office location:</strong> {jobDetails?.acf?.jobs_address_line_2}{ jobDetails?.acf?.jobs_address_line_2 ? '-' : ''}{jobDetails?.acf?.jobs_street_address}{jobDetails?.acf?.jobs_street_address ? ',': ''}{jobDetails?.acf?.jobs_city}, {jobDetails?.acf?.jobs_country}</span>
                             </div>
                             <div className="col-lg-12 mb-4">
                                 <span><strong>Work location:</strong> {jobDetails?.acf?.jobs_work_location}</span>
