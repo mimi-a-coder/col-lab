@@ -119,7 +119,7 @@ export default function CreateJob() {
                         <hr></hr>
                         </div>
                         <div className="row mb-4">
-                            <div className="col-12 mb-5">
+                            <div className="col-12 mb-4">
                                 <span><FontAwesomeIcon icon={faClock} /> <strong>Application deadline: </strong>{DateToReadable(jobDetails?.acf?.jobs_application_deadline)}</span>
                             </div> 
                         </div>
