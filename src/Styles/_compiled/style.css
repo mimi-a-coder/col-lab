@@ -44,6 +44,7 @@ span {
   font-family: "Roboto", sans-serif;
 }
 
+/* Button Colours */
 html {
   font-size: 10px;
   font-family: "Roboto", sans-serif !important;
@@ -320,6 +321,14 @@ a {
 .page-filter {
   padding-top: 4rem;
   width: 100%;
+}
+
+.toggle.ios, .toggle-on.ios, .toggle-off.ios {
+  border-radius: 20px;
+}
+
+.toggle.ios .toggle-handle {
+  border-radius: 20px;
 }
 
 /* Button Colours */

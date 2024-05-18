@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Editor } from '@tinymce/tinymce-react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import { renderedQuestion } from '../helper' 
 
 export default function AskQuestions() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -155,22 +156,7 @@ function Items({ currentItems }) {
     
               commentCount();
     
-            if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`) || userName.toLowerCase().includes(search.toLowerCase())) {
-                
-                // Highlight search words
-                function renderedQuestion() {
-                    let title = question.title.rendered.split(' ');
-                    let array = [];
-                    for (let word of title) {
-                        if (word.toLowerCase().includes(search.toLowerCase())) {
-                            array.push(`<span class="highlight">${word}</span>`);
-                        } else {
-                            array.push(word);
-                        }
-                    }
-                    return array.join(' ');
-                }
-                
+            if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`) || userName.toLowerCase().includes(search.toLowerCase())) {                
             return (
             <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
                 <div className="card get-help-item mb-4">
@@ -184,7 +170,7 @@ function Items({ currentItems }) {
                             </div>
                             <div className='col-lg-5 d-flex align-items-center'>
                                 {/* <p>{question.title.rendered.replace(search, `<p>${search}</p>`)}</p> */} 
-                                <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion() : question.title.rendered } } />
+                                <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(question.title.rendered, search) : question.title.rendered } } />
                             </div>
                             <div className='col-lg-2 d-flex align-items-center justify-content-end'>
                                 <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
@@ -284,6 +270,7 @@ function PaginatedItems({ itemsPerPage }) {
                                 <div className="col-12 d-flex">
                                 <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small d-flex align-items-center">Ask Questions</span>
                                 </div>
+
                             </div>
                             <div className="row">
                                 <div className="col-lg-4">
