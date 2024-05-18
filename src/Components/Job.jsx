@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "./Navigation";
 import { Link, useParams } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSuitcase, faLanguage, faClock, faMoneyBill, faCalendarDays, faDesktop, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
-import { Editor } from '@tinymce/tinymce-react';
+
 
 
 export default function CreateJob() {
@@ -68,58 +70,57 @@ export default function CreateJob() {
                         <div className="row">
                             <div className="col-12 mb-4">
                                 <h1>{jobDetails?.title?.rendered}</h1>
-                                <span>{jobDetails?.acf?.jobs_institution}</span><br></br>
-                                <span>{jobDetails?.acf?.jobs_city}, {jobDetails?.acf?.jobs_country}</span>
+                                <span>{jobDetails?.acf?.jobs_institution}</span>
+                                <br></br>
+                                <span><FontAwesomeIcon icon={faLocationDot}/> {jobDetails?.acf?.jobs_city}, {jobDetails?.acf?.jobs_country}</span><span></span>
+                                <br></br>
                                 <hr></hr>
                             </div>
                         </div>
-                        <div className="row">
+                        <h2 className="lead mb-4">Job Details</h2>
+
+                        <div className="row mb-4">
+                            <div className="col-lg-12 mb-4">
+                                <span><strong>Office Location:</strong> {jobDetails?.acf?.jobs_address_line_2} - {jobDetails?.acf?.jobs_street_address}, {jobDetails?.acf?.jobs_city}, {jobDetails?.acf?.jobs_country}</span>
+                            </div>
+                            <div className="col-lg-12 mb-4">
+                                <span><strong>Work Location:</strong> {jobDetails?.acf?.jobs_work_location}</span>
+                            </div>
+                            <div className="col-lg-12 mb-4">
+                                <span><strong>Job type:</strong> {jobDetails?.acf?.jobs_job_type}</span>
+                            </div>
+                            <div className="col-lg-12 mb-4">
+                                <span><strong>Benefits and Pay:</strong></span>
+                                <p className="m-0">{jobDetails?.acf?.jobs_benefits}</p>
+                            </div>
+                            <div className="col-lg-12 mb-4">
+                                <span><strong>Job language requirements:</strong> {jobDetails?.acf?.jobs_languages}</span>
+                            </div>
+                            <div className="col-lg-12 mb-4">
+                                <span><strong>Job schedule:</strong> {jobDetails?.acf?.jobs_schedule}</span>                            
+                            </div>
+                            <div className="col-lg-12 mb-4">
+                                <span><strong>Exptected start date:</strong> {DateToReadable(jobDetails?.acf?.jobs_exptected_start_date)}</span>
+                            </div>
+                        <hr></hr>
+                        </div>
+                        <div className="row mb-4">
                             <div className="col-12 mb-4">
-                                <p className="lead">Job Details</p>
+                                <p className="lead">Full job description</p>
                                 <div dangerouslySetInnerHTML={{ __html: jobDetails?.acf?.jobs_description }} />
                             </div> 
-                            <hr></hr>
+                        <hr></hr>
                         </div>
-                        <div className="row">
-                            <div className="col-lg-6 mb-4">
-                              <span><strong>Job Type:</strong></span>
-                              <span> {jobDetails?.acf?.jobs_job_type}</span>
-                            </div>    
-                        </div>
-                        <div className="row">
-                            <div className="col-lg-6 mb-4">
-                                <p><strong>Benefits:</strong></p>
-                                <p>{jobDetails?.acf?.jobs_benefits}</p>
-                            </div>
-                        </div>
-                        <div className="row">
+                        <div className="row mb-4">
                             <div className="col-12 mb-4">
-                                <span><strong>Job language requirements:</strong></span>
-                                <span> {jobDetails?.acf?.jobs_languages}</span>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 mb-4">
-                                <span><strong>Job schedule:</strong></span>
-                                <span> {jobDetails?.acf?.jobs_schedule}</span>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 mb-4">
-                                <p><strong>Instructions to apply:</strong></p>
+                                <p className="lead"><strong>Instructions to apply</strong></p>
                                 <div dangerouslySetInnerHTML={{ __html: jobDetails?.acf?.jobs_instructions_to_apply }} />
                             </div> 
+                        <hr></hr>
                         </div>
-                        <div className="row">
-                            <div className="col-12 mb-4">
-                                <span><strong>Application deadline:</strong></span>
-                                <span> {DateToReadable(jobDetails?.acf?.jobs_application_deadline)}</span>   
-                            </div> 
-                        </div>
-                        <div className="row">
+                        <div className="row mb-4">
                             <div className="col-12 mb-5">
-                                <span><strong>Exptected start Date:</strong></span>
-                                <span> {DateToReadable(jobDetails?.acf?.jobs_exptected_start_date)}</span>   
+                                <span><FontAwesomeIcon icon={faClock} /> <strong>Application deadline: </strong>{DateToReadable(jobDetails?.acf?.jobs_application_deadline)}</span>
                             </div> 
                         </div>
                         <Link to="/jobs"><button className="btn btn-info btn-lg">Back</button></Link>

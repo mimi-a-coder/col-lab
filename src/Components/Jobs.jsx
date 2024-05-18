@@ -24,10 +24,10 @@ export default function Jobs() {
         .catch( err => {console.log(err)} );
     }, [search])
 
-    useEffect(() => {
-        localStorage.setItem('countActiveJobs', 0);
-        localStorage.setItem('countExpiredJobs', 0);
-    }, []);
+    // useEffect(() => {
+    //     localStorage.setItem('countActiveJobs', 0);
+    //     localStorage.setItem('countExpiredJobs', 0);
+    // }, []);
 
 // Start paginated active jobs
 
