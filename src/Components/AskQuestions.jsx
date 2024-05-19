@@ -20,6 +20,7 @@ export default function AskQuestions() {
     const [askQuestionStatus, setAskQuestionStatus] = useState('not published');
     const [file, setFile] = useState(null);
     const [ askQuestionContent, setAskQuestionContent ] = useState('')
+    const [ subject, setSubject ] = useState(); 
     const [askQuestionApi, setAskQuestionApi] = useState({
         title: '',
         content: '',
@@ -32,7 +33,6 @@ export default function AskQuestions() {
         axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions?per_page=100`)
             .then((response) => {
                 setQuestion(response.data);
-                console.log(response.data);
             }).catch((err) => {
                 console.error(err);
             });
@@ -119,6 +119,7 @@ export default function AskQuestions() {
                     }
                 }
             ).then((response) => {
+                console.log(response)
             })
             setAskQuestionStatus('published');
         } catch (error) {
@@ -391,7 +392,7 @@ function PaginatedItems({ itemsPerPage }) {
                                             <p className="lead"><strong>Have a technical question? Ask your peers</strong></p>
                                         </div>
                                         <div className="col-12 mb-4">
-                                            <input className="form-control" type="text" name="title"  value={askQuestionApi.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
+                                            <input className="form-control" type="text" name="title"  disabled={askQuestionStatus === 'published' ? true : false} value={askQuestionApi.title} onChange={handleChange} aria-label='Question field' placeholder="Type your question briefly (140 characters max.)" autoComplete='off' required />
                                             { askQuestionApi.title.length == 140 ?
                                             <p className="small red">Maximum characters reached!</p> : '' }
                                         </div>
@@ -410,15 +411,11 @@ function PaginatedItems({ itemsPerPage }) {
                                             />
                                         </div>
                                         <div className="col-lg-12 mb-4">
-                                            <p class="m-0 small"><strong>Subject area:</strong></p>
-                                            <select className="form-control form-select" onChange={handleChange} disabled={askQuestionStatus === 'published' ? true : false} required>
-                                                <option disabled value="">Category</option>
+                                            <p className="m-0 small"><strong>Subject area:</strong></p>
+                                            <select className="form-control form-select" name="question_subject_area"  onChange={handleChange} disabled={askQuestionStatus === 'published' ? true : false} required>
+                                            <option disabled selected value="">Choose subject</option>
                                                 {optionsArray}
                                             </select>
-                                        </div>
-                                        <div className="col-lg-12 mb-4">
-                                            <input name="question_subject_area" className="question-select"></input>
-                                            <hr></hr>
                                         </div>
                                         <div className="col-12 mb-4">
                                             <input className="form-control" type="file" onChange={handleFileChange} disabled={askQuestionStatus === 'published' ? true : false} />
@@ -430,7 +427,7 @@ function PaginatedItems({ itemsPerPage }) {
                                     </div>
                                     : ''    
                                     }
-                                    <button className="btn btn-info btn-lg"  type="submit">Submit</button>
+                                    <button className="btn btn-info btn-lg" disabled={askQuestionStatus === 'published' ? true : false} type="submit">Submit</button>
                                 </form>                 
                             </div>
                     </div>
