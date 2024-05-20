@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import defualtProfileImg from '../Images/user-icon-placeholder-1.png';
+import { scienceBrnaches } from '../helper';
 
 
 export default function Registration() {
@@ -17,7 +17,7 @@ export default function Registration() {
         user_job_Insitution: '',
         user_country_of_residence: '',
         user_city: '',
-        user_research: '',
+        user_field: '',
         user_degree: '',
         user_skills: '',
         email: '',
@@ -36,7 +36,7 @@ export default function Registration() {
         user_job_Insitution: '',
         user_country_of_residence: '',
         user_city: '',
-        user_research: '',
+        user_field: '',
         user_degree: '',
         user_skills: '',
         email: '',
@@ -90,7 +90,7 @@ export default function Registration() {
                         'last_name': apiSettings.last_name,
                         'name': apiSettings.name,
                         'email': apiSettings.email,
-                        'role': 'editor',
+                        'roles': 'editor',
                         'acf' : {
                             'user-birth_date': apiSettings.user_birth_date,
                             'user-gender': apiSettings.user_gender,
@@ -98,7 +98,7 @@ export default function Registration() {
                             'user-job-Insitution': apiSettings.user_job_Insitution,
                             'user-country-of-residence': apiSettings.user_country_of_residence,
                             'user-city': apiSettings.user_city,
-                            'user-research': apiSettings.user_research,
+                            'user-field': apiSettings.user_field,
                             'user-degree': apiSettings.user_degree,
                             'user-skills': apiSettings.user_skills,
                             // 'user-profile-image': defualtProfileImg,
@@ -147,6 +147,11 @@ export default function Registration() {
         } 
     }
 
+    const optionsArray = 
+    scienceBrnaches().map((options, index) => {
+        return (<option key={index}>{options}</option>);
+    });
+
     return (
         <div className="container primary login">
         <div className="row mb-4">
@@ -175,7 +180,7 @@ export default function Registration() {
                     <input name="user_birth_date" value={userLogin.user_birth_date} onChange={handleChange} className="form-control form-control-lg" type="Date" placeholder="Birthday" aria-label="Birthday" autoComplete='bday' required />
                 </div>                
                 <div className="col-lg-6">
-                    <select name="user_gender" value={userLogin.user_gender} onChange={handleChange} className='form-control form-select' aria-label='Gender Selection'>
+                    <select name="user_gender" value={userLogin.user_gender} onChange={handleChange} className='form-control form-select' aria-label='Gender Selection' required>
                         <option disabled value="">Choose a gender</option>
                         <option>Male</option>
                         <option>Female</option>
@@ -194,7 +199,7 @@ export default function Registration() {
             <div className="row">
                 <div className="col-lg-6">
                     <select name="user_country_of_residence" value={userLogin.user_country_of_residence} onChange={handleChange} className='form-control form-select' aria-label="Country" autoComplete="country-name" required>
-                        <option disabled value="">Choose a country</option>
+                        <option disabled value="">Country of residence</option>
                         {countries}
                     </select>
                 </div>                
@@ -204,8 +209,12 @@ export default function Registration() {
             </div>
             <div className="row">              
                 <div className="col">
-                    <input name="user_research" value={userLogin.user_research} onChange={handleChange} className="form-control form-control-lg" type="text" placeholder="Field of Research" aria-label="Field of Research" autoComplete='off' required />
-                </div>                
+                <p className="small m-0"><strong>Field of Research</strong></p>
+                <select className="form-control form-control-lg form-select" name="user_field" aria-label="Field of Research"  onChange={handleChange} required>
+                    <option disabled selected value="">Choose field</option>
+                    {optionsArray}
+                </select>        
+                </div>        
             </div>
             <div className="row">              
                 <div className="col">
