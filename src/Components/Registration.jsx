@@ -209,11 +209,11 @@ export default function Registration() {
             </div>
             <div className="row">              
                 <div className="col">
-                <p className="small m-0"><strong>Field of Research</strong></p>
-                <select className="form-control form-control-lg form-select" name="user_field" aria-label="Field of Research"  onChange={handleChange} required>
-                    <option disabled selected value="">Choose field</option>
-                    {optionsArray}
-                </select>        
+                    <p className="small m-0"><strong>Field of Research</strong></p>
+                    <select className="form-control form-control-lg form-select" name="user_field" aria-label="Field of Research"  onChange={handleChange} required>
+                        <option disabled selected value="">Choose field</option>
+                        {optionsArray}
+                    </select>        
                 </div>        
             </div>
             <div className="row">              
@@ -252,7 +252,7 @@ export default function Registration() {
             {userServerMessage()}
             <div className="row mt-2">
                     <div className="col"> 
-                    <button type="submit" className="btn btn-lg btn-primary login-btn" disabled={serverMessage !== ""}>Sign Up</button>
+                        <button type="submit" className="btn btn-lg btn-primary login-btn" disabled={serverMessage !== ""}>Sign Up</button>
                     </div>                    
             </div>
             <div className="row">
