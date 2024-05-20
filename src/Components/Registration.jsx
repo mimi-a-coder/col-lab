@@ -48,6 +48,7 @@ export default function Registration() {
     const [ getCountries, setGetCountries ] = useState([]);
 
     function handleChange(e) {
+        setServerMessage('')
         const {name, value} = e.target
         setUserLogin(prev => {
             return (
@@ -98,7 +99,7 @@ export default function Registration() {
                             'user-job-Insitution': apiSettings.user_job_Insitution,
                             'user-country-of-residence': apiSettings.user_country_of_residence,
                             'user-city': apiSettings.user_city,
-                            'user-field': apiSettings.user_field,
+                            'user_field': apiSettings.user_field,
                             'user-degree': apiSettings.user_degree,
                             'user-skills': apiSettings.user_skills,
                             // 'user-profile-image': defualtProfileImg,

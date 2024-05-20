@@ -19,7 +19,9 @@ export default function AskQuestions() {
     const [modalClass, setModalClass] = useState('hide-modal');
     const [askQuestionStatus, setAskQuestionStatus] = useState('not published');
     const [file, setFile] = useState(null);
-    const [ askQuestionContent, setAskQuestionContent ] = useState('')
+    const [ askQuestionContent, setAskQuestionContent ] = useState('');
+    const [usersAccountDetails, setUsersAccountDetails] = useState({});
+    const [questionSubject, setQuestionSubject] = useState('General');
     const [ subject, setSubject ] = useState(); 
     const [askQuestionApi, setAskQuestionApi] = useState({
         title: '',
@@ -57,6 +59,26 @@ export default function AskQuestions() {
                 console.error(err);
             });
     }, []);
+
+      // Api for current user
+  useEffect(() => {
+    let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    axios({
+      url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${userDetails.id}`,
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${userDetails.token}`
+      }
+    })
+    .then((response) => {
+      localStorage.setItem('userPoints', JSON.stringify(response.data['acf']['user-points']));
+      setUsersAccountDetails(response.data);
+      console.log(localStorage.getItem('userPoints'));
+    })
+    .catch((err) => {
+      // Handle error
+    });
+  }, []);
 
     // Handle file change
     const handleFileChange = (e) => {
@@ -167,61 +189,91 @@ export default function AskQuestions() {
         
                 commentCount();
         
-                if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`) || userName.toLowerCase().includes(search.toLowerCase())) {                
-                return (
-                <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
-                    <div className="card get-help-item mb-4">
-                        <div className="card-body">
-                            <div className="row">
-                                <div className='col-lg-3 d-flex align-items-center'>
-                                    <div className='get-help'>
-                                        <img className="get-help-img mr-3" src={userProfileImg} />
-                                        <p><strong>{userName}</strong></p>
-                                    </div>
-                                </div>
-                                <div className='col-lg-5 d-flex align-items-center'>
-                                    {/* <p>{question.title.rendered.replace(search, `<p>${search}</p>`)}</p> */} 
-                                    <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(question.title.rendered, search) : question.title.rendered } } />
-                                </div>
-                                <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                                    <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
-                                </div>
-                                <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                                    <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-                )
-                } 
-                if (search.length == 0) {
-                return (
-                    <Link to={{ pathname: `/question/${question.id}/` }} key={index}>
-                        <div className="card get-help-item mb-4">
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className='col-lg-3 d-flex align-items-center'>
-                                        <div className='get-help'>
-                                            <img className="get-help-img mr-3" src={userProfileImg ? userProfileImg : defaultImage} />
-                                            <p><strong>{userName}</strong></p>
+                if (search.length > 0 && question.title.rendered.toLowerCase().includes(`${search.toLowerCase()}`) || userName.toLowerCase().includes(search.toLowerCase())) {      
+                    if (questionSubject === 'Specific' && usersAccountDetails?.acf?.user_feild == question?.acf?.question_subject_area) {          
+                        return (
+                            <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
+                                <div className="card get-help-item mb-4">
+                                    <div className="card-body">
+                                        <div className="row">
+                                            <div className='col-lg-3 d-flex align-items-center'>
+                                                <div className='get-help'>
+                                                    <img className="get-help-img mr-3" src={userProfileImg} />
+                                                    <p><strong>{userName}</strong></p>
+                                                </div>
+                                            </div>
+                                            <div className='col-lg-5 d-flex align-items-center'>
+                                                {/* <p>{question.title.rendered.replace(search, `<p>${search}</p>`)}</p> */} 
+                                                <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(question.title.rendered, search) : question.title.rendered } } />
+                                            </div>
+                                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                                <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
+                                            </div>
+                                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                                <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className='col-lg-5 d-flex align-items-center'>
-                                        <p>{question.title.rendered}</p>
-                                    </div>
-                                    <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                                        <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
-                                    </div>
-                                    <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                                        <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
+                                </div>
+                            </Link>
+                        )
+                    }
+                    if (questionSubject === 'General') {          
+                        return (
+                            <Link to={{ pathname: `/question/${question.id}/`}} key={index}>
+                                <div className="card get-help-item mb-4">
+                                    <div className="card-body">
+                                        <div className="row">
+                                            <div className='col-lg-3 d-flex align-items-center'>
+                                                <div className='get-help'>
+                                                    <img className="get-help-img mr-3" src={userProfileImg} />
+                                                    <p><strong>{userName}</strong></p>
+                                                </div>
+                                            </div>
+                                            <div className='col-lg-5 d-flex align-items-center'>
+                                                {/* <p>{question.title.rendered.replace(search, `<p>${search}</p>`)}</p> */} 
+                                                <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(question.title.rendered, search) : question.title.rendered } } />
+                                            </div>
+                                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                                <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
+                                            </div>
+                                            <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                                                <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </Link>
-                    )
-                }
+                            </Link>
+                        )
+                    }
+                } 
+                // if (search.length == 0) {
+                // return (
+                //     <Link to={{ pathname: `/question/${question.id}/` }} key={index}>
+                //         <div className="card get-help-item mb-4">
+                //             <div className="card-body">
+                //                 <div className="row">
+                //                     <div className='col-lg-3 d-flex align-items-center'>
+                //                         <div className='get-help'>
+                //                             <img className="get-help-img mr-3" src={userProfileImg ? userProfileImg : defaultImage} />
+                //                             <p><strong>{userName}</strong></p>
+                //                         </div>
+                //                     </div>
+                //                     <div className='col-lg-5 d-flex align-items-center'>
+                //                         <p>{question.title.rendered}</p>
+                //                     </div>
+                //                     <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                //                         <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
+                //                     </div>
+                //                     <div className='col-lg-2 d-flex align-items-center justify-content-end'>
+                //                         <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
+                //                     </div>
+                //                 </div>
+                //             </div>
+                //         </div>
+                //     </Link>
+                //     )
+                // }
             }
             )}
         </>
@@ -278,7 +330,7 @@ function PaginatedItems({ itemsPerPage }) {
                         <div className='get-help-details'>
                             <div className="row mb-5">
                                 <div className="col-6 d-flex align-item-center">
-                                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small d-flex align-items-center">Ask Questions</span>
+                                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash d-flex align-items-center">/</span><span className="small d-flex align-items-center">Ask Questions</span>
                                 </div>
                                 <div className="col-6 d-flex align-item-center justify-content-end">
                                 <p className='small m-0 my-auto'><strong>Choose question type:</strong></p> &nbsp; &nbsp;
@@ -290,6 +342,7 @@ function PaginatedItems({ itemsPerPage }) {
                                     onChange={(isChecked) => {
                                         const questionType = isChecked ? 'Specific' : 'General';
                                         localStorage.setItem('questionType', questionType);
+                                        setQuestionSubject(questionType)
                                     }}
                                     width={100}
                                     onstyle="info"

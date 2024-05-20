@@ -89,8 +89,8 @@ export default function Dashboard() {
 
         commentCount();
 
-        if (question.status === "publish") {
-
+        console.log(question?.acf?.question_subject_area)
+        if (question.status === "publish" && usersAccountDetails?.acf?.user_feild == question?.acf?.question_subject_area) {
 
           return (
           <div className="card mb-4" key={index}>
