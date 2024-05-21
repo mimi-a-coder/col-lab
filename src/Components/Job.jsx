@@ -31,7 +31,7 @@ export default function CreateJob() {
         let checked = e.target.checked;
         if (checked === true) {
             axios.post(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/jobs/${param1}`,{acf: {
-                'jobs_applied_users': `${jobDetails?.jobs_applied_users} ${JSON.stringify(userDetails.id)} `
+                'jobs_applied_users': `${jobDetails?.acf?.jobs_applied_users} ${JSON.stringify(userDetails.id)} `
               }
             },
             {
