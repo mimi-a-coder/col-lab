@@ -24,6 +24,7 @@ export default function CreateJob() {
         jobs_instructions_to_apply: '',
         jobs_application_deadline: '',
         jobs_exptected_start_date: '',
+        jobs_applied_users: '',
     })
     const [ getCountries, setGetCountries ] = useState([]);
 
@@ -74,6 +75,7 @@ export default function CreateJob() {
                         'jobs_instructions_to_apply': createCommentDetails,
                         'jobs_application_deadline': createJob.jobs_application_deadline,
                         'jobs_exptected_start_date': createJob.jobs_exptected_start_date,
+                        'jobs_applied_users': '',
                     }
                 },
                 {

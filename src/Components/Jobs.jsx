@@ -5,9 +5,12 @@ import axios from "axios";
 import { Tab, initMDB } from "mdb-ui-kit";
 import { renderedQuestion } from "../helper"
 import ReactPaginate from 'react-paginate';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function Jobs() {
-    const userDetails = localStorage.getItem('userDetails');
+    const userDetails = JSON.parse(localStorage.getItem('userDetails'));
     const [search, setSearch] = useState('');
     const [jobs, setJobs] = useState([]);
     
@@ -24,10 +27,10 @@ export default function Jobs() {
         .catch( err => {console.log(err)} );
     }, [search])
 
-    // useEffect(() => {
-    //     localStorage.setItem('countActiveJobs', 0);
-    //     localStorage.setItem('countExpiredJobs', 0);
-    // }, []);
+    useEffect(() => {
+        localStorage.setItem('countActiveJobs', 0);
+        localStorage.setItem('countExpiredJobs', 0);
+    }, []);
 
 // Start paginated active jobs
 
@@ -57,12 +60,17 @@ function ActiveItem({ currentItems }) {
         if ( Date.now() <= deadlineDate && job.status == "publish" ) { 
             
             localStorage.setItem('countActiveJobs', Number(localStorage.getItem('countActiveJobs')) + 1);
-            console.log(localStorage.getItem('countActiveJobs'));
 
             if (search.length > 0 && job.title.rendered.toLowerCase().includes(search.toLowerCase()) || job.acf.jobs_institution.toLowerCase().includes(search.toLowerCase())) {
+                let seeIfchecked = job?.acf?.jobs_applied_users?.split(' ');
+                console.log(seeIfchecked.includes(userDetails?.id?.toString()))
                 return (
                     <Link to={"/job/"+job["id"]} key={index}>
-                        <div className="card get-help-item mb-4">
+                        <div className="card get-help-item mb-4">{ seeIfchecked.includes(userDetails?.id?.toString()) ?
+                            (<div className="checked-mark">
+                                <FontAwesomeIcon icon={faSquareCheck} />
+                             </div>) : ''
+            }
                             <div className="card-body job">
                                 <div className="row">
                                     <div className='col-lg-3 d-flex align-items-center'>
@@ -73,10 +81,10 @@ function ActiveItem({ currentItems }) {
                                     <div className='col-lg-3 d-flex align-items-center'>
                                         <div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(job.acf.jobs_institution, search) : job.acf.jobs_institution}} />
                                     </div>
-                                    <div className='col-lg-2 d-flex align-items-center'>
+                                    <div className='col-lg-2 d-flex align-items-end'>
                                         <strong><i>{job?.acf?.jobs_work_location}</i></strong>
                                     </div>
-                                    <div className='col-lg-2 d-flex align-items-center align-items-center'>
+                                    <div className='col-lg-2 d-flex align-items-center'>
                                     {job?.acf?.jobs_city}, {job?.acf?.jobs_country}
                                     </div>
                                     <div className='col-lg-2 d-flex align-items-center justify-content-end'>
@@ -89,9 +97,15 @@ function ActiveItem({ currentItems }) {
                 )
             }
             if (search.length == 0) {
+                let seeIfchecked = job?.acf?.jobs_applied_users?.split(' ');
+                console.log(seeIfchecked.includes(userDetails?.id?.toString()))
                 return (
                     <Link to={"/job/"+job["id"]} key={index}>
-                        <div className="card get-help-item mb-4">
+                        <div className="card get-help-item mb-4">{ seeIfchecked.includes(userDetails?.id?.toString()) ?
+                            (<div className="checked-mark">
+                                <FontAwesomeIcon icon={faSquareCheck} />
+                             </div>) : ''
+            }
                             <div className="card-body job">
                                 <div className="row">
                                     <div className='col-lg-3 d-flex align-items-center'>
@@ -134,7 +148,7 @@ function ActiveItem({ currentItems }) {
     // (This could be items from props; or items loaded in a local state
     // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+
     
     const currentItems = jobs.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(jobs.length / itemsPerPage);
@@ -142,9 +156,7 @@ function ActiveItem({ currentItems }) {
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
       const newOffset = (event.selected * itemsPerPage) % jobs.length;
-      console.log(
-        `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );
+
       setItemOffset(newOffset);
     };
   
@@ -195,12 +207,17 @@ function ExpiredItem({ currentItems }) {
         if ( Date.now() > deadlineDate && job.status == "publish") { 
             
             localStorage.setItem('countExpiredJobs', Number(localStorage.getItem('countExpiredJobs')) + 1);
-            console.log(localStorage.getItem('countExpiredJobs') + 1);
 
             if (search.length > 0 && job.title.rendered.toLowerCase().includes(search.toLowerCase()) || job.acf.jobs_institution.toLowerCase().includes(search.toLowerCase())) {
+                let seeIfchecked = job?.acf?.jobs_applied_users?.split(' ');
+                console.log(seeIfchecked.includes(userDetails?.id?.toString()))
                 return (
                     <Link to={"/job/"+job["id"]} key={index}>
-                        <div className="card get-help-item mb-4">
+                        <div className="card get-help-item mb-4">{ seeIfchecked.includes(userDetails?.id?.toString()) ?
+                            (<div className="checked-mark">
+                                <FontAwesomeIcon icon={faSquareCheck} />
+                             </div>) : ''
+            }
                             <div className="card-body job">
                                 <div className="row">
                                     <div className='col-lg-3 d-flex align-items-center'>
@@ -227,9 +244,15 @@ function ExpiredItem({ currentItems }) {
                 )
             }
             if (search.length == 0) {
+                let seeIfchecked = job?.acf?.jobs_applied_users?.split(' ');
+                console.log(seeIfchecked.includes(userDetails?.id?.toString()))
                 return (
                     <Link to={"/job/"+job["id"]} key={index}>
-                        <div className="card get-help-item mb-4">
+                        <div className="card get-help-item mb-4">{ seeIfchecked.includes(userDetails?.id?.toString()) ?
+                            (<div className="checked-mark">
+                                <FontAwesomeIcon icon={faSquareCheck} />
+                             </div>) : ''
+            }
                             <div className="card-body job">
                                 <div className="row">
                                     <div className='col-lg-3 d-flex align-items-center'>
@@ -279,9 +302,6 @@ function ExpiredItem({ currentItems }) {
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
       const newOffset = (event.selected * itemsPerPage) % jobs.length;
-      console.log(
-        `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );
       setItemOffset(newOffset);
     };
   

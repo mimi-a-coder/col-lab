@@ -12,3 +12,12 @@
   height: 300px;
   overflow-y: scroll;
 }
+
+.get-help-item {
+  position: relative;
+}
+.get-help-item .checked-mark {
+  position: absolute;
+  right: -5px;
+  top: -10px;
+}

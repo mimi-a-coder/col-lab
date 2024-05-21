@@ -44,6 +44,11 @@ span {
   font-family: "Roboto", sans-serif;
 }
 
+label {
+  font-size: 1.6rem !important;
+  font-family: "Roboto", sans-serif;
+}
+
 /* Button Colours */
 html {
   font-size: 10px;
@@ -714,6 +719,15 @@ textarea[data-info=content] {
 .job-detail-div {
   height: 300px;
   overflow-y: scroll;
+}
+
+.get-help-item {
+  position: relative;
+}
+.get-help-item .checked-mark {
+  position: absolute;
+  right: -5px;
+  top: -10px;
 }
 
 @media screen and (max-width: 1000px) {

@@ -9,24 +9,10 @@ import axios from "axios";
 
 export default function CreateJob() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-    const [jobStatus, setJobStatus] = useState("");
     const { param1 } = useParams();
     const [ jobDetails, setJobDetails ] = useState(); 
-    const [createJob, setCreateJob]  = useState({
-        title: '',
-        jobs_institution: '',
-        jobs_job_type: '',
-        jobs_benefits: '',
-        jobs_languages: '',
-        jobs_work_location: '',
-        jobs_schedule: '',
-        jobs_instructions_to_apply: '',
-        jobs_application_deadline: '',
-        jobs_exptected_start_date: '',
-    })
 
     useEffect(() => {
-      console.log(param1)
       axios({
         url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/jobs/${param1}`,
         method: 'GET',
@@ -36,10 +22,29 @@ export default function CreateJob() {
       })
       .then((response) => {
         setJobDetails(response.data);
-        console.log(response.data);
       })
       .catch(err => console.log(err))
     }, []);
+
+    // Handle Check
+    function handelCheckedChange(e) {
+        let checked = e.target.checked;
+        if (checked === true) {
+            axios.post(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/jobs/${param1}`,{acf: {
+                'jobs_applied_users': `${jobDetails?.jobs_applied_users} ${JSON.stringify(userDetails.id)} `
+              }
+            },
+            {
+                    headers: {
+                    Authorization: `Bearer ${userDetails.token}`
+                }
+            } 
+              )
+              .then(res => {
+                setJobDetails(res.data)})
+              .catch(err => {console.log(err)})
+        }
+    }
 
   function DateToReadable(param) {
     const dateString = param;
@@ -52,6 +57,8 @@ export default function CreateJob() {
     const formattedDate = date.toLocaleDateString('en-US', options);
     return formattedDate
   }
+ 
+  let seeIfchecked = jobDetails?.acf?.jobs_applied_users?.split(' ');
     
   if (userDetails != null) {
     return(
@@ -123,9 +130,26 @@ export default function CreateJob() {
                                 <span><FontAwesomeIcon icon={faClock} /> <strong>Application deadline: </strong>{DateToReadable(jobDetails?.acf?.jobs_application_deadline)}</span>
                             </div> 
                         </div>
-                        <Link to="/jobs"><button className="btn btn-info btn-lg">Back</button></Link>
+                        <div className="row mb-4">
+    <div className="col-lg-6 mb-4 d-flex align-items-center">
+        <input 
+            className="form-check-input form-control m-0" 
+            checked={seeIfchecked?.includes(userDetails?.id?.toString())} 
+            disabled={seeIfchecked?.includes(jobDetails?.id.toString())}
+            onChange={handelCheckedChange} 
+            type="checkbox" 
+            aria-label="Applied to job checkbox" 
+            id="appliedCheck" 
+        />
+        <span className="form-check-label mx-2" style={{color: '#000'}} htmlFor="appliedCheck">I have applied to this job</span>
+    </div> 
+</div> 
+                        <div className="row mb-4">
+                            <div className="col-lg-6 mr-3 mb-4 d-flex align-items-center">
+                                <Link to="/jobs"><button className="btn btn-info btn-lg">Back</button></Link>
+                            </div> 
+                        </div>
                     </form>                 
-
                 </div>
             </main>
     </>

@@ -42,3 +42,8 @@ span {
   font-size: 1.6rem;
   font-family: "Roboto", sans-serif;
 }
+
+label {
+  font-size: 1.6rem !important;
+  font-family: "Roboto", sans-serif;
+}
