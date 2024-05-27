@@ -370,6 +370,7 @@ function PaginatedItems({ itemsPerPage }) {
                         <hr className="mb-5"></hr>
                         <PaginatedItems itemsPerPage={15} />
                     </div>
+          
                 <div className={"modal"+" "+modalClass}>
                     <div className="container" >
                         <div className="row">

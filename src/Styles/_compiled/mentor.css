@@ -1,0 +1,9 @@
+/* Button Colours */
+.mentor {
+  box-shadow: 0px 0px 7px grey;
+  transition: 400ms ease-out;
+}
+.mentor:hover {
+  background-color: #0f9ed5;
+  color: #fff;
+}

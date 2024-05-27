@@ -1,0 +1,10 @@
+@import '../_partials/variables';
+
+.mentor { 
+    box-shadow: 0px 0px 7px grey; 
+    transition: 400ms ease-out;
+    &:hover {
+        background-color: $mercy-color-1;
+        color: #fff;
+      }
+}

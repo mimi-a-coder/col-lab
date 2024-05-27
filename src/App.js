@@ -10,6 +10,7 @@ import Question from './Components/Question';
 import Jobs from './Components/Jobs';
 import CreateJob from './Components/CreateJob';
 import Job from './Components/Job';
+import Mentors from './Components/Mentors';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/jobs" element={<Jobs/>} />
         <Route path="/create-job" element={<CreateJob/>} />
         <Route path="/job/:param1" element={<Job/>} />
+        <Route path="/mentorship-opportunities" element={<Mentors/>} />
       </Routes>
    </Router>
   );

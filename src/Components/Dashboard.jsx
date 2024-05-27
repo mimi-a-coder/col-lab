@@ -88,8 +88,6 @@ export default function Dashboard() {
         numberOfComments[0].count = parseInt(count); // Parse string to integer
 
         commentCount();
-
-        console.log(question?.acf?.question_subject_area)
         if (question.status === "publish" && usersAccountDetails?.acf?.user_feild == question?.acf?.question_subject_area) {
 
           return (
@@ -196,7 +194,7 @@ export default function Dashboard() {
                     <div className='dashboard-options-buttons'>
                       <button className='btn-main'><img className="btn-main-icon" src={HandShake}/>Find Collaborations</button >
                       <Link to="/ask-questions" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Gethelp}/>Ask Questions</button></Link>
-                      <button className='btn-main'><img className="btn-main-icon" src={Teach}/>Mentorships</button>
+                      <Link to="/mentorship-opportunities" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Teach}/>Mentorships</button></Link>
                       <button className='btn-main'><img className="btn-main-icon" src={Borrow}/>Borrow Items</button>
                       <Link to="/jobs" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Job}/>Jobs</button></Link>
                       <button className='btn-main'><img className="btn-main-icon" src={Interview}/>Mock Interviews</button>
