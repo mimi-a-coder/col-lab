@@ -107,7 +107,7 @@ export default function CreateJob() {
                                 <span><strong>Job schedule:</strong> {jobDetails?.acf?.jobs_schedule}</span>                            
                             </div>
                             <div className="col-lg-12 mb-4">
-                                <span><strong>Exptected start date:</strong> {DateToReadable(jobDetails?.acf?.jobs_exptected_start_date)}</span>
+                                <span><strong>Expected start date:</strong> {DateToReadable(jobDetails?.acf?.jobs_exptected_start_date)}</span>
                             </div>
                         <hr></hr>
                         </div>
@@ -141,7 +141,7 @@ export default function CreateJob() {
             aria-label="Applied to job checkbox" 
             id="appliedCheck" 
         />
-        <span className="form-check-label mx-2" style={{color: '#000'}} htmlFor="appliedCheck">I have applied to this job</span>
+        <span className="form-check-label mx-2" style={{color: '#000'}} htmlFor="appliedCheck">I have applied to this job.</span>
     </div> 
 </div> 
                         <div className="row mb-4">

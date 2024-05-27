@@ -191,13 +191,13 @@ if (userDetails != null) {
                         </div>
                         <div className="row">
                             <div className="col-lg-6  mb-4">
-                                <input className="form-control form-control-lg" type="text" name="jobs_city"  value={createJob.jobs_city} onChange={handleChange} aria-label='Job City' placeholder="City" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
-                            </div>
-                            <div className="col-lg-6  mb-4">
                                 <select name="jobs_country" value={createJob.jobs_country}  onChange={handleChange} className='form-control form-select form-control-lg' aria-label="Country" autoComplete="country-name" required>
                                     <option disabled value="">Country</option>
                                     {countries}
                                 </select>
+                            </div>
+                            <div className="col-lg-6  mb-4">
+                                <input className="form-control form-control-lg" type="text" name="jobs_city"  value={createJob.jobs_city} onChange={handleChange} aria-label='Job City' placeholder="City" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />
                             </div>
                         </div>
                         <div className="row">
@@ -237,13 +237,13 @@ if (userDetails != null) {
                         <div className="row">
                             <div className="col-12 mb-4">
                                 <p><strong>Application Deadline</strong></p>
-                                <input name="jobs_application_deadline" value={createJob.jobs_application_deadline} onChange={handleChange} className="form-control form-control-lg" type="Date" aria-label="Applicatiion deadline" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />   
+                                <input name="jobs_application_deadline" value={createJob.jobs_application_deadline} onChange={handleChange} className="form-control form-control-lg" type="Date" min={new Date().toISOString().split('T')[0]} aria-label="Applicatiion deadline" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />   
                             </div> 
-                        </div>
+                        </div>                      
                         <div className="row">
                             <div className="col-12 mb-5">
-                                <p><strong>Exptected Start Date</strong></p>
-                                <input name="jobs_exptected_start_date" value={createJob.jobs_exptected_start_date} onChange={handleChange} className="form-control form-control-lg" type="Date" aria-label="Expected start date" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />   
+                                <p><strong>Expected Start Date</strong></p>
+                                <input name="jobs_exptected_start_date" value={createJob.jobs_exptected_start_date} onChange={handleChange} className="form-control form-control-lg" type="Date" min={new Date().toISOString().split('T')[0]} aria-label="Expected start date" autoComplete='on' disabled={ jobStatus === 'publish' ? true : false} required />   
                             </div> 
                         </div>
                         { jobStatus === "publish" ? 
