@@ -247,33 +247,6 @@ export default function AskQuestions() {
                         )
                     }
                 } 
-                // if (search.length == 0) {
-                // return (
-                //     <Link to={{ pathname: `/question/${question.id}/` }} key={index}>
-                //         <div className="card get-help-item mb-4">
-                //             <div className="card-body">
-                //                 <div className="row">
-                //                     <div className='col-lg-3 d-flex align-items-center'>
-                //                         <div className='get-help'>
-                //                             <img className="get-help-img mr-3" src={userProfileImg ? userProfileImg : defaultImage} />
-                //                             <p><strong>{userName}</strong></p>
-                //                         </div>
-                //                     </div>
-                //                     <div className='col-lg-5 d-flex align-items-center'>
-                //                         <p>{question.title.rendered}</p>
-                //                     </div>
-                //                     <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                //                         <p>{days == 0 ? "Posted today" : `${days}d ago`}</p>
-                //                     </div>
-                //                     <div className='col-lg-2 d-flex align-items-center justify-content-end'>
-                //                         <p className="text-right">{ numberOfComments[0].count} {numberOfComments[0].count == 1 ? 'response' : 'responses'}</p>
-                //                     </div>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //     </Link>
-                //     )
-                // }
             }
             )}
         </>
@@ -370,7 +343,7 @@ function PaginatedItems({ itemsPerPage }) {
                         <hr className="mb-5"></hr>
                         <PaginatedItems itemsPerPage={15} />
                     </div>
-          
+                    
                 <div className={"modal"+" "+modalClass}>
                     <div className="container" >
                         <div className="row">

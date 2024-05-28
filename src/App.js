@@ -11,6 +11,7 @@ import Jobs from './Components/Jobs';
 import CreateJob from './Components/CreateJob';
 import Job from './Components/Job';
 import Mentors from './Components/Mentors';
+import MentorSignup from './Components/MentorSignup';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/create-job" element={<CreateJob/>} />
         <Route path="/job/:param1" element={<Job/>} />
         <Route path="/mentorship-opportunities" element={<Mentors/>} />
+        <Route path="/mentor-signup" element={<MentorSignup/>} />
       </Routes>
    </Router>
   );

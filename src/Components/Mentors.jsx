@@ -24,6 +24,7 @@ export default function Mentors() {
     });
 
     const mentors = users.map((mentor, index) => {
+        if (mentor?.acf?.user_is_mentor === 'Yes') {
        return ( <div className='col-lg-3 mb-5' key={index}>
         <div className='card mentor'>
             <div className='card-body'>
@@ -38,15 +39,19 @@ export default function Mentors() {
                 </div>
                 <hr></hr>
                 <div className='mentor-main-details'>
-                    <p className='small'>{mentor?.acf['user-job-title']}</p>
-                    <p className='small'>{mentor?.acf['user-job-Insitution']}</p>
+                    <p className='small'>{mentor?.acf['user_mentor_current_position']}</p>
+                    <p className='small'>{mentor?.acf['user_mentor_current_company']}</p>
+                    <p className='small'>{mentor?.acf['user_mentor_key_responsibilites']}</p>
+                    <p className='small'>{mentor?.acf['user_mentor_currency']} {mentor?.acf['user_mentor_rate_of_pay']}/per hour</p>
                 </div>
             </div>
         </div>
         </div>
        )
+    }
     });
 
+    if (userDetails !== null) {
     return (
         <>
             <Navigation />
@@ -68,7 +73,7 @@ export default function Mentors() {
                                 }} />
                             </div>
                             <div className="col-lg-4 text-end">
-                                <a className="btn btn-outline-info btn-lg" onClick={()=>{"show-modal"}}>Apply to become a mentor</a>
+                                <Link to="/mentor-signup"><a className="btn btn-outline-info btn-lg" onClick={()=>{"show-modal"}}>Apply to become a mentor</a></Link>
                             </div>
                         </div>
                     </div>
@@ -82,4 +87,7 @@ export default function Mentors() {
             </main>
         </>
     )
+    } else {
+        window.location.replace('/')
+    }
 }
