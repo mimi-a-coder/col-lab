@@ -2,8 +2,19 @@
 .mentor {
   box-shadow: 0px 0px 7px grey;
   transition: 400ms ease-out;
+  height: 100% !important;
 }
 .mentor:hover {
   background-color: #0f9ed5;
   color: #fff;
+}
+
+.mentor-details-img {
+  width: 7rem;
+  height: 9rem;
+  border: 1px solid black;
+  box-shadow: 0px 0px 7px grey;
+  border-radius: 3px;
+  object-fit: cover;
+  margin-right: 1rem;
 }

@@ -165,13 +165,14 @@ if (userDetails != null) {
                             </div>
                             <div className="col-lg-6  mb-4">
                                 <select name="user_mentor_currency" value={createMentor.user_mentor_currency}  onChange={handleChange} className='form-control form-select form-control-lg' aria-label="Currency" autoComplete="Currency"  disabled={ mentorStatus === 200 ? true : false} required>
-                                    <option disabled value="">Currnecy</option>
+                                    <option disabled value="">Currency</option>
                                     {countries}
                                 </select>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-12 mb-4">
+                                <p className="small m-0"><strong>Briefly describe yourself, past and present postions,  and reasons for signing up:</strong></p>
                                 <textarea rows="7" className="form-control form-control-lg" type="text" name="user_mentor_bio"  value={createMentor.user_mentor_bio} onChange={handleChange} aria-label='Mentor bio' placeholder="Mentor bio" autoComplete='on' disabled={ mentorStatus === 200 ? true : false} required></textarea>
                             </div>
                         </div>

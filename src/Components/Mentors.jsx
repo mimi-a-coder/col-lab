@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from './Navigation';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSuitcase, faCoins, faMoneyBill, faHouse, faPen } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 export default function Mentors() {
@@ -25,28 +27,31 @@ export default function Mentors() {
 
     const mentors = users.map((mentor, index) => {
         if (mentor?.acf?.user_is_mentor === 'Yes') {
-       return ( <div className='col-lg-3 mb-5' key={index}>
-        <div className='card mentor'>
-            <div className='card-body'>
-                <div className="questions-details-name">
-                  <img className="questions-details-name-img" src={mentor?.avatar_urls['48']} />
-                  <div className="questions-details-name-info">
-                    <p className='m-0'><strong>{mentor.name}</strong></p>
-                    <div className="questions-details-posted">
-                      <span className='small'>{mentor?.acf['user-city']}{mentor?.acf['user-country-of-residence'].length > 0 ? ',' : ''} {mentor?.acf['user-country-of-residence']}</span>
+       return ( 
+           <div className='col-lg-4 mb-5' key={index}>
+                <Link to={`/mentor/${mentor.id}`}>
+                    <div className='card mentor'>
+                        <div className='card-body'>
+                            <div className="questions-details-name">
+                            <img className="questions-details-name-img" src={mentor?.avatar_urls['48']} />
+                            <div className="questions-details-name-info">
+                                <p className='m-0'><strong>{mentor.name}</strong></p>
+                                <div className="questions-details-posted">
+                                <span className='small'>{mentor?.acf['user-city']}{mentor?.acf['user-country-of-residence'].length > 0 ? ',' : ''} {mentor?.acf['user-country-of-residence']}</span>
+                                </div>
+                            </div>
+                            </div>
+                            <hr></hr>
+                            <div className='mentor-main-details'>
+                                <p className='small'><FontAwesomeIcon icon={faSuitcase} /> <strong>{mentor?.acf['user_mentor_current_position']} at {mentor?.acf['user_mentor_current_company']}</strong></p>
+                                <p className='small'><FontAwesomeIcon icon={faPen} /> {mentor?.acf['user_mentor_bio'].slice(0, 200)}{mentor?.acf['user_mentor_bio'].length > 200 ? '...' : ''}</p>
+                                <p className='small'><strong>Offering:</strong> {mentor?.acf['user_mentor_key_responsibilities']}{mentor?.acf['user_mentor_key_responsibilities'].length > 50 ? '...' : ''}</p>
+                                <p className='small'><FontAwesomeIcon icon={faCoins} /> {mentor?.acf['user_mentor_currency']} {mentor?.acf['user_mentor_rate_of_pay']}/hour</p>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-                <hr></hr>
-                <div className='mentor-main-details'>
-                    <p className='small'>{mentor?.acf['user_mentor_current_position']}</p>
-                    <p className='small'>{mentor?.acf['user_mentor_current_company']}</p>
-                    <p className='small'>{mentor?.acf['user_mentor_key_responsibilites']}</p>
-                    <p className='small'>{mentor?.acf['user_mentor_currency']} {mentor?.acf['user_mentor_rate_of_pay']}/per hour</p>
-                </div>
+                </Link>
             </div>
-        </div>
-        </div>
        )
     }
     });
@@ -60,7 +65,7 @@ export default function Mentors() {
                     <div className='get-help-details'>
                         <div className="row mb-5">
                             <div className="col-6 d-flex align-item-center">
-                                <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash d-flex align-items-center">/</span><span className="small d-flex align-items-center">Mentorship Opportunities</span>
+                                <Link to="/" className="link-dark small d-flex align-items-center"><FontAwesomeIcon icon={faHouse} /></Link><span className="breadcrumb-slash d-flex align-items-center">>></span><span className="small d-flex align-items-center">Mentorship Opportunities</span>
                             </div>
                         </div>
                         <div className="row">
