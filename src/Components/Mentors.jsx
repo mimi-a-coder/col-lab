@@ -82,7 +82,7 @@ export default function Mentors() {
                             </div>
                         </div>
                     </div>
-                    <hr className="mb-5"></hr>
+                    <hr className="mb-5 mt-5"></hr>
                     <div className="mentors">
                         <div className='row'>
                             {mentors}
