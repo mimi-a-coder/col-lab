@@ -179,7 +179,6 @@ if (userDetails != null) {
                         <p className="lead">Qualifications:</p>
                         <div className="row">
                             <div className="col-12 mb-4">
-                                <p className="small m-0"><strong>Seperate responsibilities with commas:</strong></p>
                                 <textarea rows="7" className="form-control form-control-lg" type="text" name="user_mentor_key_responsibilities"  value={createMentor.user_mentor_key_responsibilities} onChange={handleChange} aria-label='Key responsibilities in current role' placeholder="Key responsibilities in current role" autoComplete='on' disabled={ mentorStatus === 200 ? true : false} required></textarea>
                             </div>
                         </div>

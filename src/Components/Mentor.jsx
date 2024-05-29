@@ -87,11 +87,9 @@ export default function Mentor() {
                             </div>
                             <hr></hr>
                         </div>
-                        <h2 className="lead mb-4">Mentor Details</h2>
-
                         <div className="row mb-4">
                             <div className="col-lg-12 mb-4">
-                                <span><strong>Bio:</strong> {mentorDetails?.acf?.['user_mentor_bio']}</span>
+                                <span><strong>About me:</strong> {mentorDetails?.acf?.['user_mentor_bio']}</span>
                             </div>
                             <div className="col-lg-12 mb-4">
                                 <span><strong>Key responsibilities:</strong> {mentorDetails?.acf?.['user_mentor_key_responsibilities']}</span>
@@ -100,8 +98,7 @@ export default function Mentor() {
                                 <span><strong>Education:</strong> {mentorDetails?.acf?.user_mentor_education}</span>
                             </div>
                             <div className="col-lg-12 mb-4">
-                                <span><strong>Benefits and pay:</strong></span>
-                                <p className="m-0">{mentorDetails?.acf?.jobs_benefits}</p>
+                                <span><strong>Preferred language(s):</strong> {mentorDetails?.acf?.user_mentor_preferred_language}</span>
                             </div>
                             <div className="col-lg-12 mb-4">
                                 <span><strong>Job language requirements:</strong> {mentorDetails?.acf?.jobs_languages}</span>
