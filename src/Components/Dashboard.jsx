@@ -204,7 +204,7 @@ export default function Dashboard() {
                 <div className="col-lg-4">
                   <div className="dashboard-questions">
                     <div className='dashboard-border'>
-                      <p><strong>See recent questions from your peers</strong></p>
+                      <p><strong>See recent questions from your peers related to your field of research.</strong></p>
                     </div>
                     <div className="dashboard-questions-items">
                       {questions}

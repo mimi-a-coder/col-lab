@@ -8,6 +8,8 @@ import ReactPaginate from 'react-paginate';
 import { renderedQuestion } from '../helper';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { scienceBrnaches } from '../helper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSuitcase, faCoins, faMoneyBill, faHouse, faPen } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function AskQuestions() {
@@ -303,7 +305,7 @@ function PaginatedItems({ itemsPerPage }) {
                         <div className='get-help-details'>
                             <div className="row mb-5">
                                 <div className="col-6 d-flex align-item-center">
-                                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash d-flex align-items-center">/</span><span className="small d-flex align-items-center">Ask Questions</span>
+                                    <Link to="/" className="link-dark small d-flex align-items-center"><FontAwesomeIcon icon={faHouse} /></Link><span className="breadcrumb-slash d-flex align-items-center">>></span><span className="small d-flex align-items-center">Ask Questions</span>
                                 </div>
                                 <div className="col-6 d-flex align-item-center justify-content-end">
                                 <p className='small m-0 my-auto'><strong>Choose question type:</strong></p> &nbsp; &nbsp;

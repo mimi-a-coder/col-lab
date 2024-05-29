@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import Navigation from "./Navigation";
 import defaultImage from '../Images/5402435_account_profile_user_avatar_man_icon.svg';
 import { Editor } from '@tinymce/tinymce-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSuitcase, faCoins, faMoneyBill, faHouse, faPen } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 
 export default function Question() {
@@ -199,7 +201,7 @@ return (
         <div className="container primary questions">
             <div className="row mb-5">
                 <div className="col-12 d-flex">
-                    <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><Link to="/ask-questions" className="link-dark small">Ask Questions</Link><span className="breadcrumb-slash">/</span><span className="small d-flex align-items-center">{localStorage.getItem(`quesiton${param1}`)}{localStorage.getItem(`quesiton${param1}count`) > 15 ? '...' : ''}</span>
+                    <Link to="/" className="link-dark small d-flex align-items-center"><FontAwesomeIcon icon={faHouse} /></Link><span className="breadcrumb-slash">></span><Link to="/ask-questions" className="link-dark small">Ask Questions</Link><span className="breadcrumb-slash">>></span><span className="small d-flex align-items-center">{localStorage.getItem(`quesiton${param1}`)}{localStorage.getItem(`quesiton${param1}count`) > 15 ? '...' : ''}</span>
                 </div>
             </div>
             <div className="row">

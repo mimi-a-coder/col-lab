@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navigation from "./Navigation";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSuitcase, faLanguage, faClock, faMoneyBill, faCalendarDays, faDesktop, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faSuitcase, faLanguage, faClock, faMoneyBill, faCalendarDays, faDesktop, faLocationDot, faHouse } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 
 
@@ -69,7 +69,7 @@ export default function CreateJob() {
                     <div className="page-filter">
                         <div className="row mb-5">
                             <div className="col-12 d-flex">
-                                <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><Link className="link-dark small d-flex align-items-center" to="/jobs">Jobs</Link><span className="breadcrumb-slash">/</span><span className="small d-flex align-items-center">{jobDetails?.title?.rendered.slice(0, 15)}{jobDetails?.title?.rendered.length > 15 ? '...' : ''}</span>
+                                <Link to="/" className="link-dark small d-flex align-items-center"><FontAwesomeIcon icon={faHouse} /></Link><span className="breadcrumb-slash">></span><Link className="link-dark small d-flex align-items-center" to="/jobs">Jobs</Link><span className="breadcrumb-slash">>></span><span className="small d-flex align-items-center">{jobDetails?.title?.rendered.slice(0, 15)}{jobDetails?.title?.rendered.length > 15 ? '...' : ''}</span>
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@ export default function CreateJob() {
 </div> 
                         <div className="row mb-4">
                             <div className="col-lg-6 mr-3 mb-4 d-flex align-items-center">
-                                <Link to="/jobs"><button className="btn btn-info btn-lg">Back</button></Link>
+                                <Link to="/jobs"><button className="btn btn-danger btn-lg"><strong>Back</strong></button></Link>
                             </div> 
                         </div>
                     </form>                 

@@ -78,7 +78,7 @@ export default function Mentors() {
                                 }} />
                             </div>
                             <div className="col-lg-4 text-end">
-                                <Link to="/mentor-signup"><a className="btn btn-outline-info btn-lg" onClick={()=>{"show-modal"}}>Apply to become a mentor</a></Link>
+                                <Link to="/mentor-signup"><a className="btn btn-outline-info btn-lg" onClick={()=>{"show-modal"}}>Apply To Become a Mentor</a></Link>
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,7 @@ import { Tab, initMDB } from "mdb-ui-kit";
 import { renderedQuestion } from "../helper"
 import ReactPaginate from 'react-paginate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
+import { faSquareCheck, faSuitcase, faCoins, faMoneyBill, faHouse, faPen } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Jobs() {
@@ -334,7 +334,7 @@ function ExpiredItem({ currentItems }) {
                 <div className="page-filter">
                     <div className="row mb-5">
                         <div className="col-12 d-flex">
-                            <Link to="/" className="link-dark small d-flex align-items-center"><svg className="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Home</Link><span className="breadcrumb-slash">/</span><span className="small d-flex align-items-center">Jobs</span>
+                            <Link to="/" className="link-dark small d-flex align-items-center"><FontAwesomeIcon icon={faHouse} /></Link><span className="breadcrumb-slash">>></span><span className="small d-flex align-items-center">Jobs</span>
                         </div>
                     </div>
                     <div className="row">
@@ -344,7 +344,7 @@ function ExpiredItem({ currentItems }) {
                             }} />
                         </div>
                         <div className="col-lg-6 d-flex justify-content-end">
-                            <Link to="/create-job"><button className="btn btn-info btn-lg">Create a Job Posting</button></Link>
+                            <Link to="/create-job"><button className="btn btn-outline-info btn-lg">Create a Job Posting</button></Link>
                         </div>
                     </div>
                 </div>
