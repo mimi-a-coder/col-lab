@@ -92,13 +92,16 @@ export default function Mentor() {
                                 <span><strong>About me:</strong> {mentorDetails?.acf?.['user_mentor_bio']}</span>
                             </div>
                             <div className="col-lg-12 mb-4">
-                                <span><strong>Key responsibilities:</strong> {mentorDetails?.acf?.['user_mentor_key_responsibilities']}</span>
+                                <span><strong>Key responsibilities:</strong><br></br> {mentorDetails?.acf?.['user_mentor_key_responsibilities']}</span>
                             </div>
                             <div className="col-lg-12 mb-4">
                                 <span><strong>Education:</strong> {mentorDetails?.acf?.user_mentor_education}</span>
                             </div>
                             <div className="col-lg-12 mb-4">
                                 <span><strong>Preferred language(s):</strong> {mentorDetails?.acf?.user_mentor_preferred_language}</span>
+                            </div>
+                            <div className="col-lg-12 mb-4">
+                                <span><strong>Services offered:</strong> <br></br>{mentorDetails?.acf?.['user_mentor_services_offered']}</span>
                             </div>
                             <div className="col-lg-12 mb-4">
                                 <span><strong>Preferred meet-up:</strong> {mentorDetails?.acf?.user_mentor_preferred_meetup}</span>

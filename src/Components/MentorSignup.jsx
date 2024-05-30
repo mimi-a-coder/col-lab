@@ -21,7 +21,8 @@ export default function MentorSignup() {
         user_mentor_card_number: '',
         user_transit_number: '',
         user_institution_number: '',
-        user_mentor_bio: ''
+        user_mentor_bio: '',
+        user_mentor_services_offered: ''
     })
     const [ getCountries, setGetCountries ] = useState([]);
 
@@ -86,6 +87,7 @@ export default function MentorSignup() {
                         'user_transit_number': createMentor.user_transit_number,
                         'user_institution_number': createMentor.user_institution_number,
                         'user_mentor_bio': createMentor.user_mentor_bio,
+                        'user_mentor_services_offered': createMentor.user_mentor_services_offered,
                     }
                 },
                 {
@@ -148,6 +150,11 @@ if (userDetails != null) {
                         <div className="row">
                             <div className="col-lg-12  mb-4">
                                 <input className="form-control form-control-lg" type="text" name="user_mentor_preferred_language"  value={createMentor.user_mentor_preferred_language} onChange={handleChange} aria-label='Preferred language' placeholder="Preferred language" autoComplete='on' disabled={ mentorStatus === 200 ? true : false} required />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-lg-12  mb-4">
+                                <textarea rows="4" className="form-control form-control-lg" type="text" name="user_mentor_services_offered"  value={createMentor.user_mentor_services_offered} onChange={handleChange} aria-label='Services Offered' placeholder="Services Offered" autoComplete='on' disabled={ mentorStatus === 200 ? true : false} required></textarea>
                             </div>
                         </div>
                         <div className="row">

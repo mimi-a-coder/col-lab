@@ -356,6 +356,10 @@ a {
   width: 20px !important;
 }
 
+.inline {
+  display: inline;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;
