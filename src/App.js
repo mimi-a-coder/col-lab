@@ -13,6 +13,7 @@ import Job from './Components/Job';
 import Mentors from './Components/Mentors';
 import MentorSignup from './Components/MentorSignup';
 import Mentor from './Components/Mentor';
+import MentorChat from './Components/MentorChat';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/mentorship-opportunities" element={<Mentors/>} />
         <Route path="/mentor-signup" element={<MentorSignup/>} />
         <Route path="/mentor/:param1" element={<Mentor/>} />
+        <Route path="/mentor-chat/:param1" element={<MentorChat/>} />
       </Routes>
    </Router>
   );

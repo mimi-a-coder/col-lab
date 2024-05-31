@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "./Navigation";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSuitcase, faCoins, faMoneyBill, faHouse, faPen } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
@@ -10,8 +10,8 @@ import axios from "axios";
 export default function Mentor() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
     const { param1 } = useParams();
-    console.log(param1)
     const [ mentorDetails, setMentorDetails ] = useState({}); 
+    const Naviagte = useNavigate()
 
     useEffect(() => {
       axios({
@@ -23,7 +23,6 @@ export default function Mentor() {
       })
       .then((response) => {
         setMentorDetails(response.data);
-        console.log(response.data);
       })
       .catch(err => console.log(err))
     }, []);
@@ -60,8 +59,35 @@ export default function Mentor() {
     return formattedDate
   }
  
-  let seeIfchecked = mentorDetails?.acf?.jobs_applied_users?.split(' ');
-    
+  const createMentorChat = async (e) => {
+    try {
+        const createChat = await axios.post(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/mentor-chats`,
+            {
+                author: userDetails.id,
+                title: `${param1} + ${userDetails.id}`,
+                content: `Mentorship sention between ${mentorDetails.name} and ${userDetails.name}`,
+                excerpt: `Mentorship sention between ${mentorDetails.name} and ${userDetails.name}`,
+                status: 'publish',
+                acf: {
+                    'mentors_id': `${param1}`,
+                    'mentee_id': `${userDetails.id}`,
+                }
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${userDetails.token}`
+                }
+            }
+        ).then((response) => {
+                Naviagte(`/mentor-chat/${response?.data?.id}`);
+            }
+        )
+
+    } catch (err) {
+
+    }
+  };
+
   if (userDetails != null) {
     return(
         <>
@@ -112,7 +138,7 @@ export default function Mentor() {
                         </div>    
                         <div className="row mb-4 d-flex align-items-center">
                             <div className="col-auto">
-                                <Link to="#"><button className="btn btn-info btn-lg">Sign up with mentor</button></Link>
+                                <button className="btn btn-info btn-lg" onClick={createMentorChat}>Sign up with mentor</button>
                             </div> 
                             <div className="col-auto">
                                 <Link to="/mentorship-opportunities"><button className="btn btn-danger btn-lg"><strong>Back</strong></button></Link>
