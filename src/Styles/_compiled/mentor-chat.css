@@ -82,3 +82,77 @@
   height: 1.7rem;
   filter: invert(98%) sepia(28%) saturate(150%) hue-rotate(192deg) brightness(115%) contrast(100%);
 }
+
+.chat {
+  margin: 1rem 0;
+}
+
+.current-user-message {
+  width: 70%;
+  float: right;
+}
+.current-user-message .card {
+  border-radius: 1rem 1rem 0 1rem !important;
+  background-color: #0f9ed5 !important;
+  color: #fff !important;
+  font-weight: 500 !important;
+  margin-right: 7rem;
+  margin-bottom: -0.5rem;
+  border: none !important;
+}
+.current-user-message .card p {
+  margin: 0;
+}
+.current-user-message .image {
+  margin-right: 2rem;
+  display: flex;
+  justify-content: end;
+  flex-direction: row;
+}
+.current-user-message .image .date {
+  margin-right: 1rem;
+}
+.current-user-message .image .chat-img {
+  width: 5rem !important;
+  height: 5rem !important;
+  object-position: center;
+  border: 1px solid black;
+  border-radius: 3px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.other-user-message {
+  width: 70%;
+  float: left;
+}
+.other-user-message .card {
+  border-radius: 1rem 1rem 1rem 0 !important;
+  background-color: lightgray !important;
+  color: #000 !important;
+  font-weight: 500 !important;
+  margin-left: 7rem;
+  margin-bottom: -0.5rem;
+  border: none !important;
+}
+.other-user-message .card p {
+  margin: 0;
+}
+.other-user-message .image {
+  margin-left: 2rem;
+  display: flex;
+  justify-content: start;
+  flex-direction: row-reverse;
+}
+.other-user-message .image .date {
+  margin-left: 1rem;
+}
+.other-user-message .image .chat-img {
+  width: 5rem !important;
+  height: 5rem !important;
+  object-position: center;
+  border: 1px solid black;
+  border-radius: 3px;
+  object-fit: cover;
+  border-radius: 50%;
+}

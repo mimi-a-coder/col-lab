@@ -73,3 +73,68 @@
         }
     }
 }
+.chat {
+    margin: 1rem 0;
+}
+.current-user-message {
+    width: 70%;
+    float: right;
+    .card {
+    border-radius: 1rem 1rem 0 1rem !important;
+    background-color: $mercy-color-1 !important;
+    color: #fff !important;
+    font-weight: 500 !important;
+    margin-right: 7rem;
+    margin-bottom: -0.5rem;
+    border: none !important;
+    p {
+        margin: 0;
+    }
+    }
+    .image {
+        margin-right: 2rem;
+        display: flex;
+        justify-content: end;
+        flex-direction: row;
+        .date {
+            margin-right: 1rem;
+        }
+        .chat-img {
+            width: 5rem !important;
+            height: 5rem !important;
+            @include img;
+            border-radius: 50%;
+        }
+    }
+}
+.other-user-message {
+    width: 70%;
+    float: left;
+    .card {
+    border-radius: 1rem 1rem 1rem 0 !important;
+    background-color: lightgray !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+    margin-left: 7rem;
+    margin-bottom: -0.5rem;
+    border: none !important;
+    p {
+        margin: 0;
+    }
+    }
+    .image {
+        margin-left: 2rem;
+        display: flex;
+        justify-content: start;
+        flex-direction: row-reverse;
+        .date {
+            margin-left: 1rem;
+        }
+        .chat-img {
+            width: 5rem !important;
+            height: 5rem !important;
+            @include img;
+            border-radius: 50%;
+        }
+    }
+}

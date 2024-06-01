@@ -65,8 +65,8 @@ export default function Mentor() {
             {
                 author: userDetails.id,
                 title: `Mentor: ${ mentorDetails?.name}, Mentee: ${userDetails?.displayName}`,
-                content: `Mentorship sention between ${mentorDetails.name} and ${userDetails.displayName}`,
-                excerpt: `Mentorship sention between ${mentorDetails.name} and ${userDetails.displayName}`,
+                content: `Mentorship session between ${mentorDetails.name} and ${userDetails.displayName}`,
+                excerpt: `Mentorship session between ${mentorDetails.name} and ${userDetails.displayName}`,
                 status: 'publish',
                 acf: {
                     'mentors_id': `${param1}`,
