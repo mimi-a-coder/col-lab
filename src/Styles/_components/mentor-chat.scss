@@ -46,3 +46,30 @@
     border-radius: 1rem !important;
     border: 2px solid #d3d3d3 !important;
 }
+.send-chat {
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    width: 100%;
+    &-input {
+        width: 100% !important;
+    }
+    &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content !important;
+        background-color: $mercy-color-1;
+        padding: 1rem;
+        border-radius: 50%;
+        margin-left: 1rem;
+        &:hover {
+            cursor: pointer;
+        }
+        .send-icon {
+            width: 1.7rem;
+            height: 1.7rem;
+            filter: invert(98%) sepia(28%) saturate(150%) hue-rotate(192deg) brightness(115%) contrast(100%);
+        }
+    }
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navigation from './Navigation';
 import axios from 'axios';
+import SendIcon from '../Images/send_icon.svg';
 
 export default function MentorChat() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -105,7 +106,14 @@ export default function MentorChat() {
                                     <div className='col-2'></div>
                                     <div className='col-8'>
                                         <from>
-                                            <input className="form-control form-control-lg chat-input" type="text" aria-label="send message" />
+                                            <div className='send-chat'>                                                
+                                                <div className='send-chat-input'>
+                                                    <input className="form-control form-control-lg chat-input" type="text" aria-label="send message" />
+                                                </div>
+                                                <div className='send-chat-icon'>
+                                                    <img className='send-icon' src={SendIcon} />
+                                                </div>
+                                            </div>
                                         </from>
                                     </div>
                                     <div className='col-2'></div>

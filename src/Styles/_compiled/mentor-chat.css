@@ -54,3 +54,31 @@
   border-radius: 1rem !important;
   border: 2px solid #d3d3d3 !important;
 }
+
+.send-chat {
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  width: 100%;
+}
+.send-chat-input {
+  width: 100% !important;
+}
+.send-chat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content !important;
+  background-color: #0f9ed5;
+  padding: 1rem;
+  border-radius: 50%;
+  margin-left: 1rem;
+}
+.send-chat-icon:hover {
+  cursor: pointer;
+}
+.send-chat-icon .send-icon {
+  width: 1.7rem;
+  height: 1.7rem;
+  filter: invert(98%) sepia(28%) saturate(150%) hue-rotate(192deg) brightness(115%) contrast(100%);
+}
