@@ -718,6 +718,8 @@ textarea[data-info=content] {
   padding: 0.5rem;
   height: 100%;
   color: #000;
+  display: flex;
+  align-items: center;
 }
 [aria-label=Pagination] li a {
   color: black;

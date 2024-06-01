@@ -41,7 +41,7 @@ function ActiveItem({ currentItems }) {
     return (
       <>
         {currentItems.map((mentor, index) => {
-        if (mentor?.acf?.user_is_mentor === 'Yes') {
+        if (mentor?.acf?.user_is_mentor === 'Yes' && mentor.id !== userDetails.id) {
             if (search.length > 0 && mentor?.name.toLowerCase().includes(`${search.toLowerCase()}`) || mentor?.acf['user_mentor_services_offered'].toLowerCase().includes(search.toLowerCase()) || mentor?.acf['user_mentor_current_position'].toLowerCase().includes(search.toLowerCase()) || mentor?.acf['user_mentor_current_company'].toLowerCase().includes(search.toLowerCase())) {     
                 return ( 
                     <div className='col-lg-4 mb-5' key={index}>
@@ -61,7 +61,7 @@ function ActiveItem({ currentItems }) {
                                     <div className='mentor-main-details'>
                                         <div className='mb-3'><FontAwesomeIcon icon={faSuitcase} /> <strong><div className='small inline' dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(mentor?.acf['user_mentor_current_position'], search) : mentor?.acf['user_mentor_current_position'] } } /> at <div className='small inline' dangerouslySetInnerHTML={{ __html: search?.length > 0 ? renderedQuestion(mentor?.acf['user_mentor_current_company'], search) : mentor?.acf['user_mentor_current_company'] } } /></strong></div>
                                         <p className='small'><FontAwesomeIcon icon={faPen} /> {mentor?.acf['user_mentor_bio'].slice(0, 200)}{mentor?.acf['user_mentor_bio'].length > 200 ? '...' : ''}</p>
-                                        <strong>Offering:</strong> <div className='small inline' dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(mentor?.acf['user_mentor_services_offered']?.slice(0, 200), search) : mentor?.acf['user_mentor_services_offered']?.slice(0, 200) } } />{mentor?.acf['user_mentor_services_offered'].length > 100 ? '...' : ''}
+                                        <div className='mb-3'><strong>Offering:</strong> <div className='small inline' dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(mentor?.acf['user_mentor_services_offered']?.slice(0, 200), search) : mentor?.acf['user_mentor_services_offered']?.slice(0, 200) } } />{mentor?.acf['user_mentor_services_offered'].length > 100 ? '...' : ''}</div>
                                         <p className='small'><FontAwesomeIcon icon={faCoins} /> {mentor?.acf['user_mentor_currency']} {mentor?.acf['user_mentor_rate_of_pay']}/hour</p>
                                     </div>
                                 </div>
