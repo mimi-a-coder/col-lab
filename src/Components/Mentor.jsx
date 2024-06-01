@@ -64,9 +64,9 @@ export default function Mentor() {
         const createChat = await axios.post(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/mentor-chats`,
             {
                 author: userDetails.id,
-                title: `${param1} + ${userDetails.id}`,
-                content: `Mentorship sention between ${mentorDetails.name} and ${userDetails.name}`,
-                excerpt: `Mentorship sention between ${mentorDetails.name} and ${userDetails.name}`,
+                title: `Mentor: ${ mentorDetails?.name}, Mentee: ${userDetails?.displayName}`,
+                content: `Mentorship sention between ${mentorDetails.name} and ${userDetails.displayName}`,
+                excerpt: `Mentorship sention between ${mentorDetails.name} and ${userDetails.displayName}`,
                 status: 'publish',
                 acf: {
                     'mentors_id': `${param1}`,

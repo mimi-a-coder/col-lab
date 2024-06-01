@@ -11,6 +11,8 @@ export default function MentorChat() {
     const [ allMentorChats, setAllMentorChats ] =  useState()
     const [ mentorChatDetails, setMentorChatDetails ] =  useState()
 
+    console.log(userDetails);
+
     // Set user information
     useEffect(() => {
             axios({
