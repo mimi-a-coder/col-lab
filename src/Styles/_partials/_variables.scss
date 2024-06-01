@@ -18,3 +18,10 @@ $btn-color-6: #C9EADB;
 @mixin border($property) {
     #{$property}: 1.5px solid $mercy-color-1;
 }
+
+@mixin img() {
+    object-position: center;
+    border: 1px solid black;
+    border-radius: 3px;
+    object-fit: cover;
+}

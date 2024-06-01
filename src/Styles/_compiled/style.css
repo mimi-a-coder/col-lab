@@ -755,6 +755,63 @@ textarea[data-info=content] {
   top: -10px;
 }
 
+/* Button Colours */
+.mentors-chat {
+  margin-bottom: -11rem;
+  background-color: #f8f9fc;
+  overflow-x: hidden;
+}
+
+.mentors-chat-list {
+  height: 100%;
+  padding-right: 2rem !important;
+  padding-left: 2rem !important;
+}
+
+.mentors-chat-item {
+  border-left: 1px solid #d0cccc;
+}
+
+.mentors-chat-item-header {
+  background-color: #fff;
+}
+.mentors-chat-item-header .row {
+  padding: 2rem 2rem 1rem 2rem;
+}
+
+.chat-item-header-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-position: center;
+  border: 1px solid black;
+  border-radius: 3px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.mentors-chat-item-body {
+  height: calc(90vh - 190px);
+  overflow-y: auto;
+}
+
+.mentors-chat-item-keyboard {
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  background-color: #fff;
+  padding: 2rem 2rem 1rem 2rem;
+}
+.mentors-chat-item-keyboard div {
+  width: 100%;
+}
+
+.chat-input {
+  color: #000;
+  border-radius: 1rem !important;
+  border: 2px solid #d3d3d3 !important;
+}
+
 @media screen and (max-width: 1000px) {
   .container-fluid {
     padding: 0 2rem !important;
