@@ -100,7 +100,7 @@ export default function MentorChat() {
         .catch((err) => {
             console.log(err)
         })
-    }, [comments])
+    })
 
     const conversation = comments.map((comment, index) => {
         var date = new Date(comment?.date);
