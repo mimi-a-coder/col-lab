@@ -760,7 +760,7 @@ textarea[data-info=content] {
 /* Button Colours */
 .mentors-chat {
   margin-bottom: -11rem;
-  background-color: #f8f9fc;
+  background-color: #fff;
   overflow-x: hidden;
 }
 
@@ -798,6 +798,7 @@ textarea[data-info=content] {
 }
 
 .mentors-chat-item-keyboard {
+  border-top: 1px solid #d0cccc;
   display: flex;
   align-items: center;
   height: 10vh;
@@ -849,6 +850,7 @@ textarea[data-info=content] {
 .current-user-message {
   width: 70%;
   float: right;
+  display: block;
 }
 .current-user-message .card {
   border-radius: 1rem 1rem 0 1rem !important;
@@ -872,8 +874,8 @@ textarea[data-info=content] {
   margin-right: 1rem;
 }
 .current-user-message .image .chat-img {
-  width: 5rem !important;
-  height: 5rem !important;
+  width: 4rem !important;
+  height: 4rem !important;
   object-position: center;
   border: 1px solid black;
   border-radius: 3px;
@@ -887,7 +889,7 @@ textarea[data-info=content] {
 }
 .other-user-message .card {
   border-radius: 1rem 1rem 1rem 0 !important;
-  background-color: lightgray !important;
+  background-color: lightgrey !important;
   color: #000 !important;
   font-weight: 500 !important;
   margin-left: 7rem;
@@ -907,8 +909,8 @@ textarea[data-info=content] {
   margin-left: 1rem;
 }
 .other-user-message .image .chat-img {
-  width: 5rem !important;
-  height: 5rem !important;
+  width: 4rem !important;
+  height: 4rem !important;
   object-position: center;
   border: 1px solid black;
   border-radius: 3px;

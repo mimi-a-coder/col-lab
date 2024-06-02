@@ -9,8 +9,9 @@ export default function MentorChat() {
     const { param1 } = useParams();
     const [ user, setUser ] =  useState({})
     const [ mentor, setMentor ] =  useState({})
+    const [ mentee, setMentee ] =  useState({})
     const [ allMentorChats, setAllMentorChats ] =  useState([])
-    const [ mentorChatDetails, setMentorChatDetails ] =  useState([])
+    const [ mentorChatDetails, setMentorChatDetails ] =  useState({})
     const [ comments, setComments ] =  useState([])
     const [ comment, setComment ] =  useState('')
     const Navigate = useNavigate();
@@ -54,6 +55,24 @@ export default function MentorChat() {
         })
     }, [mentorChatDetails])
 
+    // Set mentees information
+    useEffect(() => {
+        axios({
+            method: 'GET',
+            url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChatDetails?.acf?.mentees_id}`
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${userDetails.tocken}`
+            }
+        }
+        ).then((res) => {
+            setMentee(res.data)
+        }).catch((err) => {
+            console.error(err)
+        })
+    }, [mentorChatDetails])
+
     // Set user information
     useEffect(() => {
             axios({
@@ -82,6 +101,11 @@ export default function MentorChat() {
             console.log(err)
         })
     }, [comments])
+
+    let images = [
+        {[mentee.id]: `${mentee?.avatar_urls?.['48']}`},
+        {[mentor.id]: `${mentor?.avatar_urls?.['48']}`}
+    ];
 
     const conversation = comments.map((comment, index) => {
         var date = new Date(comment?.date);

@@ -2,7 +2,8 @@
 
 .mentors-chat {
     margin-bottom: -11rem;
-    background-color: $mercy-color-2;
+    // background-color: $mercy-color-2;
+    background-color: #fff;
     overflow-x: hidden;
 }
 .mentors-chat-list {
@@ -31,6 +32,7 @@
     overflow-y: auto;
 }
 .mentors-chat-item-keyboard {
+    border-top: 1px solid #d0cccc;
     display: flex;
     align-items: center;
     height: 10vh;
@@ -79,6 +81,7 @@
 .current-user-message {
     width: 70%;
     float: right;
+    display: block;
     .card {
     border-radius: 1rem 1rem 0 1rem !important;
     background-color: $mercy-color-1 !important;
@@ -100,8 +103,8 @@
             margin-right: 1rem;
         }
         .chat-img {
-            width: 5rem !important;
-            height: 5rem !important;
+            width: 4rem !important;
+            height: 4rem !important;
             @include img;
             border-radius: 50%;
         }
@@ -112,7 +115,7 @@
     float: left;
     .card {
     border-radius: 1rem 1rem 1rem 0 !important;
-    background-color: lightgray !important;
+    background-color: lightgrey !important;
     color: #000 !important;
     font-weight: 500 !important;
     margin-left: 7rem;
@@ -131,8 +134,8 @@
             margin-left: 1rem;
         }
         .chat-img {
-            width: 5rem !important;
-            height: 5rem !important;
+            width: 4rem !important;
+            height: 4rem !important;
             @include img;
             border-radius: 50%;
         }
