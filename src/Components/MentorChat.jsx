@@ -118,7 +118,7 @@ export default function MentorChat() {
                     </div>
                 </div>
                 <div className='image d-flex align-items-center'>
-                    <span className='small date'>{humanReadableTime}</span>
+                    <span className='chat-date date'>{humanReadableTime}</span>
                     <img className='chat-img' src={ comment?.author_avatar_urls?.['48']} alt={comment?.author_name} /> 
                 </div>
             </div>

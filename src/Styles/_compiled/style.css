@@ -772,6 +772,11 @@ textarea[data-info=content] {
   overflow-x: hidden;
 }
 
+.chat-date {
+  font-size: 1.2rem !important;
+  color: grey;
+}
+
 .mentors-chat-list {
   height: 100%;
   padding-right: 2rem !important;
@@ -872,6 +877,7 @@ textarea[data-info=content] {
   font-weight: 500 !important;
   margin-right: 7rem;
   margin-bottom: -0.5rem;
+  margin-left: auto !important;
   border: none !important;
   width: fit-content !important;
   padding: 0 1rem !important;
@@ -911,6 +917,7 @@ textarea[data-info=content] {
   font-weight: 500 !important;
   margin-left: 7rem;
   margin-bottom: -0.5rem;
+  margin-right: auto !important;
   border: none !important;
   width: fit-content !important;
   padding: 0 1rem !important;
