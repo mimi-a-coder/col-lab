@@ -873,6 +873,8 @@ textarea[data-info=content] {
   margin-right: 7rem;
   margin-bottom: -0.5rem;
   border: none !important;
+  width: fit-content !important;
+  padding: 0 1rem !important;
 }
 .current-user-message .card p {
   margin: 0;
@@ -910,6 +912,8 @@ textarea[data-info=content] {
   margin-left: 7rem;
   margin-bottom: -0.5rem;
   border: none !important;
+  width: fit-content !important;
+  padding: 0 1rem !important;
 }
 .other-user-message .card p {
   margin: 0;
