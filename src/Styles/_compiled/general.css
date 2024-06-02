@@ -308,3 +308,11 @@ a {
 .inline {
   display: inline;
 }
+
+.display-none {
+  display: none !important;
+}
+
+.display-block {
+  display: block !important;
+}

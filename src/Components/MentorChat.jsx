@@ -102,13 +102,6 @@ export default function MentorChat() {
         })
     }, [comments])
 
-    let images = [
-        {[mentee.id]: `${mentee?.avatar_urls?.['48']}`},
-        {[mentor.id]: `${mentor?.avatar_urls?.['48']}`}
-    ];
-
-  
-
     const conversation = comments.map((comment, index) => {
         var date = new Date(comment?.date);
 
@@ -153,7 +146,7 @@ export default function MentorChat() {
         })
     }
 if (userDetails !== null) {
-    if (userDetails.id  !== mentorChatDetails?.acf?.mentors_id || userDetails.id  !== mentorChatDetails?.acf?.mentees_id) {
+    if (userDetails.id  !== mentorChatDetails?.acf?.mentors_id || userDetails.id  !== mentorChatDetails?.acf?.mentee_id) {
         return (
             <>
                 <Navigation />

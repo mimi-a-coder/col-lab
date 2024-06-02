@@ -360,6 +360,14 @@ a {
   display: inline;
 }
 
+.display-none {
+  display: none !important;
+}
+
+.display-block {
+  display: block !important;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;
@@ -814,7 +822,7 @@ textarea[data-info=content] {
 
 .chat-input {
   color: #000;
-  border-radius: 1rem !important;
+  border-radius: 50px !important;
   border: 2px solid #d3d3d3 !important;
 }
 
@@ -851,13 +859,14 @@ textarea[data-info=content] {
 }
 
 .current-user-message {
-  width: 70%;
+  width: fit-content;
+  max-width: 70%;
   float: right;
   margin-left: auto;
   display: block;
 }
 .current-user-message .card {
-  border-radius: 1.5rem 1.5rem 1.5rem 0 !important;
+  border-radius: 1.5rem 1.5rem 0 1.5rem !important;
   background-color: #0f9ed5 !important;
   color: #fff !important;
   font-weight: 500 !important;
@@ -888,7 +897,8 @@ textarea[data-info=content] {
 }
 
 .other-user-message {
-  width: 70%;
+  width: fit-content;
+  max-width: 70%;
   margin-right: auto;
   float: left;
 }

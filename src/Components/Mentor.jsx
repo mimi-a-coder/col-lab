@@ -11,8 +11,10 @@ export default function Mentor() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
     const { param1 } = useParams();
     const [ mentorDetails, setMentorDetails ] = useState({}); 
+    const [ mentorChats, setMentorChats ] = useState([]); 
     const Naviagte = useNavigate()
 
+    // Get menotr information
     useEffect(() => {
       axios({
         url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${param1}`,
@@ -26,6 +28,31 @@ export default function Mentor() {
       })
       .catch(err => console.log(err))
     }, []);
+
+    // Get all mentor chats
+        useEffect(() => {
+            axios({
+                method: 'GET',
+                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/mentor-chats`
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${userDetails.tocken}`
+                }
+            }
+        ).then((res) => {
+            setMentorChats(res.data)
+        }).catch(err => console.log(err))
+    }, [mentorChats])
+
+    var chatID = undefined;
+
+    mentorChats.map((chat) => {
+        if(userDetails?.id === chat?.acf?.mentee_id && Number(param1) === chat?.acf?.mentors_id) {
+            chatID = chat?.id;
+            return;
+        }
+    })
 
     // Handle Check
     function handelCheckedChange(e) {
@@ -138,10 +165,11 @@ export default function Mentor() {
                         </div>    
                         <div className="row mb-4 d-flex align-items-center">
                             <div className="col-auto">
-                                <button className="btn btn-info btn-lg" onClick={createMentorChat}>Sign up with mentor</button>
+                                <button className={`btn btn-info btn-lg ${chatID === undefined ? 'display-block' : 'display-none'}`} onClick={createMentorChat}>Sign up with mentor</button>
+                                <Link className={`btn btn-info btn-lg ${chatID === undefined ? 'display-none' : 'display-block'}`} to={`/mentor-chat/${chatID}`} >Return to chat</Link>
                             </div> 
                             <div className="col-auto">
-                                <Link to="/mentorship-opportunities"><button className="btn btn-danger btn-lg"><strong>Back</strong></button></Link>
+                                <Link to={"/mentorship-opportunities"}><button className="btn btn-danger btn-lg"><strong>Back</strong></button></Link>
                             </div> 
                         </div>          
                     </div>                 
