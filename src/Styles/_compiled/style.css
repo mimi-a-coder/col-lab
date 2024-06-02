@@ -795,6 +795,9 @@ textarea[data-info=content] {
 .mentors-chat-item-body {
   height: calc(90vh - 190px);
   overflow-y: auto;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .mentors-chat-item-keyboard {
@@ -850,10 +853,11 @@ textarea[data-info=content] {
 .current-user-message {
   width: 70%;
   float: right;
+  margin-left: auto;
   display: block;
 }
 .current-user-message .card {
-  border-radius: 1rem 1rem 0 1rem !important;
+  border-radius: 1.5rem 1.5rem 1.5rem 0 !important;
   background-color: #0f9ed5 !important;
   color: #fff !important;
   font-weight: 500 !important;
@@ -885,10 +889,11 @@ textarea[data-info=content] {
 
 .other-user-message {
   width: 70%;
+  margin-right: auto;
   float: left;
 }
 .other-user-message .card {
-  border-radius: 1rem 1rem 1rem 0 !important;
+  border-radius: 1.5rem 1.5rem 1.5rem 0 !important;
   background-color: lightgrey !important;
   color: #000 !important;
   font-weight: 500 !important;

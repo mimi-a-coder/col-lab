@@ -59,7 +59,7 @@ export default function MentorChat() {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChatDetails?.acf?.mentees_id}`
+            url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChatDetails?.acf?.mentee_id}`
         },
         {
             headers: {
@@ -107,8 +107,12 @@ export default function MentorChat() {
         {[mentor.id]: `${mentor?.avatar_urls?.['48']}`}
     ];
 
+  
+
     const conversation = comments.map((comment, index) => {
         var date = new Date(comment?.date);
+
+        console.log(mentee)
 
         var options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
         var humanReadableTime = date.toLocaleDateString('en-US', options);
@@ -122,7 +126,7 @@ export default function MentorChat() {
                 </div>
                 <div className='image d-flex align-items-center'>
                     <span className='small date'>{humanReadableTime}</span>
-                    <img className='chat-img' src={user?.avatar_urls?.['48']} alt={user?.name} /> 
+                    <img className='chat-img' src={ comment?.author_avatar_urls?.['48']} alt={comment?.author_name} /> 
                 </div>
             </div>
         )
@@ -170,12 +174,12 @@ if (userDetails !== null) {
                                 <div className='mentors-chat-item-header'>
                                     <div className='row'>
                                         <div className="col-auto">
-                                            <img className='chat-item-header-img' src={mentor?.avatar_urls?.['48']} alt={mentor?.name} /> 
+                                            <img className='chat-item-header-img' src={userDetails.id === mentee.id ? mentor?.avatar_urls?.['48'] : mentee?.avatar_urls?.['48']} alt={ userDetails.id === mentee.id ? mentor?.name : mentee?.name} /> 
                                         </div>
                                         <div className="col-auto d-flex align-items-center">
                                             <div>
-                                                <p className='m-0'><strong>{mentor?.name} </strong></p>
-                                                <p className='small m-0'>{mentor?.acf?.['user_mentor_current_position']} at {mentor?.acf?.['user_mentor_current_company']}</p>         
+                                                <p className='m-0'><strong>{userDetails.id === mentee.id ? mentor?.name : mentee?.name} </strong></p>
+                                                <p className='small m-0'>{userDetails.id === mentee.id ? mentor?.acf?.['user-job-title'] : mentee?.acf?.['user_mentor_current_position']} at {userDetails?.id === mentee.id ? mentor?.acf?.['user-job-Insitution'] : mentee?.acf?.['user_mentor_current_company']}</p>         
                                             </div>                       
                                         </div>
                                     </div>
