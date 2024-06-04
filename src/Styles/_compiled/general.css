@@ -325,3 +325,6 @@ hr {
 .grey {
   color: grey;
 }
+.grey:hover {
+  color: inherit !important;
+}

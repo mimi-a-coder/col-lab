@@ -122,8 +122,7 @@ export default function MentorChat() {
         const SideBarChats = allMentorChats.map((mentorChat, index) => {
             console.log(mentorChat);
             return (
-                <Link to={`/mentor-chat/${mentorChat.id}`}>
-                    <div className='' key={index}>
+                <Link to={`/mentor-chat/${mentorChat.id}`} key={index}>
                         <div className='mentors-chat-item-header chat-item'>
                             <div className='row d-flex align-items-center flex-row'>
                                 <div className="col-auto">
@@ -132,16 +131,11 @@ export default function MentorChat() {
                                 <div className="col-auto d-flex align-items-center">
                                     <div>
                                         <p className='m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
-                                        <p className='small grey m-0'>Place holder for last chat...</p>         
+                                        <p className='small m-0'>Place holder for last chat...</p>         
                                     </div>                       
                                 </div>
-                                {/* <div className="col-auto ml-auto">
-                                    <Link className="btn btn-outline-info btn-lg" to={`/mentor/${mentor.id}`}>Back to mentor page</Link>
-                                </div> */}
                             </div>
                         </div>
-                            <hr></hr>
-                    </div>
                 </Link>
             );
         });

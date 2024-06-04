@@ -324,4 +324,7 @@ a {
 
  .grey {
   color: grey;
+  &:hover {
+    color: inherit !important;
+  }
  }

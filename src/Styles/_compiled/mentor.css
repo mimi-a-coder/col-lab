@@ -22,8 +22,15 @@
 .chat-item {
   padding-bottom: 1rem !important;
   color: #000;
+  border-bottom: 1px solid lightgrey;
 }
 .chat-item:hover {
   color: #fff !important;
   background-color: #0f9ed5 !important;
+}
+.chat-item:hover p:nth-child(2) {
+  color: #fff;
+}
+.chat-item p:nth-child(2) {
+  color: grey;
 }

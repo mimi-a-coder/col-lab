@@ -23,9 +23,16 @@
 .chat-item {
   padding-bottom: 1rem !important;
   color: #000;
+  border-bottom: 1px solid lightgrey;
   // cursor: pointer;
   &:hover {
     color: #fff !important;
-    background-color: $mercy-color-1 !important
+    background-color: $mercy-color-1 !important;
+    p:nth-child(2) {
+      color: #fff;
+    }
+  }
+  p:nth-child(2) {
+    color: grey;
   }
 }
