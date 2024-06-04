@@ -120,18 +120,29 @@ export default function MentorChat() {
     })
  
         const SideBarChats = allMentorChats.map((mentorChat, index) => {
-       
-
             console.log(mentorChat);
-        
             return (
-                <div className='mentor-chat-item' key={index}>
-                    <div className='card'>
-                        <div className='card-body'>
-                            <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} /> 
+                <Link to={`/mentor-chat/${mentorChat.id}`}>
+                    <div className='' key={index}>
+                        <div className='mentors-chat-item-header chat-item'>
+                            <div className='row d-flex align-items-center flex-row'>
+                                <div className="col-auto">
+                                    <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} /> 
+                                </div>
+                                <div className="col-auto d-flex align-items-center">
+                                    <div>
+                                        <p className='m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
+                                        <p className='small grey m-0'>Place holder for last chat...</p>         
+                                    </div>                       
+                                </div>
+                                {/* <div className="col-auto ml-auto">
+                                    <Link className="btn btn-outline-info btn-lg" to={`/mentor/${mentor.id}`}>Back to mentor page</Link>
+                                </div> */}
+                            </div>
                         </div>
+                            <hr></hr>
                     </div>
-                </div>
+                </Link>
             );
         });
     
@@ -212,9 +223,6 @@ if (userDetails !== null) {
                                                 <p className='small m-0'>{userDetails.id === mentee.id ? mentor?.acf?.['user-job-title'] : mentee?.acf?.['user_mentor_current_position']} at {userDetails?.id === mentee.id ? mentor?.acf?.['user-job-Insitution'] : mentee?.acf?.['user_mentor_current_company']}</p>         
                                             </div>                       
                                         </div>
-                                        {/* <div className="col-auto ml-auto">
-                                            <Link className="btn btn-outline-info btn-lg" to={`/mentor/${mentor.id}`}>Back to mentor page</Link>
-                                        </div> */}
                                     </div>
                                     <hr></hr>
                                 </div>

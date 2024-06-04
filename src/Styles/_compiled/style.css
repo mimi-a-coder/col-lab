@@ -369,6 +369,14 @@ a {
   display: block !important;
 }
 
+hr {
+  margin: 0 !important;
+}
+
+.grey {
+  color: grey;
+}
+
 /* Button Colours */
 .dashboard {
   display: flex;
@@ -642,6 +650,15 @@ header {
   border-radius: 3px;
   object-fit: cover;
   margin-right: 1rem;
+}
+
+.chat-item {
+  padding-bottom: 1rem !important;
+  color: #000;
+}
+.chat-item:hover {
+  color: #fff !important;
+  background-color: #0f9ed5 !important;
 }
 
 /* Button Colours */
