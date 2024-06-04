@@ -22,6 +22,8 @@
 
 .mentors-chat-sidebar-body {
   overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .chat-item {
