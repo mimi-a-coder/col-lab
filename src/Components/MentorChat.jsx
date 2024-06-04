@@ -130,7 +130,7 @@ export default function MentorChat() {
                                 </div>
                                 <div className="col-auto d-flex align-items-center">
                                     <div>
-                                        <p className='m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
+                                        <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
                                         <p className='small m-0'>Place holder for last chat...</p>         
                                     </div>                       
                                 </div>
