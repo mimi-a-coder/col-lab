@@ -20,7 +20,13 @@ export default function Dashboard() {
 
   // Api for questions
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`)
+    axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/questions`, 
+      {
+        headers: {
+          Authorization: `Bearer ${userDetails.token}`
+        }
+      }
+    )
     .then((response) => {
       setGetHelpQuestions(response.data);
     })
@@ -29,7 +35,8 @@ export default function Dashboard() {
 
   // Api for users
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`)
+    axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`
+    )
     .then((response) => {
      setGetUsers(response.data);
     })

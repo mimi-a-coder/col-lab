@@ -124,46 +124,11 @@ export default function MentorChat() {
 
             console.log(mentorChat);
         
-                // const singleMentor = {};
-                // const singleMentee = {};
-
-                // // Fetch mentee information
-                // axios({
-                //     method: 'GET',
-                //     url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChat?.acf?.mentee_id}`,
-                //     headers: {
-                //         Authorization: `Bearer ${userDetails.token}`
-                //     }
-                // })
-                // .then((res) => {
-                //     singleMentee = res?.data;
-                // })
-                // .catch((err) => {
-                //     console.log(err);
-                // });
-        
-                // // Fetch mentor information
-                // axios({
-                //     method: 'GET',
-                //     url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChat?.acf?.mentors_id}`,
-                //     headers: {
-                //         Authorization: `Bearer ${userDetails.token}`
-                //     }
-                // })
-                // .then((res) => {
-                //     singleMentor = res?.data;
-                // })
-                // .catch((err) => {
-                //     console.log(err);
-                // });     
-                
-                // console.log(singleMentor);
-        
             return (
                 <div className='mentor-chat-item' key={index}>
                     <div className='card'>
                         <div className='card-body'>
-                            <img className='chat-item-header-img' src={user?.avatar_urls?.['48']} alt={user?.name} /> 
+                            <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} /> 
                         </div>
                     </div>
                 </div>
