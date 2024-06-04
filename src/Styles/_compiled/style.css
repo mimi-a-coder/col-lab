@@ -655,6 +655,10 @@ header {
   margin-right: 1rem;
 }
 
+.mentors-chat-sidebar-body {
+  overflow-y: auto;
+}
+
 .chat-item {
   padding-bottom: 1rem !important;
   color: #000;

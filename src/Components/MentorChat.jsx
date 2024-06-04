@@ -202,9 +202,7 @@ if (userDetails !== null) {
                                     <hr></hr>
                                 </div>
                                 <div className='mentors-chat-sidebar-body'>
-                                    <div className='row'>
                                         {SideBarChats}
-                                    </div>
                                 </div>
                             </aside>
                             <div className='col-lg-9 mentors-chat-item p-0'>
