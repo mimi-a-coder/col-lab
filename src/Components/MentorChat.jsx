@@ -121,23 +121,25 @@ export default function MentorChat() {
  
         const SideBarChats = allMentorChats.map((mentorChat, index) => {
             console.log(mentorChat);
-            return (
-                <Link to={`/mentor-chat/${mentorChat.id}`} key={index}>
-                        <div className='mentors-chat-item-header chat-item'>
-                            <div className='row d-flex align-items-center flex-row'>
-                                <div className="col-auto">
-                                    <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} /> 
-                                </div>
-                                <div className="col-auto d-flex align-items-center">
-                                    <div>
-                                        <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
-                                        <p className='small m-0'>Place holder for last chat...</p>         
-                                    </div>                       
+            if (userDetails?.id === mentorChat?.acf?.mentors_id || userDetails?.id === mentorChat?.acf?.mentee_id) {
+                return (
+                    <Link to={`/mentor-chat/${mentorChat.id}`} key={index}>
+                            <div className='mentors-chat-item-header chat-item'>
+                                <div className='row d-flex align-items-center flex-row'>
+                                    <div className="col-auto">
+                                        <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} /> 
+                                    </div>
+                                    <div className="col-auto d-flex align-items-center">
+                                        <div>
+                                            <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
+                                            <p className='small m-0'>Place holder for last chat...</p>         
+                                        </div>                       
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                </Link>
-            );
+                    </Link>
+                );
+            }
         });
     
 
