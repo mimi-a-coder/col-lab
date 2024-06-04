@@ -49,10 +49,10 @@ export default function Login() {
             axios.post(url, newFormData)
             .then(function(response) {
                 localStorage.setItem('userDetails', JSON.stringify(response.data.data));
-                setuserDetails(response.data.data);
+                setuserDetails(response?.data?.data);
                 
             }).catch(function(err) {
-                setServerMessage(err.response.data.message);
+                setServerMessage(err?.response?.data?.message);
                 console.log(err);
             })
         } 

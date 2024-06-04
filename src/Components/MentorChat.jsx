@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Navigation from './Navigation';
 import axios from 'axios';
 import SendIcon from '../Images/send_icon.svg';
@@ -25,17 +25,34 @@ export default function MentorChat() {
             },
             {
                 headers: {
-                    Authorization: `Bearer ${userDetails.tocken}`
+                    Authorization: `Bearer ${userDetails.token}`
                 }
             }
         ).then((res) => {
             setMentorChatDetails(res.data)
-            console.log(res.data)
         }).catch((err) => {
-            console.error(err)
+            console.log(err)
             Navigate('/mentorship-opportunities')
         })
     }, [param1])
+
+    // Get all mentor chats
+    useEffect(() => {
+            axios({
+                method: 'GET',
+                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/mentor-chats`
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${userDetails.token}`
+                }
+            }
+        ).then((res) => {
+            setAllMentorChats(res.data)
+        }).catch((err) => {
+        })
+    }, [])
+    
 
     // Set mentor information
     useEffect(() => {
@@ -45,13 +62,13 @@ export default function MentorChat() {
             },
             {
                 headers: {
-                    Authorization: `Bearer ${userDetails.tocken}`
+                    Authorization: `Bearer ${userDetails.token}`
                 }
             }
         ).then((res) => {
             setMentor(res.data)
         }).catch((err) => {
-            console.error(err)
+            console.log(err)
         })
     }, [mentorChatDetails])
 
@@ -63,13 +80,13 @@ export default function MentorChat() {
         },
         {
             headers: {
-                Authorization: `Bearer ${userDetails.tocken}`
+                Authorization: `Bearer ${userDetails.token}`
             }
         }
         ).then((res) => {
             setMentee(res.data)
         }).catch((err) => {
-            console.error(err)
+            console.log(err)
         })
     }, [mentorChatDetails])
 
@@ -81,13 +98,13 @@ export default function MentorChat() {
             },
             {
                 headers: {
-                    Authorization: `Bearer ${userDetails.tocken}`
+                    Authorization: `Bearer ${userDetails.token}`
                 }
             }
         ).then((res) => {
             setUser(res.data)
         }).catch((err) => {
-            console.error(err)
+            console.log(err)
         })
     }, [userDetails])
 
@@ -101,11 +118,61 @@ export default function MentorChat() {
             console.log(err)
         })
     })
+ 
+        const SideBarChats = allMentorChats.map((mentorChat, index) => {
+       
+
+            console.log(mentorChat);
+        
+                // const singleMentor = {};
+                // const singleMentee = {};
+
+                // // Fetch mentee information
+                // axios({
+                //     method: 'GET',
+                //     url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChat?.acf?.mentee_id}`,
+                //     headers: {
+                //         Authorization: `Bearer ${userDetails.token}`
+                //     }
+                // })
+                // .then((res) => {
+                //     singleMentee = res?.data;
+                // })
+                // .catch((err) => {
+                //     console.log(err);
+                // });
+        
+                // // Fetch mentor information
+                // axios({
+                //     method: 'GET',
+                //     url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChat?.acf?.mentors_id}`,
+                //     headers: {
+                //         Authorization: `Bearer ${userDetails.token}`
+                //     }
+                // })
+                // .then((res) => {
+                //     singleMentor = res?.data;
+                // })
+                // .catch((err) => {
+                //     console.log(err);
+                // });     
+                
+                // console.log(singleMentor);
+        
+            return (
+                <div className='mentor-chat-item' key={index}>
+                    <div className='card'>
+                        <div className='card-body'>
+                            <img className='chat-item-header-img' src={user?.avatar_urls?.['48']} alt={user?.name} /> 
+                        </div>
+                    </div>
+                </div>
+            );
+        });
+    
 
     const conversation = comments.map((comment, index) => {
         var date = new Date(comment?.date);
-
-        console.log(mentee)
 
         var options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
         var humanReadableTime = date.toLocaleDateString('en-US', options);
@@ -162,10 +229,15 @@ if (userDetails !== null) {
                                     </div>
                                     <hr></hr>
                                 </div>
+                                <div className='mentors-chat-sidebar-body'>
+                                    <div className='row'>
+                                        {SideBarChats}
+                                    </div>
+                                </div>
                             </aside>
                             <div className='col-lg-9 mentors-chat-item p-0'>
                                 <div className='mentors-chat-item-header'>
-                                    <div className='row'>
+                                    <div className='row d-flex align-items-center'>
                                         <div className="col-auto">
                                             <img className='chat-item-header-img' src={userDetails.id === mentee.id ? mentor?.avatar_urls?.['48'] : mentee?.avatar_urls?.['48']} alt={ userDetails.id === mentee.id ? mentor?.name : mentee?.name} /> 
                                         </div>
@@ -175,6 +247,9 @@ if (userDetails !== null) {
                                                 <p className='small m-0'>{userDetails.id === mentee.id ? mentor?.acf?.['user-job-title'] : mentee?.acf?.['user_mentor_current_position']} at {userDetails?.id === mentee.id ? mentor?.acf?.['user-job-Insitution'] : mentee?.acf?.['user_mentor_current_company']}</p>         
                                             </div>                       
                                         </div>
+                                        {/* <div className="col-auto ml-auto">
+                                            <Link className="btn btn-outline-info btn-lg" to={`/mentor/${mentor.id}`}>Back to mentor page</Link>
+                                        </div> */}
                                     </div>
                                     <hr></hr>
                                 </div>

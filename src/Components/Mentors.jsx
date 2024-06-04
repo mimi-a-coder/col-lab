@@ -10,31 +10,26 @@ import axios from 'axios';
 export default function Mentors() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
     const [ search, setSearch ] = useState('');
-    const [ users, setUsers ] = useState([]);
+    const [ mentorsList, setMentorsList ] = useState([]);
 
-    // Return Mentors
     useEffect(() => {
         axios({
-            url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`,
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${userDetails.token}`
-            }
-          })
-          .then(res => {
-            setUsers(res.data);
-          })
-    }, []);
-    // Creat an array with only users that are mentors
-    let mentorsList = [];
-    users.map((mentor, index) => {
-        if (mentor?.acf?.user_is_mentor === 'Yes') {
-            mentorsList.push(mentor);
-    }
-    });
-
+          url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`,
+          method: 'GET'
+        //   headers: {
+        //     Authorization: `Bearer ${userDetails.token}`
+        //   }
+        })
+        .then((response) => {
+            const list = response.data.filter(user => user?.acf?.user_is_mentor === 'Yes' && user.id !== userDetails.id);
+            setMentorsList(list);
+            console.log(list)
+        })
+        .catch((err) => {
+          // Handle error
+        });
+      }, []);
     
-
     // Start paginated active jobs
 
 function ActiveItem({ currentItems }) {

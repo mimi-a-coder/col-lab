@@ -19,9 +19,6 @@ export default function Mentor() {
       axios({
         url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${param1}`,
         method: 'GET',
-        headers: {
-          Authorization: `Bearer ${userDetails.token}`
-        } 
       })
       .then((response) => {
         setMentorDetails(response.data);
@@ -37,13 +34,13 @@ export default function Mentor() {
             },
             {
                 headers: {
-                    Authorization: `Bearer ${userDetails.tocken}`
+                    Authorization: `Bearer ${userDetails.token}`
                 }
             }
         ).then((res) => {
             setMentorChats(res.data)
         }).catch(err => console.log(err))
-    }, [mentorChats])
+    }, [])
 
     var chatID = undefined;
 
@@ -53,6 +50,7 @@ export default function Mentor() {
             return;
         }
     })
+    console.log(userDetails)
 
     // Handle Check
     function handelCheckedChange(e) {
@@ -98,6 +96,8 @@ export default function Mentor() {
                 acf: {
                     'mentors_id': `${param1}`,
                     'mentee_id': `${userDetails.id}`,
+                    'mentors_image': `${mentorDetails?.avatar_urls?.['48']}`,
+                    'mentee_id': `${mentorDetails?.avatar_urls?.['48']}`,
                 }
             },
             {
