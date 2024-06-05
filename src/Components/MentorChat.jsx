@@ -120,7 +120,6 @@ export default function MentorChat() {
     })
  
         const SideBarChats = allMentorChats.map((mentorChat, index) => {
-            console.log(mentorChat);
             if (userDetails?.id === mentorChat?.acf?.mentors_id || userDetails?.id === mentorChat?.acf?.mentee_id) {
                 return (
                     <Link to={`/mentor-chat/${mentorChat.id}`} key={index}>
