@@ -213,7 +213,7 @@ if (userDetails !== null) {
                                         <div className="col-auto d-flex align-items-center">
                                             <div>
                                                 <p className='m-0'><strong>{userDetails.id === mentee.id ? mentor?.name : mentee?.name} </strong></p>
-                                                <p className='small m-0'>{userDetails.id === mentee.id ? mentor?.acf?.['user-job-title'] : mentee?.acf?.['user_mentor_current_position']} at {userDetails?.id === mentee.id ? mentor?.acf?.['user-job-Insitution'] : mentee?.acf?.['user_mentor_current_company']}</p>         
+                                                <p className='small m-0'>{userDetails.id === mentee.id ? mentor?.acf?.['user_mentor_current_position'] : mentee?.acf?.['user_job_titke']} at {userDetails?.id === mentee.id ? mentor?.acf?.['user_mentor_current_company'] : mentee?.acf?.['user-job-Insitution']}</p>         
                                             </div>                       
                                         </div>
                                     </div>
