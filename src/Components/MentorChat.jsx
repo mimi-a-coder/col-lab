@@ -121,21 +121,34 @@ export default function MentorChat() {
  
         const SideBarChats = allMentorChats.map((mentorChat, index) => {
             if (userDetails?.id === mentorChat?.acf?.mentors_id || userDetails?.id === mentorChat?.acf?.mentee_id) {
+
+                axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments?post=${mentorChat.id}`)
+                .then((response) => {
+                    localStorage.setItem(`sideBarChat${index}`, JSON.stringify(response.data))
+                    console.log(response.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+
+                let array = JSON.parse(localStorage.getItem(`sideBarChat${index}`));
+                let firstMessage = array.find(message => userDetails.id !== message.author);
+
                 return (
                     <a href={`/mentor-chat/${mentorChat.id}`} key={index} target="_self" titl={`Link to chat with ${mentorChat?.acf?.mentors_name}`}>
-                            <div className='mentors-chat-item-header chat-item'>
-                                <div className='row d-flex align-items-center flex-row'>
-                                    <div className="col-auto">
-                                        <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} loading="lazy" /> 
-                                    </div>
-                                    <div className="col-auto d-flex align-items-center">
-                                        <div>
-                                            <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
-                                            <p className='small m-0'>Place holder for last chat...</p>         
-                                        </div>                       
-                                    </div>
+                        <div className='mentors-chat-item-header chat-item'>
+                            <div className='row d-flex align-items-center flex-row'>
+                                <div className="col-auto">
+                                    <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} loading="lazy" /> 
+                                </div>
+                                <div className="col-auto d-flex align-items-center">
+                                    <div>
+                                        <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
+                                        <div className='sidebare-lastchat m-0' key={index} dangerouslySetInnerHTML={{ __html: firstMessage?.content?.rendered } } />      
+                                    </div>                       
                                 </div>
                             </div>
+                        </div>
                     </a>
                 );
             }
@@ -232,7 +245,7 @@ if (userDetails !== null) {
                                                         <input className="form-control form-control-lg chat-input" type="text" value={comment} onChange={(e) => {setComment(e.target.value)}} aria-label="Type a message" placeholder='Type a message' />
                                                     </div>
                                                     <div className='send-chat-icon' onClick={handleClick}>
-                                                        <img className='send-icon' src={SendIcon} loading="lazy" />
+                                                        <img className='send-icon' src={SendIcon} alt="Send icon" loading="lazy" />
                                                     </div>
                                                 </div>
                                             </form>

@@ -974,6 +974,16 @@ textarea[data-info=content] {
   border-radius: 50%;
 }
 
+.sidebare-lastchat p {
+  color: lightgray;
+}
+
+.sidebare-lastchat * {
+  font-size: 1.4rem !important;
+  font-family: "Roboto", sans-serif;
+  color: inherit !important;
+}
+
 @media screen and (max-width: 1000px) {
   .container-fluid {
     padding: 0 2rem !important;
