@@ -102,7 +102,7 @@ export default function Dashboard() {
             <div className='card-body'>
               <div className="questions-details">
                 <div className="questions-details-name">
-                  <img className="questions-details-name-img" src={userProfileImg ? userProfileImg : defaultImage} />
+                  <img className="questions-details-name-img" src={userProfileImg ? userProfileImg : defaultImage} loading="lazy" />
                   <div className="questions-details-name-info">
                     <p><strong>{userName}</strong></p>
                     <div className="questions-details-posted">
@@ -155,9 +155,9 @@ export default function Dashboard() {
                         <div className="dashboard-user-details">
                           <div className="dashboard-user-details-image">
                           {usersAccountDetails['avatar_urls'] && usersAccountDetails['avatar_urls']['48'] !== 'https://secure.gravatar.com/avatar/bda5ea71631e2cce73beb5e17644bd74?s=48&d=mm&r=g' ? (
-                            <img src={usersAccountDetails['avatar_urls']['48']} alt="User Avatar" />
+                            <img src={usersAccountDetails['avatar_urls']['48']} alt="User Avatar" loading="lazy" />
                           ) : (
-                            <img src={defaultImage} alt="Default User Avatar" />
+                            <img src={defaultImage} alt="Default User Avatar" loading="lazy" />
                           )}
                           </div>
                           <p>Hi, <strong>{ userDetails.firstName  }</strong></p>
@@ -199,12 +199,12 @@ export default function Dashboard() {
                 <div className='col-lg-5'>
                   <div className="dashboard-options">
                     <div className='dashboard-options-buttons'>
-                      <button className='btn-main'><img className="btn-main-icon" src={HandShake}/>Find Collaborations</button >
+                      <button className='btn-main'><img className="btn-main-icon" src={HandShake} loading="lazy"/>Find Collaborations</button >
                       <Link to="/ask-questions" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Gethelp}/>Ask Questions</button></Link>
                       <Link to="/mentorship-opportunities" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Teach}/>Mentorships</button></Link>
-                      <button className='btn-main'><img className="btn-main-icon" src={Borrow}/>Borrow Items</button>
+                      <button className='btn-main'><img className="btn-main-icon" src={Borrow} loading="lazy"/>Borrow Items</button>
                       <Link to="/jobs" className="dashboard-options-buttons-link"><button className='btn-main'><img className="btn-main-icon" src={Job}/>Jobs</button></Link>
-                      <button className='btn-main'><img className="btn-main-icon" src={Interview}/>Mock Interviews</button>
+                      <button className='btn-main'><img className="btn-main-icon" src={Interview} loading="lazy"/>Mock Interviews</button>
                     </div>
                   </div>
                 </div>

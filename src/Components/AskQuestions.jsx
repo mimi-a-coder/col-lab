@@ -200,7 +200,7 @@ export default function AskQuestions() {
                                         <div className="row">
                                             <div className='col-lg-3 d-flex align-items-center'>
                                                 <div className='get-help'>
-                                                    <img className="get-help-img mr-3" src={userProfileImg} />
+                                                    <img className="get-help-img mr-3" src={userProfileImg} alt={userProfileImg} loading="lazy"/>
                                                     <p><strong>{userName}</strong></p>
                                                 </div>
                                             </div>
@@ -228,7 +228,7 @@ export default function AskQuestions() {
                                         <div className="row">
                                             <div className='col-lg-3 d-flex align-items-center'>
                                                 <div className='get-help'>
-                                                    <img className="get-help-img mr-3" src={userProfileImg} />
+                                                    <img className="get-help-img mr-3" src={userProfileImg} alt={userProfileImg} loading="lazy"/>
                                                     <p><strong>{userName}</strong></p>
                                                 </div>
                                             </div>

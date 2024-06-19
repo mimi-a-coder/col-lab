@@ -62,7 +62,7 @@ export default function MentorChat() {
             },
             {
                 headers: {
-                    Authorization: `Bearer ${userDetails.token}`
+                    Authorization: `Bearer ${userDetails?.token}`
                 }
             }
         ).then((res) => {
@@ -80,7 +80,7 @@ export default function MentorChat() {
         },
         {
             headers: {
-                Authorization: `Bearer ${userDetails.token}`
+                Authorization: `Bearer ${userDetails?.token}`
             }
         }
         ).then((res) => {
@@ -115,18 +115,18 @@ export default function MentorChat() {
             setComments(response.data);
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err);
         })
     })
  
         const SideBarChats = allMentorChats.map((mentorChat, index) => {
             if (userDetails?.id === mentorChat?.acf?.mentors_id || userDetails?.id === mentorChat?.acf?.mentee_id) {
                 return (
-                    <Link to={`/mentor-chat/${mentorChat.id}`} key={index}>
+                    <a href={`/mentor-chat/${mentorChat.id}`} key={index} target="_self" titl={`Link to chat with ${mentorChat?.acf?.mentors_name}`}>
                             <div className='mentors-chat-item-header chat-item'>
                                 <div className='row d-flex align-items-center flex-row'>
                                     <div className="col-auto">
-                                        <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} /> 
+                                        <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} loading="lazy" /> 
                                     </div>
                                     <div className="col-auto d-flex align-items-center">
                                         <div>
@@ -136,7 +136,7 @@ export default function MentorChat() {
                                     </div>
                                 </div>
                             </div>
-                    </Link>
+                    </a>
                 );
             }
         });
@@ -157,7 +157,7 @@ export default function MentorChat() {
                 </div>
                 <div className='image d-flex align-items-center'>
                     <span className='chat-date date'>{humanReadableTime}</span>
-                    <img className='chat-img' src={ comment?.author_avatar_urls?.['48']} alt={comment?.author_name} /> 
+                    <img className='chat-img' src={ comment?.author_avatar_urls?.['48']} alt={comment?.author_name} loading="lazy" /> 
                 </div>
             </div>
         )
@@ -167,20 +167,21 @@ export default function MentorChat() {
     function handleClick() {
         axios.post(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments`,
         {
-          author: userDetails.id,
-          author_email: userDetails.email,
-          author_name: `${userDetails.firstName} ${userDetails.lastName}`,
+          author: userDetails?.id,
+          author_email: userDetails?.email,
+          author_name: `${userDetails?.firstName} ${userDetails?.lastName}`,
           content: `${comment}`,
           post: `${param1}`,
           status: 'approved',
         },
         {
           headers: {
-              Authorization: `Bearer ${userDetails.token}`
+              Authorization: `Bearer ${userDetails?.token}`
           }
         }
-        ).then((response) => {
+        ).then((res) => {
             setComment('');
+            console.log(res);
         })
     }
 if (userDetails !== null) {
@@ -195,7 +196,7 @@ if (userDetails !== null) {
                                 <div className='mentors-chat-item-header'>
                                     <div className='row'>
                                         <div className="col-auto">
-                                            <img className='chat-item-header-img' src={user?.avatar_urls?.['48']} alt={user?.name} /> 
+                                            <img className='chat-item-header-img' src={user?.avatar_urls?.['48']} alt={user?.name} loading="lazy" /> 
                                         </div>
                                     </div>
                                     <hr></hr>
@@ -213,7 +214,7 @@ if (userDetails !== null) {
                                         <div className="col-auto d-flex align-items-center">
                                             <div>
                                                 <p className='m-0'><strong>{userDetails.id === mentee.id ? mentor?.name : mentee?.name} </strong></p>
-                                                <p className='small m-0'>{userDetails.id === mentee.id ? mentor?.acf?.['user_mentor_current_position'] : mentee?.acf?.['user_job_titke']} at {userDetails?.id === mentee.id ? mentor?.acf?.['user_mentor_current_company'] : mentee?.acf?.['user-job-Insitution']}</p>         
+                                                <p className='small m-0'>{userDetails.id === mentee.id ? mentor?.acf?.['user_mentor_current_position'] : mentee?.acf?.['user-job-title']} at {userDetails?.id === mentee.id ? mentor?.acf?.['user_mentor_current_company'] : mentee?.acf?.['user-job-Insitution']}</p>         
                                             </div>                       
                                         </div>
                                     </div>
@@ -232,7 +233,7 @@ if (userDetails !== null) {
                                                         <input className="form-control form-control-lg chat-input" type="text" value={comment} onChange={(e) => {setComment(e.target.value)}} aria-label="Type a message" placeholder='Type a message' />
                                                     </div>
                                                     <div className='send-chat-icon' onClick={handleClick}>
-                                                        <img className='send-icon' src={SendIcon} />
+                                                        <img className='send-icon' src={SendIcon} loading="lazy" />
                                                     </div>
                                                 </div>
                                             </form>

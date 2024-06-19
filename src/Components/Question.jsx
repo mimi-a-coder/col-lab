@@ -91,7 +91,7 @@ export default function Question() {
             <div className='card-body'>
               <div className="questions-details mb-3">
                 <div className="questions-details-name">
-                  <img className="questions-details-name-img" src={userProfileImg ? userProfileImg : defaultImage} />
+                  <img className="questions-details-name-img" src={userProfileImg ? userProfileImg : defaultImage} alt={userProfileImg ? userProfileImg : defaultImage} loading="lazy" />
                   <div className="questions-details-name-info">
                     <p><strong>{userName}</strong></p>
                     <div className="questions-details-posted">
@@ -108,7 +108,7 @@ export default function Question() {
               <div dangerouslySetInnerHTML={{ __html: question.content.rendered }} />
               {question['acf'] && question['acf']['answer_image'] && 
                 <div className="question-image mt-3">
-                  <img className="question-image-item" src={question.acf.answer_image} />
+                  <img className="question-image-item" src={question.acf.answer_image} alt={question.acf.answer_image}  loading="lazy" />
                 </div>}
             </div>
           </div>
@@ -210,7 +210,7 @@ return (
                         <div className="question-item">
                         <div className="questions-details">
                             <div className="questions-details-name">
-                            <img className="questions-details-name-img" src={userProfileImg ? userProfileImg : defaultImage} />
+                            <img className="questions-details-name-img" src={userProfileImg ? userProfileImg : defaultImage} alt={userProfileImg ? userProfileImg : defaultImage} loading="lazy" />
                             <div className="questions-details-name-info">
                                 <p><strong>{userName}</strong></p>
                                 <div className="questions-details-posted">
