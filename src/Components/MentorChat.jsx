@@ -181,7 +181,6 @@ export default function MentorChat() {
         }
         ).then((res) => {
             setComment('');
-            console.log(res);
         })
     }
 if (userDetails !== null) {
