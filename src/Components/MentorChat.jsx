@@ -134,23 +134,25 @@ export default function MentorChat() {
                 let array = JSON.parse(localStorage.getItem(`sideBarChat${index}`));
                 let firstMessage = array.find(message => userDetails.id !== message.author);
 
-                return (
-                    <a href={`/mentor-chat/${mentorChat.id}`} key={index} target="_self" titl={`Link to chat with ${mentorChat?.acf?.mentors_name}`}>
-                        <div className='mentors-chat-item-header chat-item'>
-                            <div className='row d-flex align-items-center flex-row'>
-                                <div className="col-auto">
-                                    <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} loading="lazy" /> 
-                                </div>
-                                <div className="col-auto d-flex align-items-center">
-                                    <div>
-                                        <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
-                                        <div className='sidebare-lastchat m-0' key={index} dangerouslySetInnerHTML={{ __html: firstMessage?.content?.rendered } } />      
-                                    </div>                       
+                if (array.length > 0) {
+                    return (
+                        <a href={`/mentor-chat/${mentorChat.id}`} key={index} target="_self" titl={`Link to chat with ${mentorChat?.acf?.mentors_name}`}>
+                            <div className='mentors-chat-item-header chat-item'>
+                                <div className='row d-flex align-items-center flex-row'>
+                                    <div className="col-auto">
+                                        <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} loading="lazy" /> 
+                                    </div>
+                                    <div className="col-auto d-flex align-items-center">
+                                        <div>
+                                            <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
+                                            <div className='sidebare-lastchat m-0' key={index} dangerouslySetInnerHTML={{ __html: firstMessage?.content?.rendered } } />      
+                                        </div>                       
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                );
+                        </a>
+                    );
+                }
             }
         });
     
@@ -177,7 +179,8 @@ export default function MentorChat() {
     })
 
     // Submit chat 
-    function handleClick() {
+    function handleClick(e) {
+        e.preventDefault();
         axios.post(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments`,
         {
           author: userDetails?.id,
@@ -239,14 +242,14 @@ if (userDetails !== null) {
                                     <div className='row d-flex align-items-center'>
                                         <div className='col-2'></div>
                                         <div className='col-8'>
-                                            <form>
+                                            <form onSubmit={handleClick}>
                                                 <div className='send-chat'>                                                
                                                     <div className='send-chat-input'>
                                                         <input className="form-control form-control-lg chat-input" type="text" value={comment} onChange={(e) => {setComment(e.target.value)}} aria-label="Type a message" placeholder='Type a message' />
                                                     </div>
-                                                    <div className='send-chat-icon' onClick={handleClick}>
-                                                        <img className='send-icon' src={SendIcon} alt="Send icon" loading="lazy" />
-                                                    </div>
+                                                        <button className='send-chat-icon' type="submit">
+                                                            <img className='send-icon' src={SendIcon} alt="Send icon" loading="lazy" />
+                                                        </button>
                                                 </div>
                                             </form>
                                         </div>
