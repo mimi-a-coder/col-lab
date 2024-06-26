@@ -132,7 +132,11 @@ export default function MentorChat() {
                 })
 
                 let array = JSON.parse(localStorage.getItem(`sideBarChat${index}`));
-                let firstMessage = array.find(message => userDetails.id !== message.author);
+                let firstMessage = []
+
+                if (array !== null) { 
+                    firstMessage = array.find(message => userDetails.id !== message.author);
+                 }
 
                 if (array.length > 0) {
                     return (
