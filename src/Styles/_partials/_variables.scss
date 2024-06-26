@@ -25,3 +25,7 @@ $btn-color-6: #C9EADB;
     border-radius: 3px;
     object-fit: cover;
 }
+
+@mixin transition () {
+    transition: 350ms ease-out;
+}

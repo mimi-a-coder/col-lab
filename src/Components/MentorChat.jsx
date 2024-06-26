@@ -3,6 +3,8 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import Navigation from './Navigation';
 import axios from 'axios';
 import SendIcon from '../Images/send_icon.svg';
+import HomeIcon from '../Images/home-icon.svg';
+import AlarmBell from '../Images/bell_icon.svg';
 
 export default function MentorChat() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -141,7 +143,7 @@ export default function MentorChat() {
                 if (array.length > 0) {
                     return (
                         <a href={`/mentor-chat/${mentorChat.id}`} key={index} target="_self" titl={`Link to chat with ${mentorChat?.acf?.mentors_name}`}>
-                            <div className='mentors-chat-item-header chat-item'>
+                            <div className={"mentors-chat-item-header"+" "+"chat-item"+" "+`${Number(param1) === mentorChat.id ? "current-chat" : 'no'}`}>
                                 <div className='row d-flex align-items-center flex-row'>
                                     <div className="col-auto">
                                         <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} loading="lazy" /> 
@@ -149,7 +151,7 @@ export default function MentorChat() {
                                     <div className="col-auto d-flex align-items-center">
                                         <div>
                                             <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
-                                            <div className='sidebare-lastchat m-0' key={index} dangerouslySetInnerHTML={{ __html: firstMessage?.content?.rendered } } />      
+                                            <div className={"sidebare-lastchat" + " " + "m-0" + " " + `${firstMessage?.content?.rendered?.length > 30 ? 'side-chat-dots' : 'no'}`} dangerouslySetInnerHTML={{ __html: firstMessage?.content?.rendered?.slice(0, 30)  }}/>      
                                         </div>                       
                                     </div>
                                 </div>
@@ -213,12 +215,16 @@ if (userDetails !== null) {
                         <div className='row'>
                             <aside className='col-lg-3 mentors-chat-list p-0'>
                                 <div className='mentors-chat-item-header'>
-                                    <div className='row'>
+                                    <div className='row d-flex align-items-center justify-content-between'>
                                         <div className="col-auto">
                                             <img className='chat-item-header-img' src={user?.avatar_urls?.['48']} alt={user?.name} loading="lazy" /> 
                                         </div>
+                                        <div className="col-auto ml-auto">
+                                            <a href={`/mentor/${mentor.id}`}><img className='chat-icons' src={HomeIcon} alt="Home icon" loading="lazy" /></a> 
+                                            <a href="/mentorship-opportunities"><img className='chat-icons' src={AlarmBell} alt="Home icon" loading="lazy" /></a> 
+                                        </div>
                                     </div>
-                                    <hr></hr>
+                                    <hr className="mb-0"></hr>
                                 </div>
                                 <div className='mentors-chat-sidebar-body'>
                                         {SideBarChats}
@@ -237,7 +243,7 @@ if (userDetails !== null) {
                                             </div>                       
                                         </div>
                                     </div>
-                                    <hr></hr>
+                                    <hr className="mb-0"></hr>
                                 </div>
                                 <div className='mentors-chat-item-body'>
                                     {conversation}

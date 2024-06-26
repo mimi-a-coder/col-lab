@@ -841,6 +841,7 @@ textarea[data-info=content] {
   margin-top: auto;
   display: flex;
   flex-direction: column-reverse;
+  background-color: #fafafa;
 }
 
 .mentors-chat-item-keyboard {
@@ -848,7 +849,8 @@ textarea[data-info=content] {
   display: flex;
   align-items: center;
   height: 10vh;
-  background-color: #fff;
+  background-color: #fafafa;
+  border: 1px solid #fafafa !important;
   padding: 2rem 2rem 1rem 2rem;
 }
 .mentors-chat-item-keyboard div {
@@ -857,28 +859,36 @@ textarea[data-info=content] {
 
 .chat-input {
   color: #000;
-  border-radius: 50px !important;
+  border-radius: 10px !important;
   border: 2px solid #d3d3d3 !important;
+  padding: 1rem 1rem !important;
 }
 
 .send-chat {
   display: flex;
   align-items: center;
+  margin: 0 auto;
   padding: 0 2rem;
-  width: 100%;
+  width: 90% !important;
 }
 .send-chat-input {
   width: 100% !important;
+}
+.send-chat-input:focus {
+  outline: none;
+  border: none;
 }
 .send-chat-icon {
   display: flex;
   align-items: center;
   justify-content: center;
   width: fit-content !important;
-  background-color: #0f9ed5;
+  background-color: transparent;
   padding: 1rem;
   border-radius: 50%;
-  margin-left: 1rem;
+  margin-left: -3.8rem;
+  border: none;
+  transition: 350ms ease-out;
 }
 .send-chat-icon:hover {
   cursor: pointer;
@@ -886,7 +896,10 @@ textarea[data-info=content] {
 .send-chat-icon .send-icon {
   width: 1.7rem;
   height: 1.7rem;
-  filter: invert(98%) sepia(28%) saturate(150%) hue-rotate(192deg) brightness(115%) contrast(100%);
+  filter: invert(53%) sepia(83%) saturate(1525%) hue-rotate(161deg) brightness(87%) contrast(92%);
+}
+.send-chat-icon .send-icon:hover {
+  filter: invert(0%) sepia(4%) saturate(7500%) hue-rotate(216deg) brightness(102%) contrast(105%);
 }
 
 .chat {
@@ -982,6 +995,25 @@ textarea[data-info=content] {
   font-size: 1.4rem !important;
   font-family: "Roboto", sans-serif;
   color: inherit !important;
+}
+
+.side-chat-dots ::after {
+  content: "...";
+  display: inline;
+}
+
+.chat-icons {
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: 350ms ease-out;
+}
+.chat-icons:hover {
+  filter: invert(53%) sepia(83%) saturate(1525%) hue-rotate(161deg) brightness(87%) contrast(92%);
+}
+
+.current-chat {
+  background-color: #0f9ed5 !important;
+  color: #fff;
 }
 
 @media screen and (max-width: 1000px) {
