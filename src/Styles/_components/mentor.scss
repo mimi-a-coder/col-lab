@@ -34,6 +34,7 @@
   &:hover {
     color: #fff !important;
     background-color: $mercy-color-1 !important;
+    border-bottom: 1px solid $mercy-color-1;
     p:nth-child(2) {
       color: #fff;
     }

@@ -217,6 +217,7 @@
 
 .current-chat {
   background-color: #0f9ed5 !important;
+  border-bottom: 1px solid #0f9ed5;
   color: #fff;
 }
 

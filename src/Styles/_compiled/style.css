@@ -665,6 +665,7 @@ header {
 .chat-item:hover {
   color: #fff !important;
   background-color: #0f9ed5 !important;
+  border-bottom: 1px solid #0f9ed5;
 }
 .chat-item:hover p:nth-child(2) {
   color: #fff;
@@ -1014,6 +1015,7 @@ textarea[data-info=content] {
 
 .current-chat {
   background-color: #0f9ed5 !important;
+  border-bottom: 1px solid #0f9ed5;
   color: #fff;
 }
 
