@@ -192,6 +192,7 @@
 
 .sidebare-lastchat p {
   color: lightgray;
+  margin: 0;
 }
 
 .sidebare-lastchat * {
@@ -217,4 +218,22 @@
 .current-chat {
   background-color: #0f9ed5 !important;
   color: #fff;
+}
+
+.chat-item-detials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+.chat-item-detials-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-lastchat-date {
+  margin-left: 3rem;
+  font-size: 1.2rem !important;
 }

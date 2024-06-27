@@ -122,6 +122,7 @@ export default function MentorChat() {
     })
  
         const SideBarChats = allMentorChats.map((mentorChat, index) => {
+            
             if (userDetails?.id === mentorChat?.acf?.mentors_id || userDetails?.id === mentorChat?.acf?.mentee_id) {
 
                 axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments?post=${mentorChat.id}`)
@@ -133,25 +134,56 @@ export default function MentorChat() {
                     console.log(err);
                 })
 
+
+
+
                 let array = JSON.parse(localStorage.getItem(`sideBarChat${index}`));
                 let firstMessage = []
 
+
                 if (array !== null) { 
                     firstMessage = array.find(message => userDetails.id !== message.author);
-                 }
 
-                if (array.length > 0) {
+                    var dateTime = new Date(firstMessage?.date);
+
+                    // Get the day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+                    let dayOfWeek = dateTime.getDay();
+
+                    // Array of days of the week for reference
+                    let daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+                  // Extract components of the date
+                let year = dateTime.getFullYear();
+                let month = dateTime.getMonth() + 1; // getMonth() returns 0-based index, so add 1 to get the correct month
+                let day = dateTime.getDate();
+
+                // Pad single digit month and day with leading zeros
+                let formattedMonth = month < 10 ? '0' + month : month;
+                let formattedDay = day < 10 ? '0' + day : day;
+
+                // Format the components into a human-readable date
+                // Format the components into a human-readable date
+                let formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
+
+                    // Get the day name from the array
+                    let dayName = daysOfWeek[dayOfWeek];
+
+                    let formattedDateTime = ((new Date()) - (dateTime.getTime())) / (1000 * 60 * 60); 
+                 
                     return (
                         <a href={`/mentor-chat/${mentorChat.id}`} key={index} target="_self" titl={`Link to chat with ${mentorChat?.acf?.mentors_name}`}>
                             <div className={"mentors-chat-item-header"+" "+"chat-item"+" "+`${Number(param1) === mentorChat.id ? "current-chat" : 'no'}`}>
-                                <div className='row d-flex align-items-center flex-row'>
+                                <div className='row d-flex align-items-center flex-row justify-content-center'>
                                     <div className="col-auto">
                                         <img className='chat-item-header-img' src={ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_image : mentorChat?.acf?.mentors_image } alt={user?.name} loading="lazy" /> 
                                     </div>
-                                    <div className="col-auto d-flex align-items-center">
-                                        <div>
-                                            <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>
-                                            <div className={"sidebare-lastchat" + " " + "m-0" + " " + `${firstMessage?.content?.rendered?.length > 30 ? 'side-chat-dots' : 'no'}`} dangerouslySetInnerHTML={{ __html: firstMessage?.content?.rendered?.slice(0, 30)  }}/>      
+                                    <div className="col-9 d-flex align-items-center">
+                                        <div className="chat-item-detials">                                
+                                            <div className="chat-item-detials-text">
+                                                <p className='small m-0'><strong>{ userDetails.id === mentorChat?.acf?.mentors_id ? mentorChat?.acf?.mentee_name : mentorChat?.acf?.mentors_name} </strong></p>       
+                                                <span className="small sidebar-lastchat-date">{formattedDateTime <= 24 ? 'Today' : formattedDateTime <= 48 && formattedDateTime > 24 ? "Yesterday" : formattedDateTime <= 168 && formattedDateTime > 48 ? dayName : formattedDateTime > 168 ? formattedDate : '' }</span>
+                                            </div>
+                                            <div className={"sidebare-lastchat" + " " + "m-0" + " " + `${firstMessage?.content?.rendered?.length > 30 ? 'side-chat-dots' : ''}`} dangerouslySetInnerHTML={{ __html: firstMessage?.content?.rendered?.slice(0, 30)  }}/>      
                                         </div>                       
                                     </div>
                                 </div>
@@ -221,7 +253,7 @@ if (userDetails !== null) {
                                         </div>
                                         <div className="col-auto ml-auto">
                                             <a href={`/mentor/${mentor.id}`}><img className='chat-icons' src={HomeIcon} alt="Home icon" loading="lazy" /></a> 
-                                            <a href="/mentorship-opportunities"><img className='chat-icons' src={AlarmBell} alt="Home icon" loading="lazy" /></a> 
+                                            <img className='chat-icons' src={AlarmBell} alt="Home icon" loading="lazy" />
                                         </div>
                                     </div>
                                     <hr className="mb-0"></hr>
@@ -257,9 +289,9 @@ if (userDetails !== null) {
                                                     <div className='send-chat-input'>
                                                         <input className="form-control form-control-lg chat-input" type="text" value={comment} onChange={(e) => {setComment(e.target.value)}} aria-label="Type a message" placeholder='Type a message' />
                                                     </div>
-                                                        <button className='send-chat-icon' type="submit">
-                                                            <img className='send-icon' src={SendIcon} alt="Send icon" loading="lazy" />
-                                                        </button>
+                                                    <button className='send-chat-icon' type="submit">
+                                                        <img className='send-icon' src={SendIcon} alt="Send icon" loading="lazy" />
+                                                    </button>
                                                 </div>
                                             </form>
                                         </div>
