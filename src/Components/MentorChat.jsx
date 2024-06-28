@@ -304,7 +304,7 @@ if (userDetails !== null) {
                                                     </button>
                                                 </div>
                                                 <img className='send-chat-extra-icon' src={Attachment} />
-                                                <img className='send-chat-extra-icon' src={WinkIcon} />
+                                                <img className='send-chat-extra-icon send-chat-extra-icon-emoji' src={WinkIcon} />
                                             </form>
                                         </div>
                                         <div className='col-2'></div>

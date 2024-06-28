@@ -1050,6 +1050,11 @@ textarea[data-info=content] {
   padding: 0rem !important;
 }
 
+.send-chat-extra-icon-emoji {
+  width: 4rem;
+  height: 4rem;
+}
+
 @media screen and (max-width: 1000px) {
   .container-fluid {
     padding: 0 2rem !important;
