@@ -230,7 +230,7 @@ return (
                                 {question.content && ( <div dangerouslySetInnerHTML={{ __html: question.content.rendered }} />)}
                                 {question['acf'] && question['acf']['question_image'] && 
                                 <div className="question-image mt-3">
-                                  <img className="question-image-item" src={question.acf.question_image} />
+                                  <img className="question-image-item" src={question.acf.question_image} loading='lazy'/>
                                 </div>}
                                 <button className="btn btn-sm btn-outline-info ml-auto" onClick={()=>{setModalClass("show")}}>Answer</button>
                                 </div>

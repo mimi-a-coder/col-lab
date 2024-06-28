@@ -44,7 +44,7 @@ function ActiveItem({ currentItems }) {
                             <div className='card mentor'>
                                 <div className='card-body'>
                                     <div className="questions-details-name">
-                                    <img className="questions-details-name-img" src={mentor?.avatar_urls['48']} />
+                                    <img className="questions-details-name-img" src={mentor?.avatar_urls['48']} loading='lazy' />
                                     <div className="questions-details-name-info">
                                         <strong><div dangerouslySetInnerHTML={{ __html: search.length > 0 ? renderedQuestion(mentor.name, search) : mentor.name } } /></strong>
                                         <div className="questions-details-posted">
