@@ -61,9 +61,9 @@
 .send-chat {
     display: flex;
     align-items: center;
-    margin: 0 auto;
-    padding: 0 2rem;
-    width: 90% !important;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
     &-input {
         width: 100% !important;
         &:focus {
@@ -220,4 +220,16 @@
 
     margin-left: 3rem;
     font-size: 1.2rem !important;
+}
+
+.send-chat-extra-icon {
+    width: 5rem;
+    height: 5rem;
+    padding: 0rem;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.send-chat-extra-icon-schedule {
+    margin-right: 1rem !important;
 }

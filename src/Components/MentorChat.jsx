@@ -3,8 +3,10 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import Navigation from './Navigation';
 import axios from 'axios';
 import SendIcon from '../Images/send_icon.svg';
-import HomeIcon from '../Images/home-icon.svg';
-import AlarmBell from '../Images/bell_icon.svg';
+import WinkIcon from '../Images/grinning-face-with-smiling-eyes-emoji-icon.svg';
+import SearchIcon from '../Images/search_icon.svg';
+import Attachment from '../Images/attachment_office_paperclip_supplies_icon.svg';
+import Schedule from '../Images/schedule.svg';
 
 export default function MentorChat() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -16,8 +18,8 @@ export default function MentorChat() {
     const [ mentorChatDetails, setMentorChatDetails ] =  useState({})
     const [ comments, setComments ] =  useState([])
     const [ comment, setComment ] =  useState('')
+    const [ searchBarStatus, setSearchBarStatus ] =  useState('hide')
     const Navigate = useNavigate();
-
 
     // Set user information
     useEffect(() => {
@@ -134,12 +136,8 @@ export default function MentorChat() {
                     console.log(err);
                 })
 
-
-
-
                 let array = JSON.parse(localStorage.getItem(`sideBarChat${index}`));
                 let firstMessage = []
-
 
                 if (array !== null) { 
                     firstMessage = array.find(message => userDetails.id !== message.author);
@@ -252,8 +250,19 @@ if (userDetails !== null) {
                                             <img className='chat-item-header-img' src={user?.avatar_urls?.['48']} alt={user?.name} loading="lazy" /> 
                                         </div>
                                         <div className="col-auto ml-auto">
-                                            <a href={`/mentor/${mentor.id}`}><img className='chat-icons' src={HomeIcon} alt="Home icon" loading="lazy" /></a> 
-                                            <img className='chat-icons' src={AlarmBell} alt="Home icon" loading="lazy" />
+                                            <img className='chat-icons' src={SearchIcon} alt="Home icon" loading="lazy" onClick={() => {
+                                                if (searchBarStatus === 'hide') {
+                                                    setSearchBarStatus('show');
+                                                } else {
+                                                    setSearchBarStatus('hide');
+                                                }
+                                            }}/>
+                                            {/* <a href={`/mentor/${mentor.id}`}><img className='chat-icons' src={HomeIcon} alt="Home icon" loading="lazy" /></a>  */}
+                                        </div>
+                                    </div>
+                                    <div className={"row"+" "+`${searchBarStatus}`}>
+                                        <div className="col">
+                                            <input className="form-control" type="search" placeholder="Search chats"/>
                                         </div>
                                     </div>
                                     <hr className="mb-0"></hr>
@@ -283,8 +292,9 @@ if (userDetails !== null) {
                                 <div className='mentors-chat-item-keyboard'>
                                     <div className='row d-flex align-items-center'>
                                         <div className='col-2'></div>
-                                        <div className='col-8'>
-                                            <form onSubmit={handleClick}>
+                                        <div className='col-8'>                                            
+                                            <form className="d-flex flex-direction-row align-items-center" onSubmit={handleClick}>
+                                                <img className='send-chat-extra-icon send-chat-extra-icon-schedule' src={Schedule} />
                                                 <div className='send-chat'>                                                
                                                     <div className='send-chat-input'>
                                                         <input className="form-control form-control-lg chat-input" type="text" value={comment} onChange={(e) => {setComment(e.target.value)}} aria-label="Type a message" placeholder='Type a message' />
@@ -293,6 +303,8 @@ if (userDetails !== null) {
                                                         <img className='send-icon' src={SendIcon} alt="Send icon" loading="lazy" />
                                                     </button>
                                                 </div>
+                                                <img className='send-chat-extra-icon' src={Attachment} />
+                                                <img className='send-chat-extra-icon' src={WinkIcon} />
                                             </form>
                                         </div>
                                         <div className='col-2'></div>
