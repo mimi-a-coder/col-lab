@@ -6,7 +6,7 @@ import SendIcon from '../Images/send_icon.svg';
 import WinkIcon from '../Images/grinning-face-with-smiling-eyes-emoji-icon.svg';
 import SearchIcon from '../Images/search_icon.svg';
 import Attachment from '../Images/attachment_office_paperclip_supplies_icon.svg';
-import Schedule from '../Images/schedule.svg';
+import Schedule from '../Images/calendar.svg';
 
 export default function MentorChat() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
