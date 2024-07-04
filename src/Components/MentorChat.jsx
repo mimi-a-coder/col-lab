@@ -20,6 +20,7 @@ export default function MentorChat() {
     const [ comments, setComments ] =  useState([])
     const [ comment, setComment ] =  useState('')
     const [ searchBarStatus, setSearchBarStatus ] =  useState('hide')
+    const [ calenderModal, setCalenderModal ] = useState('hide');
     const Navigate = useNavigate();
 
     // Set user information
@@ -295,7 +296,13 @@ if (userDetails !== null) {
                                         <div className='col-2'></div>
                                         <div className='col-8'>                                            
                                             <form className="d-flex flex-direction-row align-items-center" onSubmit={handleClick}>
-                                                <img className='send-chat-extra-icon send-chat-extra-icon-schedule' src={Schedule} />
+                                                <img className='send-chat-extra-icon send-chat-extra-icon-schedule' src={Schedule} onClick={() => {
+                                                    if (calenderModal === 'hide') {
+                                                        setCalenderModal('show');
+                                                    } else {
+                                                        setCalenderModal('hide');
+                                                    }
+                                                }} />
                                                 <div className='send-chat'>                                                
                                                     <div className='send-chat-input'>
                                                         <input className="form-control form-control-lg chat-input" type="text" value={comment} onChange={(e) => {setComment(e.target.value)}} aria-label="Type a message" placeholder='Type a message' />
@@ -310,6 +317,37 @@ if (userDetails !== null) {
                                             </form>
                                         </div>
                                         <div className='col-2'></div>
+                                    </div>
+
+                                    <div className={"calender-schedule-modal"+' '+"p-3"+' '+`${calenderModal}`}>
+                                        <div className='card'>
+                                            <div className='card-body'>
+                                                <form>
+                                                    <div className='row mb-3'>
+                                                        <div className='col-12'>
+                                                            <input className="form-control" type="date" aria-label="event-date" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='row mb-3'>
+                                                        <div className='col-12'>
+                                                            <p className='small m-0'>Number of hours</p>
+                                                            <input className="form-control" type="number" aria-label="event-duration" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='row mb-3'>
+                                                        <div className='col-12'>
+                                                            <p className='small m-0'>Notes</p>
+                                                            <textarea row="3" className="form-control" aria-label="event-message" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='row'>
+                                                        <div className='col-12'>
+                                                            <input className='btn btn-primary' type="submit" aria-label="submit" />
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

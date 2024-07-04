@@ -853,6 +853,7 @@ textarea[data-info=content] {
   background-color: #fafafa;
   border: 1px solid #fafafa !important;
   padding: 2rem 2rem 1rem 2rem;
+  position: relative;
 }
 .mentors-chat-item-keyboard div {
   width: 100%;
@@ -1055,6 +1056,16 @@ textarea[data-info=content] {
 .send-chat-extra-icon-emoji {
   width: 4rem;
   height: 4rem;
+}
+
+.calender-schedule-modal {
+  max-width: 50rem;
+  position: absolute;
+  height: fit-content;
+  top: -350%;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 @media screen and (max-width: 1000px) {
