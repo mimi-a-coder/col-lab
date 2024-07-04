@@ -7,6 +7,7 @@ import WinkIcon from '../Images/grinning-face-with-smiling-eyes-emoji-icon.svg';
 import SearchIcon from '../Images/search_icon.svg';
 import Attachment from '../Images/attachment_office_paperclip_supplies_icon.svg';
 import Schedule from '../Images/calendar.svg';
+import EmojiPicker from 'emoji-picker-react';
 
 export default function MentorChat() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -304,7 +305,8 @@ if (userDetails !== null) {
                                                     </button>
                                                 </div>
                                                 <img className='send-chat-extra-icon' src={Attachment} />
-                                                <img className='send-chat-extra-icon send-chat-extra-icon-emoji' src={WinkIcon} />
+                                                {/* <img className='send-chat-extra-icon send-chat-extra-icon-emoji' src={WinkIcon} /> */}
+                                                <EmojiPicker reactionsDefaultOpen={true} />
                                             </form>
                                         </div>
                                         <div className='col-2'></div>
