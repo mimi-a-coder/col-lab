@@ -1068,6 +1068,11 @@ textarea[data-info=content] {
   right: 0;
 }
 
+.instructions {
+  border-left: 2px solid #d0cccc;
+  color: #000;
+}
+
 @media screen and (max-width: 1000px) {
   .container-fluid {
     padding: 0 2rem !important;

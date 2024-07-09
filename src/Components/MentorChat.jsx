@@ -273,7 +273,7 @@ if (userDetails !== null) {
                                         {SideBarChats}
                                 </div>
                             </aside>
-                            <div className='col-lg-9 mentors-chat-item p-0'>
+                            <div className='col-lg-7 mentors-chat-item p-0'>
                                 <div className='mentors-chat-item-header'>
                                     <div className='row d-flex align-items-center'>
                                         <div className="col-auto">
@@ -350,6 +350,25 @@ if (userDetails !== null) {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-lg-2 instructions p-4">
+                                <p>
+                                    Chat Guidelines:
+                                </p>
+                                <ol>
+                                    <li className="mb-4 small">
+                                        Indicate scheduled date/time. Account for time zone. Send both meeting links
+                                    </li>
+                                    <li className="mb-4 small">
+                                        Make payment (include 10% fee for us). Money will be held until confirmation that meeting occurred or will be refunded. 
+                                    </li>
+                                    <li className="mb-4 small">
+                                        After meeting time send confirmation message to both users to confirm that meeting occured 
+                                    </li>
+                                    <li className="mb-4 small">
+                                        Yes? Pay mentor. No? refund mentee.
+                                    </li>
+                                </ol>
                             </div>
                         </div>
                     </div>
