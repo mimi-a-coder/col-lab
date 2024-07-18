@@ -267,7 +267,6 @@ if (userDetails !== null) {
                                                     setSearchBarStatus('hide');
                                                 }
                                             }}/>
-                                            {/* <a href={`/mentor/${mentor.id}`}><img className='chat-icons' src={HomeIcon} alt="Home icon" loading="lazy" /></a>  */}
                                         </div>
                                     </div>
                                     <div className={"search-chats-container"+" "+"row"+" "+`${searchBarStatus}`}>
@@ -330,7 +329,7 @@ if (userDetails !== null) {
                                                 </div>
                                                 <img className='send-chat-extra-icon' src={Attachment} />
                                                 {/* <img className='send-chat-extra-icon send-chat-extra-icon-emoji' src={WinkIcon} /> */}
-                                                <EmojiPicker reactionsDefaultOpen={true} />
+                                                <EmojiPicker reactionsDefaultOpen={true} onEmojiClick={(emojiData, event) => { setComment(`${comment}${emojiData?.emoji}`)}} />
                                             </form>
                                         </div>
                                         <div className='col-2'></div>
@@ -368,25 +367,6 @@ if (userDetails !== null) {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div class="col-lg-2 instructions p-4">
-                                <p>
-                                    <strong>Chat Guidelines:</strong>
-                                </p>
-                                <ol>
-                                    <li className="mb-4 small">
-                                        Indicate scheduled date/time. Account for time zone. Send both meeting links
-                                    </li>
-                                    <li className="mb-4 small">
-                                        Make payment (include 10% fee for us). Money will be held until confirmation that meeting occurred or will be refunded. 
-                                    </li>
-                                    <li className="mb-4 small">
-                                        After meeting time send confirmation message to both users to confirm that meeting occured 
-                                    </li>
-                                    <li className="mb-4 small">
-                                        Yes? Pay mentor. No? refund mentee.
-                                    </li>
-                                </ol>
-                            </div> */}
                               <div>
                                 {/* Guideline Slideout */}
                                 <SlidingPane
