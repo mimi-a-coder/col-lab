@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import { render } from "react-dom";
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Navigation from './Navigation';
 import axios from 'axios';
@@ -8,6 +9,8 @@ import SearchIcon from '../Images/search_icon.svg';
 import Attachment from '../Images/attachment_office_paperclip_supplies_icon.svg';
 import Schedule from '../Images/calendar.svg';
 import EmojiPicker from 'emoji-picker-react';
+import SlidingPane from "react-sliding-pane";
+import "react-sliding-pane/dist/react-sliding-pane.css";
 
 export default function MentorChat() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -21,7 +24,12 @@ export default function MentorChat() {
     const [ comment, setComment ] =  useState('')
     const [ searchBarStatus, setSearchBarStatus ] =  useState('hide')
     const [ calenderModal, setCalenderModal ] = useState('hide');
+    const [state, setState] = useState({
+        isPaneOpen: false,
+        isPaneOpenLeft: false,
+      });
     const Navigate = useNavigate();
+    
 
     // Set user information
     useEffect(() => {
@@ -273,8 +281,8 @@ if (userDetails !== null) {
                                         {SideBarChats}
                                 </div>
                             </aside>
-                            <div className='col-lg-7 mentors-chat-item p-0'>
-                                <div className='mentors-chat-item-header'>
+                            <div className='col-lg-9 mentors-chat-item p-0'>
+                                <div className='mentors-chat-item-header mentors-chat-item-header-main'>
                                     <div className='row d-flex align-items-center'>
                                         <div className="col-auto">
                                             <img className='chat-item-header-img' src={userDetails.id === mentee.id ? mentor?.avatar_urls?.['48'] : mentee?.avatar_urls?.['48']} alt={ userDetails.id === mentee.id ? mentor?.name : mentee?.name} /> 
@@ -286,8 +294,17 @@ if (userDetails !== null) {
                                             </div>                       
                                         </div>
                                     </div>
-                                    <hr className="mb-0"></hr>
+                                    <div className='row d-flex align-items-center'>
+                                        <div className="col-auto">
+                                            <div className="chat-instructions">
+                                                <button className="btn btn-outline-info btn-lg" onClick={() => setState({ isPaneOpen: true })}>
+                                                    See Chat Guidelines
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                    <hr className="mb-0"></hr>
                                 <div className='mentors-chat-item-body'>
                                     {conversation}
                                 </div>
@@ -351,9 +368,9 @@ if (userDetails !== null) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 instructions p-4">
+                            {/* <div class="col-lg-2 instructions p-4">
                                 <p>
-                                    Chat Guidelines:
+                                    <strong>Chat Guidelines:</strong>
                                 </p>
                                 <ol>
                                     <li className="mb-4 small">
@@ -369,7 +386,52 @@ if (userDetails !== null) {
                                         Yes? Pay mentor. No? refund mentee.
                                     </li>
                                 </ol>
+                            </div> */}
+                              <div>
+                                {/* Guideline Slideout */}
+                                <SlidingPane
+                                    className="some-custom-class"
+                                    overlayClassName="some-custom-overlay-class"
+                                    isOpen={state.isPaneOpen}
+                                    title="Hey, it is optional pane title.  I can be React component too."
+                                    subtitle="Optional subtitle."
+                                    width="300px"
+                                    onRequestClose={() => {
+                                    // triggered on "<" on left top click or on outside click
+                                    setState({ isPaneOpen: false });
+                                    }}
+                                >
+                                    <div>  
+                                        <p><strong>Chat Guidelines:</strong></p>
+                                        <ol>
+                                            <li className="mb-4 small">
+                                                Indicate scheduled date/time. Account for time zone. Send both meeting links
+                                            </li>
+                                            <li className="mb-4 small">
+                                                Make payment (include 10% fee for us). Money will be held until confirmation that meeting occurred or will be refunded. 
+                                            </li>
+                                            <li className="mb-4 small">
+                                                After meeting time send confirmation message to both users to confirm that meeting occured 
+                                            </li>
+                                            <li className="mb-4 small">
+                                                Yes? Pay mentor. No? refund mentee.
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <br />
+                                </SlidingPane>
+                                {/* <SlidingPane
+                                    closeIcon={<div>Some div containing custom close icon.</div>}
+                                    isOpen={state.isPaneOpenLeft}
+                                    title="Hey, it is optional pane title.  I can be React component too."
+                                    from="left"
+                                    width="200px"
+                                    onRequestClose={() => setState({ isPaneOpenLeft: false })}
+                                >
+                                    <div>And I am pane content on left.</div>
+                                </SlidingPane> */}
                             </div>
+                            
                         </div>
                     </div>
                 </main>

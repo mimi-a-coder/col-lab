@@ -821,6 +821,15 @@ textarea[data-info=content] {
 .mentors-chat-item-header {
   background-color: #fff;
 }
+.mentors-chat-item-header-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.mentors-chat-item-header-main .row {
+  padding: 2rem 2rem 1rem 2rem;
+}
 .mentors-chat-item-header .row {
   padding: 2rem 2rem 1rem 2rem;
 }
