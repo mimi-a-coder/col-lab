@@ -239,14 +239,14 @@ a {
 .show {
   position: relative;
   display: block !important;
-  transition: 1000ms ease-in-out;
+  transition: 350ms ease-in-out;
 }
 
 .hide {
   position: absolute;
   top: -200px;
   display: none !important;
-  transition: 1000ms ease-in-out;
+  transition: 350ms ease-in-out;
 }
 
 .back-icon {
@@ -1017,6 +1017,7 @@ textarea[data-info=content] {
 .chat-icons {
   width: 2.5rem;
   height: 2.5rem;
+  cursor: pointer;
   transition: 350ms ease-out;
 }
 .chat-icons:hover {
@@ -1080,6 +1081,10 @@ textarea[data-info=content] {
 .instructions {
   border-left: 2px solid #d0cccc;
   color: #000;
+}
+
+.search-chats-container {
+  transition: 350ms ease-out;
 }
 
 @media screen and (max-width: 1000px) {

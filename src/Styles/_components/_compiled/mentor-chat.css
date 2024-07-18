@@ -219,6 +219,7 @@
 .chat-icons {
   width: 2.5rem;
   height: 2.5rem;
+  cursor: pointer;
   transition: 350ms ease-out;
 }
 .chat-icons:hover {
@@ -282,4 +283,8 @@
 .instructions {
   border-left: 2px solid #d0cccc;
   color: #000;
+}
+
+.search-chats-container {
+  transition: 350ms ease-out;
 }

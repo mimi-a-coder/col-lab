@@ -270,7 +270,7 @@ if (userDetails !== null) {
                                             {/* <a href={`/mentor/${mentor.id}`}><img className='chat-icons' src={HomeIcon} alt="Home icon" loading="lazy" /></a>  */}
                                         </div>
                                     </div>
-                                    <div className={"row"+" "+`${searchBarStatus}`}>
+                                    <div className={"search-chats-container"+" "+"row"+" "+`${searchBarStatus}`}>
                                         <div className="col">
                                             <input className="form-control" type="search" placeholder="Search chats"/>
                                         </div>

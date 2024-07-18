@@ -188,14 +188,14 @@ a {
 .show {
   position: relative;
   display: block !important;
-  transition: 1000ms ease-in-out;
+  transition: 350ms ease-in-out;
 }
 
 .hide {
   position: absolute;
   top: -200px;
   display: none !important;
-  transition: 1000ms ease-in-out;
+  transition: 350ms ease-in-out;
 }
 
 .back-icon {
