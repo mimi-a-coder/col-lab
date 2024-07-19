@@ -54,7 +54,13 @@ export default function AskQuestions() {
 
     // Return users
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`)
+        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users`, 
+            {
+                headers: {
+                    Authorization: `Bearer ${userDetails.token}`
+                  }
+            }
+        )
             .then((response) => {
                 setUsers(response.data);
             }).catch((err) => {

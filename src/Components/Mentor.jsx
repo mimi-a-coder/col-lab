@@ -19,6 +19,9 @@ export default function Mentor() {
       axios({
         url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${param1}`,
         method: 'GET',
+        headers: {
+            Authorization: `Bearer ${userDetails.token}`
+          }
       })
       .then((response) => {
         setMentorDetails(response.data);

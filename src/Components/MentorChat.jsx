@@ -35,12 +35,10 @@ export default function MentorChat() {
     useEffect(() => {
             axios({
                 method: 'GET',
-                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/mentor-chats/${param1}`
-            },
-            {
+                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/mentor-chats/${param1}`,
                 headers: {
                     Authorization: `Bearer ${userDetails.token}`
-                }
+                  }
             }
         ).then((res) => {
             setMentorChatDetails(res.data)
@@ -54,12 +52,10 @@ export default function MentorChat() {
     useEffect(() => {
             axios({
                 method: 'GET',
-                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/mentor-chats`
-            },
-            {
+                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/mentor-chats`,
                 headers: {
                     Authorization: `Bearer ${userDetails.token}`
-                }
+                  }
             }
         ).then((res) => {
             setAllMentorChats(res.data)
@@ -72,12 +68,10 @@ export default function MentorChat() {
     useEffect(() => {
             axios({
                 method: 'GET',
-                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChatDetails?.acf?.mentors_id}`
-            },
-            {
+                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChatDetails?.acf?.mentors_id}`,
                 headers: {
-                    Authorization: `Bearer ${userDetails?.token}`
-                }
+                    Authorization: `Bearer ${userDetails.token}`
+                  }
             }
         ).then((res) => {
             setMentor(res.data)
@@ -90,12 +84,10 @@ export default function MentorChat() {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChatDetails?.acf?.mentee_id}`
-        },
-        {
+            url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${mentorChatDetails?.acf?.mentee_id}`,
             headers: {
-                Authorization: `Bearer ${userDetails?.token}`
-            }
+                Authorization: `Bearer ${userDetails.token}`
+              }
         }
         ).then((res) => {
             setMentee(res.data)
@@ -108,12 +100,10 @@ export default function MentorChat() {
     useEffect(() => {
             axios({
                 method: 'GET',
-                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${userDetails?.id}`
-            },
-            {
+                url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${userDetails?.id}`,
                 headers: {
                     Authorization: `Bearer ${userDetails.token}`
-                }
+                  }
             }
         ).then((res) => {
             setUser(res.data)
@@ -124,7 +114,13 @@ export default function MentorChat() {
 
     // Get comments
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments?post=${param1}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/wp-json/wp/v2/comments?post=${param1}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${userDetails.token}`
+                  }
+            }
+        )
         .then((response) => {
             setComments(response.data);
         })
