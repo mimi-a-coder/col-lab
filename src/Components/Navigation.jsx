@@ -22,6 +22,12 @@ export default function Navigation() {
                                 <Link className={window.location.href.includes("/dashboard") ? "nav-link active" : "nav-link" } to="/">Home</Link>
                               </li>
                               <li className="nav-item">
+                                <Link className={window.location.href.includes("/profile") ? "nav-link active" : "nav-link" } to="/profile">Chats</Link>
+                              </li>
+                              <li className="nav-item">
+                                <Link className={window.location.href.includes("/profile") ? "nav-link active" : "nav-link" } to="/profile">Points Center</Link>
+                              </li>
+                              <li className="nav-item">
                                 <Link className={window.location.href.includes("/profile") ? "nav-link active" : "nav-link" } to="/profile">Profile</Link>
                               </li>
                               <li className="nav-item">
