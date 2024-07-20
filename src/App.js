@@ -15,6 +15,8 @@ import MentorSignup from './Components/MentorSignup';
 import Mentor from './Components/Mentor';
 import MentorChat from './Components/MentorChat';
 import PlansandPricing from './Components/PlansandPricing';
+import SubscriptionPlans from './Components/SubscriptionPlans';
+
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
         <Route path="/mentor/:param1" element={<Mentor/>} />
         <Route path="/mentor-chat/:param1" element={<MentorChat/>} />
         <Route path="/plansandpricing" element={<PlansandPricing/>} />
+        <Route path="/subscriptionplans" element={<SubscriptionPlans/>} />
       </Routes>
    </Router>
   );

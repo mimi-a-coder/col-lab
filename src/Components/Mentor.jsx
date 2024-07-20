@@ -14,7 +14,7 @@ export default function Mentor() {
     const [ mentorChats, setMentorChats ] = useState([]); 
     const Naviagte = useNavigate()
 
-    // Get menotr information
+    // Get mentor information
     useEffect(() => {
       axios({
         url: `${process.env.REACT_APP_API_URL}/wp-json/wp/v2/users/${param1}`,
