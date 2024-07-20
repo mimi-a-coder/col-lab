@@ -14,6 +14,7 @@ import Mentors from './Components/Mentors';
 import MentorSignup from './Components/MentorSignup';
 import Mentor from './Components/Mentor';
 import MentorChat from './Components/MentorChat';
+import PlansandPricing from './Components/PlansandPricing';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/mentor-signup" element={<MentorSignup/>} />
         <Route path="/mentor/:param1" element={<Mentor/>} />
         <Route path="/mentor-chat/:param1" element={<MentorChat/>} />
+        <Route path="/plansandpricing" element={<PlansandPricing/>} />
       </Routes>
    </Router>
   );
