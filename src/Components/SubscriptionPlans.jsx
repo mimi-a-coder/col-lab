@@ -13,7 +13,7 @@ export default function subscriptionPlans() {
             <main className="subscription-plans mt-5">                  
                 <div className="container">
                     <div className="row">            
-                        <div className="col-lg-6"> 
+                        <div className="col-lg-6 mx-auto"> 
                             <div className="text-center">
                                 <h1> CHOOSE YOUR SUBSCRIPTION PLAN </h1>
                                 <p> Monthly breakdown (Payment is in USD)</p>
@@ -35,7 +35,7 @@ export default function subscriptionPlans() {
                 
                 <div className="container">
                     <div className="row">            
-                        <div className="col-lg-6"> 
+                        <div className="col-lg-6 mx-auto"> 
                             <div className="card mt-3">   
                                 <div className="card-body">   
                                     <p> <strong> 3-MONTH PLAN </strong> </p>
@@ -53,7 +53,7 @@ export default function subscriptionPlans() {
 
                 <div className="container">
                     <div className="row">            
-                        <div className="col-lg-6"> 
+                        <div className="col-lg-6 mx-auto"> 
                             <div className="card mt-3">   
                                 <div className="card-body">   
                                     <p> <strong> 6-MONTH PLAN </strong> </p>
@@ -71,7 +71,7 @@ export default function subscriptionPlans() {
 
                 <div className="container">
                     <div className="row">            
-                        <div className="col-lg-6"> 
+                        <div className="col-lg-6 mx-auto"> 
                             <div className="card mt-3">   
                                 <div className="card-body">   
                                     <p> <strong> 12-MONTH PLAN </strong> </p>
@@ -84,7 +84,7 @@ export default function subscriptionPlans() {
                                 </div>
                             </div>
                             <p> *Accounts are charged at the beginning of each calendar month </p>
-                            <p> <u> Cancel my subscription </u> </p>
+                            <p> <a href=""> <u>Cancel my subscription</u> </a> </p>
                         </div>
                     </div>
                 </div>
