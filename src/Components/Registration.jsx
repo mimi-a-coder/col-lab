@@ -258,7 +258,7 @@ export default function Registration() {
             </div>
             <div className="row">
                 <div className="col d-flex">                        
-                    <p>By clicking ‘Sign Up’, you are agreeing to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</p>
+                    <p>By clicking ‘Sign Up’, you are agreeing to our <a href="/termsofuse">Terms of Use</a> and <a href="/privacypolicy">Privacy Policy</a>.</p>
                 </div>                
             </div>
             <div className="row">

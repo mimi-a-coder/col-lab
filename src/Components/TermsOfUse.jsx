@@ -6,7 +6,7 @@ import Navigation from "./Navigation";
 export default function termsOfUse() {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
-  if (userDetails != null) {
+// if (userDetails != null) {
     return(
         <>
             <Navigation />
@@ -57,8 +57,8 @@ export default function termsOfUse() {
             </main>
         </>
         );
-      } else {
-        window.location.replace("/");
-      }
+    //   } else {
+    //     window.location.replace("/");
+    //   }
 };
 
