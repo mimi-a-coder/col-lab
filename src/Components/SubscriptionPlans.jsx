@@ -83,6 +83,8 @@ export default function subscriptionPlans() {
                                     </div>
                                 </div>
                             </div>
+                            <p> *Accounts are charged at the beginning of each calendar month </p>
+                            <p> <u> Cancel my subscription </u> </p>
                         </div>
                     </div>
                 </div>

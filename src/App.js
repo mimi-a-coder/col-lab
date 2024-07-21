@@ -16,6 +16,8 @@ import Mentor from './Components/Mentor';
 import MentorChat from './Components/MentorChat';
 import PlansandPricing from './Components/PlansandPricing';
 import SubscriptionPlans from './Components/SubscriptionPlans';
+import TermsOfUse from './Components/TermsOfUse';
+import PrivacyPolicy from './Components/PrivacyPolicy';
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
         <Route path="/mentor-chat/:param1" element={<MentorChat/>} />
         <Route path="/plansandpricing" element={<PlansandPricing/>} />
         <Route path="/subscriptionplans" element={<SubscriptionPlans/>} />
+        <Route path="/termsofuse" element={<TermsOfUse/>} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
       </Routes>
    </Router>
   );

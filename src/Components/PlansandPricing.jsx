@@ -12,10 +12,10 @@ export default function plansAndPricing() {
             <Navigation />
             <main className="plans-pricing mt-5">
                 <div className="container">
-                    <h1 className="text-center"> Plans & Pricing </h1>
+                    <h1 className="text-center"> <em> colLabb </em> Pricing Features </h1>
                     <div className="row">            
                         <div className="col-lg-6"> 
-                            <div className="card">   
+                            <div className="card mt-4">   
                                 <div className="card-body">   
                                     <div className="text-center">
                                         <p> <strong> FREE </strong> </p>
@@ -46,11 +46,11 @@ export default function plansAndPricing() {
                         </div>
 
                         <div className="col-lg-6"> 
-                            <div className="card">   
+                            <div className="card mt-4">   
                                 <div className="card-body">   
                                     <div>
                                         <p className="text-center"> <strong> PREMIUM </strong> </p>
-                                        <div> <span> Starting at </span> <span> <strong> $5 </strong> </span> 
+                                        <div> <span> Starting at </span> <h1 className="text-center"> <strong> $5 </strong> </h1> 
                                         </div>
                                         <p className="text-center"> PER MONTH </p>  
                                     </div>            
