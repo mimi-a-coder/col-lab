@@ -157,7 +157,7 @@ export default function Registration() {
         <div className="container primary login">
         <div className="row mb-4">
             <div className="col">
-                <h1 className="text-center mb-3">Become a <i>ColLabb</i> member</h1>
+                <h1 className="text-center mb-3">Become a <i>colLabb</i> member</h1>
             </div>
         </div>
         <form onSubmit={handleSubmit} className="form-registration mb-5">

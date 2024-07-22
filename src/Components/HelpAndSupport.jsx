@@ -18,6 +18,7 @@ export default function helpAndSupport() {
                         <div className="col-lg-6 mx-auto">
                             <img className="btn-main-icon d-block mx-auto" src={chatIcon} loading="lazy"/>
                             <h2 className="text-center">Get in touch with us!</h2>
+                            <p className="m-0">Please fill out the form below. We will do our best to respond to you within 24 hours</p>
                             <form>
                                 <div className="form-group">
                                     <input type="fullName" className="form-control" placeholder="Full name"/>
