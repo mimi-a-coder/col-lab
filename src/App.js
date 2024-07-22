@@ -19,6 +19,7 @@ import SubscriptionPlans from './Components/SubscriptionPlans';
 import TermsOfUse from './Components/TermsOfUse';
 import PrivacyPolicy from './Components/PrivacyPolicy';
 import PointsCenter from './Components/PointsCenter';
+import HelpAndSupport from './Components/HelpAndSupport';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/termsofuse" element={<TermsOfUse/>} />
         <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
         <Route path="/pointscenter" element={<PointsCenter/>} />
+        <Route path="/helpandsupport" element={<HelpAndSupport/>} />
       </Routes>
    </Router>
   );

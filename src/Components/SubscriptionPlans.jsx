@@ -21,11 +21,13 @@ export default function subscriptionPlans() {
                             <div className="card mt-3">   
                                 <div className="card-body">   
                                     <p> <strong> 1-MONTH PLAN </strong> </p>
-                                    <div className="d-flex justify-content-between">
-                                        <h2> $10 </h2>
-                                        <p> $10/month </p>
-                                        <p> Save 0% </p>
-                                        <a href="#" className="btn btn-dark"> Get Plan </a>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                            <h2 className="p-0 m-0"> $10 </h2>
+                                            <p className="p-0 m-0"> $10/month </p>
+                                            <p className="p-0 m-0"> Save 0% </p>
+                                            <div className="col-lg-3">
+                                                <a href="#" className="btn btn-dark"> Get Plan </a>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -39,11 +41,13 @@ export default function subscriptionPlans() {
                             <div className="card mt-3">   
                                 <div className="card-body">   
                                     <p> <strong> 3-MONTH PLAN </strong> </p>
-                                    <div className="d-flex justify-content-between">
-                                        <h2> $30 </h2>
-                                        <p> $10/month </p>
-                                        <p> Save 0% </p>
-                                        <a href="#" className="btn btn-dark"> Get Plan </a>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <h2 className="p-0 m-0"> $30 </h2>
+                                        <p className="p-0 m-0"> $10/month </p>
+                                        <p className="p-0 m-0"> Save 0% </p>
+                                        <div className="col-lg-3">
+                                            <a href="#" className="btn btn-dark"> Get Plan </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -57,11 +61,13 @@ export default function subscriptionPlans() {
                             <div className="card mt-3">   
                                 <div className="card-body">   
                                     <p> <strong> 6-MONTH PLAN </strong> </p>
-                                    <div className="d-flex justify-content-between">
-                                        <h2> $45 </h2>
-                                        <p> $7.50/month </p>
-                                        <p> Save 25% </p>
-                                        <a href="#" className="btn btn-dark"> Get Plan </a>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <h2 className="p-0 m-0"> $45 </h2>
+                                        <p className="p-0 m-0"> $7.50/month </p>
+                                        <p className="p-0 m-0"> Save 25% </p>
+                                        <div className="col-lg-3">
+                                            <a href="#" className="btn btn-dark"> Get Plan </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -75,15 +81,17 @@ export default function subscriptionPlans() {
                             <div className="card mt-3">   
                                 <div className="card-body">   
                                     <p> <strong> 12-MONTH PLAN </strong> </p>
-                                    <div className="d-flex justify-content-between">
-                                        <h2> $60 </h2>
-                                        <p> $5/month </p>
-                                        <p> Save 50% </p>
-                                        <a href="#" className="btn btn-dark"> Get Plan </a>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <h2 className="p-0 m-0"> $60 </h2>
+                                        <p className="p-0 m-0"> $5/month </p>
+                                        <p className="p-0 m-0"> Save 50% </p>
+                                        <div className="col-lg-3">
+                                            <a href="#" className="btn btn-dark"> Get Plan </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <p> *Accounts are charged at the beginning of each calendar month </p>
+                            <p> *Accounts are charged at the beginning of each calendar month. Cancel anytime for a 50% refund on your current balance (minus taxes) </p>
                             <p> <a href=""> <u>Cancel my subscription</u> </a> </p>
                         </div>
                     </div>
